@@ -19,19 +19,12 @@
 				+ sel;
 	}
 </script>
-
-
-
-
 </head>
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterMemberDelete.do">
 		<div class="container">
-
 			<h1 class="h1_caption">회 원 관 리</h1>
-
-
 			<div style="float: right;">
 				<select id="cntPerPage" name="sel" onchange="selChange()"
 					class="selected-five">
@@ -82,8 +75,16 @@
 							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' ">${member.mGrade}</td>
 						<td
 							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' ">${member.mReg}</td>
-						<td
-							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' ">${member.mDrop}</td>
+						<c:if test="${member.mDrop == 'N'}">
+							<td
+							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' " style="color: red;">${member.mDrop}</td>
+						</c:if>	
+						
+						<c:if test="${member.mDrop == 'Y'}">
+							<td
+							onclick="location.href='masterMemberSelect.do?id=${member.mEmail}' " style="color: cyan;">${member.mDrop}</td>
+						</c:if>	
+						
 						<td>
 							<button type="button"
 								onclick="location.href='masterMemberUpdateForm.do?id=${member.mEmail}'">수정</button>
@@ -94,17 +95,17 @@
 					<c:set var="i" value="${i + 1}"></c:set>
 				</c:forEach>
 			</table>
-
-			<button type="submit" align="left" class="putsub">선택삭제</button>
+ 
+			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
 	<form action="masterMemberSearch.do" method="post">
-		<select class="putsub" name="type">
+		<select class="putsub" name="searchtype">
 			<option value="">검색 유형 선택</option>
-			<option value="eEmail">ID</option>
-			<option value="eName">이름</option>
-			<option value="eAddress">주소</option>
-			<option value="eGrade">회원등급</option>
+			<option value="mEmail">ID</option>
+			<option value="mName">이름</option>
+			<option value="mAddress">주소</option>
+			<option value="mGrade">회원등급</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">
@@ -133,6 +134,8 @@
 				> </a>
 		</c:if>
 	</div>
+	<h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
 	</div>
+	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

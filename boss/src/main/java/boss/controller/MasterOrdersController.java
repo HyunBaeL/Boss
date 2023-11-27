@@ -2,6 +2,7 @@ package boss.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,21 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.OrderDetail;
 import boss.model.Orders;
-import boss.model.Product;
 import boss.service.MasterOrdersService;
-import boss.service.MasterProductService;
 
 @Controller
 public class MasterOrdersController {
 
 	@Autowired
 	MasterOrdersService ms;
-
-	@Autowired
-	MasterProductService ps;
-	// masterOrdersList.do
 
 	// 관리자 리뷰리스트
 	@RequestMapping("masterOrdersList.do")
@@ -48,79 +44,147 @@ public class MasterOrdersController {
 		pp = new PagePgm(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("pp", pp);
 		model.addAttribute("list", ms.list(pp));
-		return "./master/orders/masterOrdersList";
+		return "master/orders/masterOrdersList";
 	}
 
 	// 관리자 주문 상세정보
 	@RequestMapping("masterOrdersSelect.do")
-	public String masterOrdersSelect(Orders orders, String oid, Model model)throws Exception{
+	public String masterOrdersSelect(String oid, Model model) throws Exception {
 		System.out.println("masterOrdersSelect");
 		System.out.println("oid : " + oid);
+		List<HashMap<String, Object>> ordersList = new ArrayList<>();
+		if (oid != null) { // 주문정보가 있다면. (없으면 처음부터 select도 못들어옴. else처리 안함)
+			System.out.println("oid 널통과");
+			ordersList = ms.listProduct(Integer.parseInt(oid));
+			if (ordersList != null && ordersList.size() > 0) { // 리스트 구해옴
+				System.out.println("list 통과 : ");
+				model.addAttribute("ordersList", ordersList);
+				// 단일정보 (뷰에서 쓰기쉽게 foreach안돌려도됨)
+				model.addAttribute("orders", ordersList.get(0));
+				System.out.println("dorders" + ordersList.get(0));
+			} else { // oid는 있으나 list를 못구해옴
+				System.out.println("oid는 있으나 list는 못구해옴 ");
+			}
+			// 모든정보의 List
 
-		List<Product> plist = new ArrayList<Product>();
- 
-		orders = ms.selectOne(oid);
-		if (orders != null) { // 주문번호가 있다면.
-			System.out.println("시작 진입");
-
-			List<OrderDetail> odlist = ms.odList(oid);
-			System.out.println("odlist 가 널인가 : " + odlist);
-			if (odlist.size() > 0) { // // od리스트를 구해왔음. 해당정보로 배송정보를 컨트롤함.
-				System.out.println("odlist : " + odlist.size());
-				System.out.println("odlist의 pid[] : " + odlist.get(0).getPid());
-
-				for (int i = 0; i < odlist.size(); i++) { // odid[]를 기반으로 pid[]를 구해옴.
-					int pid_ = odlist.get(i).getPid();
-					String pid = ""+pid_;
-					System.out.println(pid);
-					System.out.println("pid로 구해온 product : " + ps.selectOne(pid));
-					plist.add(i, ps.selectOne(pid));
-					System.out.println("plist : " + i + "+" + pid);
-					System.out.println("plist의 요소들 : " + plist.get(0).getPprice());
-				}
-			} 
-
-			model.addAttribute("plist", plist);
-			model.addAttribute("odlist", odlist);
-			model.addAttribute("orders", orders);
-		} else { // 주문번호가 없다면.
-			System.out.println("실패");
 		}
+		return "master/orders/masterOrdersSelect";
+	}
 
-		return "./master/orders/masterOrdersSelect";
+	// 관리자 주문 상세 - 배송상태 변경
+	@RequestMapping("masterOrdersStatus.do")
+	public String masterOrdersStatus(String odid, String odstatus, Model model) throws Exception {
+		System.out.println("masterOrdersStatus");
+		int oid = ms.selectOrderDetail(odid).getOid();
+		System.out.println("oid : " + oid);
+		System.out.println("odid : " + odid);
+		System.out.println("odstatus : " + odstatus);
+		if (odstatus != null) {
+			int result = ms.updateStatus(odid, odstatus);
+			if (result == 1) { // 수정 완료시
+				System.out.println("수정성공");
+				model.addAttribute("oid", oid);
+			} else { // 수정 실패시
+				System.out.println("수정실패");
+			}
+		}
+		return "redirect:/masterOrdersSelect.do";
 	}
 
 	// 관리자 주문 삭제
 	@RequestMapping("masterOrdersDelete.do")
-	public String masterOrdersDelete(String oid, Model model, HttpServletRequest request) {
-		System.out.println("masterOrdersDelete");
-
+	public String masterReviewDelete(String oid, Model model, HttpServletRequest request) {
+		System.out.println("masterMemberDelete");
+		System.out.println("rid : " + oid);
 		// Service에서 메소드를 1번만 호출하기 위해 리스트로 양식을 통일했음.
 		List<String> idList = new ArrayList<String>();
-		int result = 0;
-		// id값이 1개라도 넘어온다면 (복수허용)
-		if ((oid != null) || (request.getParameterValues("chkId") != null)) {
+		String[] ids = request.getParameterValues("chkId");
 
-			if (oid != null) { // 1개만 넘어온경우. (양식이 List기때문에 단일값도 list에 add)
+		int result = 0;
+		String msg = "";
+		// id값이 1개라도 넘어온다면 (복수허용)
+
+		if ((oid != null) || (request.getParameterValues("chkId") != null)) { // 요청받는 방식을 나누는 조건문. 체크박스 / 버튼
+			if (oid != null) { // id가 버튼으로 넘어온 경우. (단일, 다중 동일메서드 처리를 위해 List로 양식을 통일했음.)
+				System.out.println("id가 버튼으로 1개만 넘어옴.");
 				idList.add(0, oid);
-			} else { // 여러개가 넘어온경우. (String[]->List (메서드 양식 통일))
-				String[] ids = request.getParameterValues("chkId");
+				result = ms.deleteOrders(idList);
+				model.addAttribute("result", result);
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("1개만 삭제완료. : " + result);
+
+			} else if (oid == null && ids != null) { // id가 체크박스를 통해 넘어온경우.
+				System.out.println("id가 체크박스로 1개 or 여러개 넘어옴.");
+				System.out.println("체크박스로 넘어온 ID의 갯수 : " + ids.length);
 				idList = Arrays.asList(ids);
+				result = ms.deleteOrders(idList);
+				model.addAttribute("result", result);
+				model.addAttribute("msg", +result + "개 수정 완료");
+				System.out.println("여러명 삭제 완료 : " + result);
 			}
-		} else {
-			result = 0;
+		} else { // 모든값이 Null이라면.
 			model.addAttribute("result", result);
-			model.addAttribute("msg", "체크된 글이 없습니다.");
-			return "./master/orders/masterOrdersDelete";
+			model.addAttribute("msg", "수정할 글을 선택하세요.");
+			System.out.println("체크박스가 선택되지않음. " + result);
+
 		}
-		result = ms.delete(idList);
-		if (result > 0) { // 삭제 성공시
-			model.addAttribute("result", result);
-			model.addAttribute("msg", result + "개 리뷰삭제 성공.");
-		} else { // 삭제 실패시
-			model.addAttribute("result", result);
-			model.addAttribute("msg", "삭제할 글이 없습니다.");
+		return "./master/review/masterReviewDelete";
+	}
+	
+	@RequestMapping("masterOrdersSearch.do")
+	public String masterOrdersSearch(Search search, Model model) {
+		
+		System.out.println(search.getKeyword());
+		System.out.println(search.getSearchtype());
+		
+		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+			List<Orders> list = ms.searchOrdersList(search);
+			System.out.println(list);
+			model.addAttribute("list", list);
+			//return "./master/product/masterProductList";
 		}
-		return "./master/orders/masterOrdersDelete";
+		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+			model.addAttribute("type", "notKey");
+			model.addAttribute("msg", "검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notType");
+			model.addAttribute("msg", "검색타입을 선택해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+			model.addAttribute("type", "notKeynotType");
+			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
+			return "./master/product/masterMoveProductList";
+		}
+		
+		
+		return "master/orders/masterOrdersList";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

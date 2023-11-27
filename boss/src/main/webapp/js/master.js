@@ -1,4 +1,5 @@
- 
+
+
  
 	// JavaScript로 특정 열의 크기 동적 조절
 	document.addEventListener('DOMContentLoaded', function() {
@@ -42,3 +43,26 @@
 											'checked'));
 								});
 			});
+
+			
+
+    
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

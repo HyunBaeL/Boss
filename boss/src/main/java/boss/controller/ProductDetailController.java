@@ -30,6 +30,17 @@ public class ProductDetailController {
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search) throws Exception {
 		System.out.println("productDetail");
 		System.out.println("pid : " + pid);
+		
+
+		int rid = 61;
+		product = service.selectProduct(pid);
+		System.out.println("pid 구해옴");
+		review = service.selectReviewOne(rid);
+		System.out.println("rid 구해옴");
+
+		System.out.println("review : " + review.getMemail() + review.getRcontent());
+		if (product != null) { // 상품을 잘 구해왔다면.
+			model.addAttribute("product", product);
 
 		// 페이징 처리
 		System.out.println("productReviewList 들어가");
