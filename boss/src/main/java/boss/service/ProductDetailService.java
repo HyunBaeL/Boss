@@ -1,5 +1,7 @@
 package boss.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +9,6 @@ import boss.common.PagePgm;
 import boss.dao.ProductDetailDao;
 import boss.model.Product;
 import boss.model.Review;
-import java.util.List;
 
 @Service
 public class ProductDetailService {
@@ -24,12 +25,12 @@ public class ProductDetailService {
 		return dao.selectReview(pid);
 	}
 
-	public Review selectReviewOne(int rid) {
-		return dao.selectReviewOne(rid);
+	public Review selectReviewOne(String memail) {
+		return dao.selectReviewOne(memail);
 	}
 
 	public Review prselect(int rid) {
-		System.out.println("서비스까지 옴 "+ rid);
+		System.out.println("서비스까지 옴 " + rid);
 		return dao.prselect(rid);
 	}
 
@@ -41,11 +42,21 @@ public class ProductDetailService {
 		return dao.list(pp);
 	}
 
+	public List<Review> selectMemberReview(String memail) {
+
+		return dao.selectMemberReview(memail);
+	}
+	// 리뷰 작성 
+
+	public int reviewInsert(String memail, Review review) {
+		
+		return dao.reviewInsert(memail);
+	}
+	
+	
 
 //	public int insert(int rid) {
 //		return dao.insert(rid);
 //	}
-
-
 
 }

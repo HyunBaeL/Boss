@@ -19,13 +19,22 @@ public interface ProductDetailDao {
 
 	Review selectReview(String pid);
 
-	Review selectReviewOne(int rid);
+	Review selectReviewOne(String memail);
 
 	Review prselect(int rid);
 
 	int total();
-
+	
+//	페이징 처리
 	List<Review> list(PagePgm pp);
+
+//  리뷰 memail 뽑기	
+
+	List<Review> selectMemberReview(String memail);
+
+	// 리뷰 작성 
+	int reviewInsert(String memail);
+
 
 //	int insert(int rid);
 

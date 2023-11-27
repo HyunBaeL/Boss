@@ -103,21 +103,32 @@
 			<table class="table_review" align="center" border="1">
 				<caption>리뷰 게시판</caption>
 				<tr align="center">
-					<th>리뷰 번호</th>
-					<th>아이디</th>
-					<th>리뷰 게시글</th>
-					<th>이름</th>
-					<th>날짜</th>
+					<th>글 번호</th>
+					<th>ID</th>
+					<th>작성자</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성일</th>
+					<th>조회수</th>
 					<th>별점</th>
 				</tr>
 				<c:forEach var="review" items="${reviewList }">
-					<tr onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
+					<tr
+						onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
+
+						
+
 						<td>${review.rid}</td>
 						<td>${review.memail}</td>
-						<td>${review.rcontent}</td>
 						<td>${review.rwriter}</td>
+						<td>${review.rtitle}</td>
+						<td>${review.rcontent}</td>
 						<td>${review.rreg}</td>
-						<td>별점추가예정</td>
+						<td>${review.rreadcount }</td>
+						<td>별점</td>
+
+
+						
 					</tr>
 				</c:forEach>
 			</table>
@@ -125,8 +136,9 @@
 			<div class="detail_page">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->
-						< </a>
+						href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=84">
+						<!-- 주소 바꿔야댐 --> <
+					</a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
@@ -135,15 +147,16 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: black"
-								href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->${p }</a>
+								href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=84">
+								<!-- 주소 바꿔야댐 -->${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: black"
-						
-						href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=84"><!-- 주소 바꿔야댐 -->
-						> </a>
+						href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=84">
+						<!-- 주소 바꿔야댐 --> >
+					</a>
 				</c:if>
 			</div>
 			<script>
@@ -152,7 +165,7 @@
 			
 			
 			</script>
-	
+
 
 			<%-- 				<tr onclick="location.href='productReviewSelect.do?rid=${review.rid }&pid=${review.pid}'"> --%>
 			<%-- 					<td>${review.rid }</td> --%>
@@ -164,7 +177,8 @@
 			<!-- 				</tr> -->
 		</div>
 		<button type="button" class="button1"
-			onclick="location.href='productReviewInsertForm.do?pid=3'">리뷰 작성</button>
+			onclick="location.href='productReviewInsertForm.do?pid=3'">리뷰
+			작성</button>
 	</div>
 
 	<!-- 문의게시판 -->
