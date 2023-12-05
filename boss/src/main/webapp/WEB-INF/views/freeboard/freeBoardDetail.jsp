@@ -65,17 +65,22 @@
 		});
 
 		// 좋아요가 있는지 확인한 값을 likeval에 저장
-		var likeval = '${hasLike}'
+//		var likeval = '${hasLike}'
+		var likeval = '${like.likeDrop}'
+        console.log(likeval);
+		
+		console.log("session:"+ '${sessionScope.member.mEmail}');
+		console.log("mEmail:"+ '${like.mEmail}');
+		
         // likeval이 Y이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
-        if(likeval == 'Y') {
+        if(likeval == 'Y' &&  '${sessionScope.member.mEmail}' == '${like.mEmail}' ) {
             console.log(likeval);
             $("#heart").prop("src", "images/fill-heart.png");
-            $(".heart").prop('name',likeval)
-        }
-        else {
+  //          $(".heart").prop('name',likeval)
+        } else {
             console.log(likeval);
             $("#heart").prop("src", "images/bin-heart.png");
-            $(".heart").prop('name',likeval)
+ //           $(".heart").prop('name',likeval)
         }
 
 		// 좋아요 버튼을 클릭 시 실행되는 코드
@@ -88,7 +93,7 @@
 		    $.ajax({
 		    	url :'toggleLike.do',
 		        type :'POST',
-		        data : {'fId':${detail.fId}, 'mEmail':'${member.mEmail}'},
+		        data : {'fId':${detail.fId}, 'mEmail':'${member.mEmail}', 'likeDrop':'${like.likeDrop}'},
 		    	success : function(data){
 		    		//that.prop('name',data);
 		        	if(data==1) {
@@ -144,9 +149,8 @@
 				<td>좋아요</td>
 				<td>
 					<div>
-						<a class="heart"
-							style="text-decoration-line: none; cursor: pointer;"> <img
-							id="heart" src="images/bin-heart.png"> 좋아요 ${countLike} 개
+						<a class="heart"  style="text-decoration-line: none; cursor: pointer;"> 
+							<img id="heart" src="images/bin-heart.png"> 좋아요 ${countLike} 개
 						</a>
 					</div>
 				</td>

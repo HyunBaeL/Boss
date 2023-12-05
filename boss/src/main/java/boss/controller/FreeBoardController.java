@@ -182,6 +182,10 @@ public class FreeBoardController {
 		String mEmail = board.getmEmail();
 		//좋아요 되있는지 찾는 메소드: 게시글번호와 회원번호를 보냄.
 		Likes like = lservice.findLike(fId, mEmail);
+		System.out.println("like");
+		System.out.println("like:"+like);
+	//	System.out.println("likeDrop:"+like.getLikeDrop());
+		
 		String hasLike = "";
 		if(like == null) {
 			hasLike = "N";
@@ -197,6 +201,8 @@ public class FreeBoardController {
 		System.out.println("countLike:"+countLike);
 		model.addAttribute("countLike",countLike);
 		
+		//좋아요 여부 
+		model.addAttribute("like",like);
 		
 		// state가 detail과 같다면(목록에서 제목클릭시 상세페이지로 이동) if(state.equals("detail")) {
 		if (state.equals("detail")) {

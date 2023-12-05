@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
- <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
+
 <!--header css 양식 include -->
  <%@include file="/WEB-INF/views/common/header.jsp"%>
 

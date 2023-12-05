@@ -33,6 +33,7 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 
+
 <!-- 슬라이드 부트스트랩 -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -76,7 +77,7 @@
 </script>
 
 </head>
-
+ <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -129,9 +130,9 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li>
-				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
-				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li><br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
 				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
@@ -197,8 +198,6 @@
 							<!-- 인디케이터 끝 -->
 						</div>
 						<!----------- 슬라이드 부트스트랩 끝-------------->
-
-
 
 
 						<br>
@@ -383,12 +382,12 @@
 
 	<!-- Menu -->
 	<nav id="menu">
-		<h2>Menu</h2>
+		<cation>Menu</cation>>
 		<ul>
-			<li><a href="category.do" style="text-decoration: none">카테고리</a></li>
-			<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
-			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-			<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
+			<li><a href="category.do" style="text-decoration: none">카테고리</a></li><br>
+			<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
+			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
+			<li><a href="elements.do" style="text-decoration: none">Elements</a></li><br>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>
