@@ -94,7 +94,7 @@
 				<c:if
 					test="${!empty sessionScope.member && member.mEmail ne 'master' || empty sessionScope.member}">
 					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">OUTER</a> <a
 							href="category.do?newCid=맨투맨"

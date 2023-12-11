@@ -27,12 +27,12 @@
         window.open(url, name, option);
     }
     
-    function deleteCheck(abc) {
+    function deleteCheck(a,b) {
         if(window.confirm("삭제하시겠습니까?")){
-        	location.href="masterNoticeDelete.do?mnId="+abc+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
+        	location.href="masterNoticeDelete.do?mnId="+abc+"&keyword="+b+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
         	alert("삭제되었습니다!")		
         }
-        console.log("삭제")
+        	event.stopPropagation()
       }
     function enterkey() {
 		if (window.event.keyCode == 13) {
@@ -41,6 +41,11 @@
 			location.href = "masterNoticeSearch.do?keyword=" + s;
 		}
 	}
+    
+    function update(a,b,c){
+    	location.href="masterNoticeUpdateForm.do?rnum="+a+"&mnId="+b+"&keyword="+c+"&cntPerPage=${pp.cntPerPage}";
+    	event.stopPropagation()
+    }
 </script>
 </head>
 
@@ -48,60 +53,60 @@
 
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail eq 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-					<a href="productInsertForm.do" onclick="alert('상품등록')"
-						style="text-decoration: none"><br>상품등록</a>
-				</c:if>
-				<c:if test="${member ne null && member.mEmail ne 'master'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-				</c:if>
+				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
+				<%@include file="../../common/header.jsp"%>
 
-				<div align="center" width="100px" height="100px">
-					<input type="text" maxlength="50" value ="${pp.keyword }"
-					id="search" onkeyup="enterkey()"><br>
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
+					<div align="center" width="30px" height="100px">
+						<input type="text" maxlength="30"
+							value="${pp.keyword }" id="search"
+							onkeyup="enterkey()">
+					</div>
+					<br>
 
-
-				</div>
-				<!-- Logo -->
-				<a href="main.do" class="logo"> <span class="symbol"><img
-						src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span><span
-					class="title">JY & HB</span>
-				</a>
-				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<!---------------------- Nav --------------------->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="main.do">Home</a></li>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="productDetail.do">Tempus etiam</a></li>
-				<li><a href="productDetail.do">Consequat dolor</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
+				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li><br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
+				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
+		<!---------------------- Nav ------------------->
 
 		<!-- Main -->
 		<div id="main">
@@ -112,10 +117,16 @@
 				</header>
 
 				<section class="tiles">
-
+				
+				
+				
+				<c:if test="${empty list }">
+				<br><br>
+				<h1>등록된 글이 없습니다</h1>
+				</c:if>
 					<!-- 공지사항 테이블 출력 -->
 					<!-- 폼으로 만들 이유X 수정 필요 -->
-					<form method="post" action="javascript:popup()">
+					<c:if test="${not empty list }">
 						<div class="container">
 							<!-- 옵션선택 끝 -->
 							<table
@@ -127,39 +138,34 @@
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
-								<c:set var="i" value="1"></c:set>
+								<c:set var="i" value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
-									<tr>
+									<tr onclick="location.href='masterNoticeSearchDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }&keyword=${pp.keyword }' ">
 										<td id="${i }">${i }</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnTitle}</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnContent}</td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' "><fmt:formatDate
+										<td>${masterNotice.mnTitle}</td>
+										<td>${masterNotice.mnContent}</td>
+										<td><fmt:formatDate
 												pattern="yyyy-MM-dd hh:mm" value="${masterNotice.mnReg}" /></td>
-										<td
-											onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">${masterNotice.mnReadCount}
+										<td>${masterNotice.mnReadCount}
 										</td>
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
-													onclick="location.href='masterNoticeUpdateForm.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage}&cntPerPage=${pp.cntPerPage}'">수정</button>
-												<button type="button" id="delete"
-													value="${masterNotice.mnId}" id="deleteCheck" value="${masterNotice.mnId}"
-													onclick="javascript:deleteCheck(${masterNotice.mnId})">삭제</button> 
+													onclick="javascript:update(${masterNotice.rnum},${masterNotice.mnId},'수')">수정 ${pp.keyword}</button>
+												<button type="button" 
+													onclick="javascript:deleteCheck(${masterNotice.mnId},'수')">삭제</button> 
 												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>
 										</c:if>
 									</tr>
-									<c:set var="i" value="${i + 1}"></c:set>
+									<c:set var="i" value="${i - 1}"></c:set>
 								</c:forEach>
 							</table>
-							<c:if test="${member ne null}">
-								<button type="submit" class="putsub">공지사항 등록</button>
-							</c:if>
-					</form>
+					</c:if>
 				</section>
+							<c:if test="${member ne null && member.mEmail eq 'master'}">
+								<button type="button" class="putsub" onclick="javascript:popup()">공지사항 등록</button>
+							</c:if>
 			</div>
 
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
