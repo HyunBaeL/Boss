@@ -272,7 +272,7 @@ public class MypageController {
 		}
 
 		model.addAttribute("board", board);
-		return "redirect:/mypage.do";
+		return "redirect:/mypageQnA.do";
 		//일단은 이렇게. 팝업창에서 작성 후 유효성검사 통과시 팝업창 닫고 재요청/불통시 주의 문구 출력 후 다시 폼으로
 	}
 	

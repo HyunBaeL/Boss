@@ -1,6 +1,8 @@
 package boss.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,5 +33,9 @@ public interface MasterNoticeDao {
 		int noticeMax();
 
 		MasterNotice selectMove(int rnum);
+
+		MasterNotice searchMove(Map<String, Object> map);
+
+		MasterNotice searchOne(Map<String, Object> map);
 
 }

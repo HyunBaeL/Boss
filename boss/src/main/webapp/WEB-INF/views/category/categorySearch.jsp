@@ -40,34 +40,44 @@
 
 <body class="is-preload">
 
+	<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
+<body class="is-preload">
+
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
-				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-					<a href="productInsertForm.do" onclick="alert('상품등록')"
-						style="text-decoration: none"><br>상품등록</a>
-				</c:if>
-				<c:if test="${sessionId ne null && sessionId ne 'boss'}">
-				${sessionId }님 환영합니다.
-				<a href="Logout.do" onclick="alert('로그아웃')"
-						style="text-decoration: none"><br>로그아웃</a>
-				</c:if>
-				<div align="center" width="100px" height="100px">
-					<input type="text" id="search" maxlength="50" value ="${category.keyword }"
-					onkeyup="enterkey()"><br>
-					<input type="hidden" id="hide" value="${category.keyword }">
-					
+				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
+				<%@include file="../common/header.jsp"%>
 
-				</div>
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=맨투맨"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
+					<div align="center" width="30px" height="100px">
+						<input type="text" maxlength="30"
+							value="${param.keyword }" id="search"
+							onkeyup="enterkey()">
+					</div>
+					<c:if test="${not empty list}">
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
 						class="selected-five">
@@ -82,18 +92,15 @@
 							보기</option>
 					</select>
 				</div>
+				</c:if>
+					<br>
 
-				<!-- Logo -->
-				<a href="main.do" class="logo"> <span class="symbol"><img
-						src="images/logo.png" alt="" style="width: 200px; height: 100px;"></span><span
-					class="title">JY & HB</span>
-				</a>
-				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<!---------------------- Nav --------------------->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 
@@ -117,13 +124,8 @@
 			<div class="inner">
 				<header align="left">
 
-					<h1>카테고리</h1>
+					<h1>${param.newCid }</h1>
 					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
 				</header>
 
 				<section class="tiles">

@@ -1,6 +1,8 @@
 package boss.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,16 @@ public class MasterNoticeService {
 	public MasterNotice selectMove(int rnum) {
 		
 		return dao.selectMove(rnum);
+	}
+
+	public MasterNotice searchMove(Map<String, Object> map) {
+
+		return dao.searchMove(map);
+	}
+
+	public MasterNotice searchOne(Map<String, Object> map) {
+
+		return dao.searchOne(map);
 	}
 
 	

@@ -17,7 +17,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnReg DESC
+		ORDER BY mnId DESC
 		) NOTICE
 		)
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
@@ -42,7 +42,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnReg DESC
+		ORDER BY mnId DESC
 		) NOTICE
 		)
 		WHERE mnId=#{mnId}
@@ -88,7 +88,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice where mnTitle like '%' || #{keyword} || '%'
-		ORDER BY mnReg DESC
+		ORDER BY mnId DESC
 		) NOTICE
 		)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
@@ -102,17 +102,42 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnReg DESC
+		ORDER BY mnId DESC
 		) NOTICE
 		)
-		WHERE RNUM=#{RNUM}
+		WHERE RNUM=#{rnum}
 	</select>
 	
-	<!-- 공지글의 최대 번호 구하기 -->
-	<select id="noticeMax" resultType="int">
-	select max(RNUM) from 
-       (SELECT ROWNUM RNUM, MasterNotice.*
-		FROM MasterNotice
-		ORDER BY mnReg DESC)
+	<!-- 검색된 정보 구하기 -->
+	<select id="searchOne" parameterType="map" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice where mntitle like '%' || #{keyword} || '%'
+		ORDER BY mnId DESC
+		) NOTICE
+		)
+		WHERE mnId=#{mnid}
+		<!-- 여기서 가변형을 사용해야 함.  -->
 	</select>
+	
+	<!-- 검색 상태에서 앞뒤로 이동 -->
+	<select id="searchMove" parameterType="map" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnId DESC
+		) NOTICE WHERE mntitle like '%' || #{keyword} || '%'
+		) where rnum=#{rnum}
+	</select>
+	
+	
+	
 </mapper>

@@ -21,10 +21,7 @@
 </noscript>
 <script>
     function popup(){
-        var url = "masterNoticeInsertForm.do";
-        var name = "공지사항";
-        var option = "width = 1000, height = 800, top = 100, left = 200, location = no"
-        window.open(url, name, option);
+      location.href="masterNoticeInsertForm.do"
     }
     
     function deleteCheck(abc) {
@@ -128,7 +125,7 @@
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
-								<c:set var="i" value="1"></c:set>
+								<c:set var="i" value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
 									<tr 
 									onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">
@@ -147,7 +144,7 @@
 											</td>
 										</c:if>
 									</tr>
-									<c:set var="i" value="${i + 1}"></c:set>
+									<c:set var="i" value="${i - 1}"></c:set>
 								</c:forEach>
 							</table>
 							<c:if test="${member ne null && member.mEmail eq 'master'}">
