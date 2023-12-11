@@ -34,6 +34,7 @@
 </noscript>
 
 
+
 <!-- 슬라이드 부트스트랩 -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -54,7 +55,7 @@
 <style>
 .carousel-inner>.carousel-item>img {
 	width: 640px;
-	height: 720px;
+	height: 700px;
 }
 </style>
 
@@ -76,8 +77,127 @@
 	}
 </script>
 
+
+
+<style type="text/css">
+/* 팝업 스타일 */
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* background-color: rgba(0,0,0,0.7); */
+	z-index: 9999; /* 팝업을 최상위로 올림 */
+}
+
+.popup-content {
+	position: absolute;
+	top: 50%;
+	left: 6%;
+	/*transform: translate(-50%, -50%);*/
+	background-color: #fff;
+	padding: 10px; /* 팝업 내용 여백 조절 */
+	text-align: center;
+	max-width: 400px; /* 팝업 최대 가로 크기 설정 */
+	width: 100%; /* 팝업 너비 100%로 설정 */
+	max-height: 400px; /* 팝업 최대 세로 크기 설정 */
+	overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+/* 팝업 내용 스타일 조절 */
+.popup-content p {
+	font-size: 14px; /* 내용 폰트 크기 조절 */
+	line-height: 1.4; /* 내용 줄 간격 조절 */
+}
+/* 팝업 내 이미지 스타일 조절 */
+.popup-content img {
+	max-width: 100%; /* 이미지 최대 가로 크기를 부모 요소에 맞춤 */
+	height: auto; /* 이미지 세로 크기 자동 조절 */
+}
+
+/* 닫기 버튼 스타일 */
+.popup-close {
+	position: absolute;
+	bottom: 10px; /* 아래쪽 여백 조절 */
+	right: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+</style>
+
+<!-- 팝업 창 -->
+<div id="popup" class="popup">
+	<div class="popup-content">
+		<span class="popup-close" onclick="closePopup()">&times;</span>
+		<p>
+			<img src="images/popup.png">
+		</p>
+		<label for="closeForToday"> 오늘 하루 그만 보기 </label> 
+		<input type="checkbox" id="closeForToday">
+	</div>
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// 저장된 쿠키에서 "오늘 그만 보기" 상태 확인
+		const isPopupClosedToday = getPopupClosedStatus();
+
+		// "오늘 그만 보기" 상태가 false이면 팝업 표시
+		if (!isPopupClosedToday) {
+			document.getElementById("popup").style.display = "block";
+		}
+
+		// 팝업 닫기 버튼 이벤트 처리
+		document.querySelector(".popup-close").addEventListener("click", function() {
+			// 팝업 닫기
+			document.getElementById("popup").style.display = "none";
+
+			// "오늘 그만 보기" 상태 저장
+			setPopupClosedStatus();
+		});
+	});
+
+	// "오늘 그만 보기" 상태를 저장
+	function setPopupClosedStatus() {
+		const checkbox = document.getElementById("closeForToday");
+		if (checkbox.checked) {
+			// 쿠키 사용 예시
+			document.cookie = "popupClosed=true; expires=" + getTomorrowDate()
+					+ "; path=/";
+
+			// 로컬 스토리지 사용 예시
+			// localStorage.setItem("popupClosed", "true");
+		}
+	}
+
+	// "오늘 그만 보기" 상태를 가져옴
+	function getPopupClosedStatus() {
+		// 쿠키 사용 예시
+		const cookieValue = document.cookie.replace(
+				/(?:(?:^|.*;\s*)popupClosed\s*=\s*([^;]*).*$)|^.*$/, "$1");
+		const isClosedCookie = cookieValue === "true";
+
+		// 로컬 스토리지 사용 예시
+		// const isClosedLocalStorage = localStorage.getItem("popupClosed") === "true";
+
+		return isClosedCookie;
+	}
+
+	// 내일 날짜를 가져옴 (쿠키 만료 날짜 설정용)
+	function getTomorrowDate() {
+		const tomorrow = new Date();
+		tomorrow.setDate(tomorrow.getDate() + 1);
+		return tomorrow.toUTCString();
+	}
+</script>
+
+
+
+
 </head>
- <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -130,9 +250,13 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li><br>
-				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
-				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
+				<li><a href="category.do?newCid=맨투맨"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
 				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
@@ -382,12 +506,17 @@
 
 	<!-- Menu -->
 	<nav id="menu">
-		<cation>Menu</cation>>
+		<cation>Menu</cation>
+		>
 		<ul>
-			<li><a href="category.do" style="text-decoration: none">카테고리</a></li><br>
-			<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
-			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
-			<li><a href="elements.do" style="text-decoration: none">Elements</a></li><br>
+			<li><a href="category.do" style="text-decoration: none">카테고리</a></li>
+			<br>
+			<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+			<br>
+			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+			<br>
+			<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
+			<br>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>

@@ -30,7 +30,7 @@
 <div class="chat-bar-close" id="chat-close" style="display: none;">
    <button id="chat-close-button" type="button" class="collapsible close"
       onclick="chatClose()">
-      <i class="material-icons-outlined"> close </i>
+      <i class="material-icons-outlined">x</i>
    </button>
 </div>
 
@@ -38,29 +38,20 @@
 <div class="chat-window" id="chat-window1" style="display: none;">
    <div class="message-box" id="messageBox">
       <div class="hi-there">
-         <p class="p1">Hi There</p>
+         <p class="p1">안녕하세요</p>
          <br />
-         <p class="p2">The team typically replies in few minutes.</p>
-      </div>
-      <div class="first-chat">
-         <p>Is there any offlines versions available for Maxeon Player?</p>
-         <div class="arrow"></div>
-      </div>
-      <div class="second-chat">
-         <div class="circle"></div>
-         <p>Currently we don't have but we will launch soon.</p>
-         <div class="arrow"></div>
+         <p class="p2">AI가 당신의 취향에 맞게 옷을 추천해 줘요. 질문 후 기다려 주세요!</p>
       </div>
    </div>
    <div class="input-box">
       <div class="write-reply">
          <input class="inputText" type="text" id="textInput"
-            placeholder="Write a reply..." />
+            placeholder="물어봐줘 제발..." />
       </div>
       <div class="send-button">
          <button type="submit" class="send-message" id="send"
             onclick="userResponse()">
-            <i class="material-icons-outlined"> send </i>
+            <i class="material-icons-outlined"> 대답! </i>
          </button>
       </div>
    </div>

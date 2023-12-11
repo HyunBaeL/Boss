@@ -22,6 +22,15 @@
 	/* 	window.onload=function() {
 	 } */
 	$(function() {
+		// 좋아요가 있는지 확인한 값을 likeval에 저장
+		var likeval = '${like.likeDrop}'
+		console.log(likeval);
+		// likeval이 Y이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
+		if(likeval == "Y") {
+            $("#heart").prop("src", "images/fill-heart.png");
+         } else {
+            $("#heart").prop("src", "images/bin-heart.png");
+         }
 		//기존 댓글 목록 요청 
 		//load함수로 불러온 결과 페이지(freeboardReplyList.jsp)의 댓글 목록을 div태그사이에 출력
 		//상세페이지 들어오자마자 자동으로 처리됨. 
@@ -41,14 +50,6 @@
 			}
 			var frmData = $('form').serialize();
 			//form태그의 전달값들을 한꺼번에 구해옴 
-			// var frmData = 'replyer='+frm.replyer.value+'&bno='+
-			//				  frm.bno.value+'&replytext='+frm.replytext.value;	
-			//post함수로 요청: 새로추가된 댓글목록을 콜백함수로 돌려받고 freeBoardDetail.jsp div태그사이에 다시 출력함. 
-			//post함수대신 ajax로도 가능함. 
-			// 			$.post('replyInsert.do', frmData, function(data) {
-			// 				$('#replylist').html(data);
-			// 				$('#frContent').val('');
-			// 			});
 			//#replylist 아이디 값에 data값을 출력하고, #frContent에 공백처리
 			$.ajax({
 				url : 'replyInsert.do',
@@ -61,62 +62,35 @@
 			}); // $.ajax() end			
 		});
 
-		$('.heart').load('hasLike.do?fId=${detail.fId}&mEmail=${sessionScope.member.mEmail}')
-		// 좋아요가 있는지 확인한 값을 likeval에 저장
-//		var likeval = '${hasLike}'
-
-
-
-
-// 		var likeval = '${like.likeDrop}'
-//         console.log(likeval);
-		
-// 		console.log("session:"+ '${sessionScope.member.mEmail}');
-// 		console.log("member.mEmail:"+ '${member.mEmail}');
-// 		// 좋아요를 누른 사용자의 email 주소 구하기
-// 		console.log("mEmail:"+ '${like.mEmail}');
-// 	//	console.log("like_email:"+ '${like_email.mEmail}');
-		
-//         // likeval이 N이면 좋아요가 이미 되있는것이므로 fill-heart.svg를 출력하는 코드
-//        // if(likeval == 'Y') {
-//         if(likeval == 'Y' && '${sessionScope.member.mEmail}' == '${like.mEmail}' ) {
-// //        if(likeval == 'Y' &&  '${sessionScope.member.mEmail}' == '${like_email.mEmail}' ) {
-//             console.log(likeval);
-//             $("#heart").prop("src", "images/fill-heart.png");
-//         } else {
-//             console.log(likeval);
-//             $("#heart").prop("src", "images/bin-heart.png");
-//         }
-       
-        
-
-// 		// 좋아요 버튼을 클릭 시 실행되는 코드
-//         $(".heart").on("click", function () {
-//          	if('${sessionScope.member}' == ''){
-//  		 		alert("로그인 후에 이용 해주세요.");
-//  		 		return false;
-//  	 	    }
-// 		    $.ajax({
-// 		    	url :'toggleLike.do',
-// 		        type :'POST',
-// 		        data : {'fId':${detail.fId}, 'mEmail':'${sessionScope.member.mEmail}', 'likeDrop':'${like.likeDrop}'},
-// 		    	success : function(data){
+		// 좋아요 버튼을 클릭 시 실행되는 코드
+        $("#div_fLike").on("click", function () {
+         	if('${sessionScope.member}' == ''){
+ 		 		alert("로그인 후에 이용 해주세요.");
+ 		 		return false;
+ 	 	    }
+		    $.ajax({
+		    	url :'toggleLike.do',
+		        type :'POST',
+		        data : {'fId':${detail.fId}, 'mEmail':'${sessionScope.member.mEmail}'},
+		    	success : function(data){
 		    		
-// 		    		console.log("data:"+ data);
-// 		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
-// 		    		console.log("data.result:"+ data.result);
-// 		    		console.log("fLike:"+ data.fboard.fLike);
+		    		console.log("data:"+ data);
+		    		console.log("data.fboard.fLike:"+ data.fboard.fLike);
+		    		console.log("data.like.likeDrop:"+ data.like.likeDrop);
 		    		
-// 		    		$("#div_fLike").text(data.fboard.fLike);
+		    		$("#heart_count").text(data.fboard.fLike);
+		    		//$("#div_fLike").text('${data.fboard.fLike}');
 		    		
-// 		        	if('${data.like.likeDrop}' == 'Y') {
-//             	     $('#heart').prop("src","images/fill-heart.png");
-// 		        	} else {
-//                    	 $('#heart').prop("src","images/bin-heart.png");
-// 		        	}
-//              	}
-// 		    });
-//         });
+		    		var likeval = data.like.likeDrop
+					console.log(likeval);
+					if(likeval == "Y") {
+			            $("#heart").prop("src", "images/fill-heart.png");
+			        } else {
+			            $("#heart").prop("src", "images/bin-heart.png");
+			        }
+             	}
+		    });
+        });
     });
 </script>
 </head>
@@ -156,11 +130,15 @@
 			<tr>
 				<!--  heart : 좋아요O, fill-heart : 좋아요X -->
 				<td>좋아요</td>
-				<td><a class="heart"
-					style="text-decoration-line: none; cursor: pointer;"> <img
-						id="heart" src="images/bin-heart.png">
-				</a>
-					<div id="div_fLike">${fboard.fLike}</div></td>
+				<td>
+					<div id="div_fLike">
+						<div class="heart"
+							style="text-decoration-line: none; cursor: pointer;">
+							<img id="heart" src="images/bin-heart.png">
+							<div id="heart_count">${detail.fLike}</div>
+						</div>
+					</div>
+				</td>
 			</tr>
 		</table>
 
@@ -168,7 +146,7 @@
 		<!-- 로그인 되어있고 글작성자와 mEmail이 같을때 삭제/수정 버튼 보임 -->
 		<div class="div_boardform_button" align="center">
 			<c:if
-				test="${!empty sessionScope.member && member.mEmail == detail.mEmail}">
+				test="${!empty sessionScope.member && sessionScope.member.mEmail == detail.mEmail}">
 				<input type="button" class="boardform_button" value="수정"
 					onClick="location.href='freeBoardDetail.do?fId=${detail.fId}&page=${page}&state=update'">
 				<input type="button" class="boardform_button" value="삭제"
@@ -185,8 +163,9 @@
 			<!--freereplycontroller로 부모글의fId전달  댓글단사람의  mEmail로해야함 추후 수정  -->
 		<div class="div_reply form">
 			<form name="frm" id="frm">
-				<input type="hidden" name="mEmail" value="${member.mEmail}">
-				<input type="hidden" name="fId" value="${detail.fId}"> 댓글 :
+				<input type="hidden" name="mEmail"
+					value="${sessionScope.member.mEmail}"> <input type="hidden"
+					name="fId" value="${detail.fId}"> 댓글 :
 				<textarea rows="2" cols="50" name="frContent" id="frContent"
 					placeholder="댓글을 입력해 주세요."></textarea>
 				<input type="button" value="확인" id="replyInsert"

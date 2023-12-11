@@ -82,6 +82,19 @@ public class Product {
 		this.pdrop = pdrop;
 	}
 
-	
+	// by hyesun start
+	// 상품 정보를 문자열로 변환하는 코드
+	public String toString() {
+		String res = "";
+		res += "이름: " + pname;
+		res += ", 분류: " + cid;
+		res += ", 설명: " + pcontent;
+		res += ", 가격: " + pprice;
+		res += ", 색깔: " + pcolor;
+		res += ", 사이즈: " + psize;
+		res += ", 인기도: " + preadcount;
 
+		return res;
+	}
+	// by hyesun end
 }
