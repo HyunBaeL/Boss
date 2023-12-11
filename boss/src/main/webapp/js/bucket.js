@@ -5,7 +5,6 @@
 			//var pId = $("#pId").val();
 	
 			$("#bucket").click(function() {
-				alert("장바구니");
 			
 				$.ajax({
 					type : "post",
@@ -28,9 +27,4 @@
 			});
 		});
 		
-		//바로구매
-			$(function() {
-				$("#buy").click(function() {
-					location.href ="order.do";
-				});
-			});
+		

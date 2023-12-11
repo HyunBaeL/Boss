@@ -14,12 +14,7 @@
 
 </head>
 
-<script>
-	function goBack() {
-		alert('이전 페이지로 돌아갑니다.');
-		history.go(-1);
-	}
-</script>
+<script src="./js/masterProduct.js"></script>
 
 <body>
 	<%@ include file="../common/masterNav.jsp"%>
@@ -42,8 +37,8 @@
 					</tr>
 					<tr align="center">
 						<td style="font-size: 15px;"><input type="file"
-							name="pimage1"><br> <br></td>
-						<td><input type="text" id="mgrade" name="pname"></td>
+							id="pimage1" name="pimage1"><br> <br></td>
+						<td><input type="text" id="pname" name="pname"></td>
 						<td><select name="cid" class="putsub">
 								<option value="맨투맨" selected>맨투맨</option>
 								<option value="코트">코트</option>
@@ -53,11 +48,11 @@
 								<option value="악세사리">악세사리</option>
 								<option value="양말">양말</option>
 						</select></td>
-						<td><input type="text" id="mgrade" name="pcolor"></td>
-						<td><input type="text" id="mgrade" name="psize"></td>
-						<td><input type="text" id="mgrade" name="pcontent"></td>
-						<td><input type="text" id="mgrade" name="pprice"></td>
-						<td><input type="text" id="mgrade" name="acount"></td>
+						<td><input type="text" id="pcolor" name="pcolor"></td>
+						<td><input type="text" id="psize" name="psize"></td>
+						<td><input type="text" id="pcontent" name="pcontent"></td>
+						<td><input type="text" id="pprice" name="pprice"></td>
+						<td><input type="text" id="acount" name="acount"></td>
 
 						<td>
 							<button type="submit">등록</button>

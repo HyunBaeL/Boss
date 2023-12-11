@@ -24,6 +24,13 @@
 	}
 </script>
 
+<script>
+	function moveOrdersForm() {
+		 var quantity = document.getElementById('bucketCount').value;
+		 location.href = 'moveOrdersForm.do?pid=${product.pid}&quantity=' + quantity;
+	}
+</script>
+
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 
@@ -85,7 +92,7 @@
 
 			</table>
 			<div class="button-container">
-				<button type="button" id="buy" class="button1">구매하기</button>
+				<button type="button" id="buy" class="button1" onclick="moveOrdersForm();">구매하기</button>
 				<button type="button" id="bucket" class="button1"
 					onclick="moveToCart();">장바구니</button>
 
