@@ -20,8 +20,8 @@ public interface ProductAskBoardDao {
 	// 문의 삭제
 	int askdelete(String askid);
 	
-//	// 문의 댓글 불러오기
-//	AskReply arselect(int askid);
+	// 문의 댓글 불러오기
+	AskReply arselect(int askid);
 
 
 	

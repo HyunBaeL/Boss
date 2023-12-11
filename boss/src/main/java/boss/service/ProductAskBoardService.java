@@ -34,9 +34,9 @@ public class ProductAskBoardService {
 	}
 	
 	// 문의 댓글 불러오기 
-//	public AskReply arselect(int askid) {
-//		return dao.arselect(askid);
-//	}
+	public AskReply arselect(int askid) {
+		return dao.arselect(askid);
+	}
 
 
 }

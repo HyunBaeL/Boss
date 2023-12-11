@@ -32,8 +32,8 @@
 	</update>
 	
  	<!-- 문의 댓글 불러오기 -->
-<!-- 	<select id="arselect" parameterType="int" resultType="askreply"> -->
-<!-- 		select * from askreply where askid = #{askid} -->
-<!-- 	</select> -->
+	<select id="arselect" parameterType="int" resultType="askreply">
+		select * from askreply where askid = #{askid} and ardrop = 'N'
+	</select>
 
 </mapper>

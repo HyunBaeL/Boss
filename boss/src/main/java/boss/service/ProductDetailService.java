@@ -32,8 +32,8 @@ public class ProductDetailService {
 		return dao.prselect(rid);
 	}
 	// 페이징 처리 합
-	public int total() {
-		return dao.total();
+	public int total(String pid) {
+		return dao.total(pid);
 	}
 	// 리뷰 페이징
 	public List<Review> list(Map<String, Object> map) {
@@ -72,6 +72,10 @@ public class ProductDetailService {
 	// 리뷰 등록 pid 불러오기 (수정) 
 	public List<Map<String, Object>> plist(String mEmail) {
 		return dao.plist(mEmail);
+	}
+	// 문의 합계
+	public int asktotal(String pid) {
+		return dao.asktotal(pid);
 	}
 
 	
