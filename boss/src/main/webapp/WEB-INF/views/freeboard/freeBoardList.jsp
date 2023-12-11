@@ -38,7 +38,7 @@
 			else
 				query += "&" + item 
 		});
-//		var API_KEY = "AIzaSyAarAezWQSHuQQRYZ7hm_SIk5uOoKYX77w"
+		var API_KEY = "AIzaSyAarAezWQSHuQQRYZ7hm_SIk5uOoKYX77w"
 		var youtube_url = "https://youtube.googleapis.com"
 		var search_endpoint = "/youtube/v3/search" 
 		var req = youtube_url + search_endpoint + "?" + query + "&key=" + API_KEY
