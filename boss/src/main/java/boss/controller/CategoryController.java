@@ -56,6 +56,12 @@ public class CategoryController {
 			model.addAttribute("cid",c.getNewCid());
 			model.addAttribute("category",c);
 			//cid로 찾아낸 해당 카테고리 상품 목록을 페이징 처리하여 공유
+			
+			
+			int sum = 0;
+		
+			
+			
 			return "./category/categoryList";
 		}
 		

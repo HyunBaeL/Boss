@@ -14,7 +14,7 @@ import boss.model.Report;
 import boss.service.ReportService;
 
 @Controller
-public class ReportController {
+public class ReportController {  
 
 	@Autowired
 	ReportService rs;
@@ -26,7 +26,7 @@ public class ReportController {
 		return "report/reportWriteForm";
 	}
 
-	// 신고 작성 폼 이동
+	// 신고 작성 폼 이동 
 	@RequestMapping("reportWrite.do")
 	public String reportWrite(Report report, Model model,
 			@RequestParam(value = "image1", required = false) MultipartFile mfile) throws Exception {
@@ -42,8 +42,8 @@ public class ReportController {
 				model.addAttribute("result", 2);
 				model.addAttribute("msg", "용량이 3MB 이상입니다.");
 				return "report/reportWriteResult"; 
-			} else if (!(extension.equals(".jpg") && extension.equals(".png") && extension.equals(".jpeg")
-					&& extension.equals(".gif"))) { // 이미지 형식이 올바르지 않은경우.
+			} else if (!extension.equals(".jpg") && !extension.equals(".png") && !extension.equals(".jpeg")
+					&& !extension.equals(".gif")) { // 이미지 형식이 올바르지 않은경우.
 				System.out.println("이미지 형식 다름");
 				model.addAttribute("result", 3);
 				model.addAttribute("msg", "올바른 파일 형식이 아닙니다.");
