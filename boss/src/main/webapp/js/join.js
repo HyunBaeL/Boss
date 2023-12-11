@@ -48,7 +48,7 @@ $(".email_auth_btn").click(function () {
         return false;
     } else if (!checkEmail(mEmail)) {
         alert("이메일 형식이 잘못되었습니다.");
-        $('#mEmail').focus();
+        $('#mEmail').val('').focus();
         return false;
     } else {
         // 이메일 중복 확인 수행
