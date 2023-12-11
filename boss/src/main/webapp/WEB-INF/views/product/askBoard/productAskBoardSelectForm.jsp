@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 문의 작성폼</title>
+<title>상품 문의 상세폼</title>
 
 <!-- css 양식 include -->
 <%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -43,7 +43,7 @@ function deleteAsk(askid,pid) {
 </head>
 <body>
 	<div class="Ask_insert">
-		<h1 class="" align="center">문의 상세폼</h1>
+		<h1 class="" align="center">문의 상세</h1>
 		<form method="post"
 			action="productAskBoardUpdateForm.do?askid=${askboard.askid }&pid=${askboard.pid}">
 
@@ -94,7 +94,6 @@ function deleteAsk(askid,pid) {
 	<!-- 댓글 게시판 -->
 	<div class="arReply">
 			<table class="table_ar" align="center" border="1">
-				<caption>댓글</caption>
 				<tr align="center">
 					<th>댓글 번호</th>
 					<th>답변 게시글</th>
@@ -102,8 +101,8 @@ function deleteAsk(askid,pid) {
 				</tr>
 				<tr>
 					<td>${askreply.arid }</td>
-					<td>${askreply.arid }</td>
-					<td>${askreply.arid }</td>
+					<td>${askreply.arcontent }</td>
+					<td>${askreply.arreg }</td>
 				</tr>
 				</table>
 				</div>

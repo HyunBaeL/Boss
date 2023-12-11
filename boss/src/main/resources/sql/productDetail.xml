@@ -25,11 +25,11 @@
 		FROM (
 		SELECT *
 		FROM AskBoard
-		WHERE askdrop = 'N' 
+		WHERE askdrop = 'N' and pid = #{pid}
 		ORDER BY askreg DESC
 		) A
 		)
-		WHERE pid = #{pid} AND RN BETWEEN #{pp.startRow} AND #{pp.endRow}
+		WHERE RN BETWEEN #{askpp.startRow} AND #{askpp.endRow}
 	</select>
 
 
@@ -47,10 +47,15 @@
 	</select>
 
 	<!-- 리뷰 합계 -->
-	<select id="total" resultType="int">
-		select count(*) from review
+	<select id="total" resultType="int" parameterType="String">
+		select count(*) from review where pid = #{pid}
 	</select>
-
+	
+	<!-- 문의 합계 -->
+	<select id="asktotal" resultType="int" parameterType="String">
+		select count(*) from askboard where pid = #{pid}
+	</select>
+	
 	<!-- 상세페이지 리뷰 리스트 뽑아오기 -->
 	<select id="list" resultType="review" parameterType="map">
 		select *
@@ -58,13 +63,13 @@
 		SELECT ROWNUM RN, A.*
 		FROM ( SELECT *
 		FROM review where rdrop =
-		'N'
+		'N' and pid = #{pid}
 		ORDER BY rreg
 		desc) A
 		)
-		WHERE pid = #{pid} and RN BETWEEN
-		#{pp.startRow} AND
-		#{pp.endRow}
+		WHERE RN BETWEEN
+		#{reviewpp.startRow} AND
+		#{reviewpp.endRow}
 	</select>
 
 	<!-- 이메일로 주문 정보 받아오기 -->

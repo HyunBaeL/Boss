@@ -68,10 +68,11 @@ public class ProductAskBoardController {
 		askboard = service.askselect(askboard.getAskid());
 		
 		// 문의 댓글 불러오기
-//		askreply = service.arselect(askreply.getAskid());
+		askreply = service.arselect(askreply.getAskid());
+		System.out.println(askreply);
 
 		model.addAttribute("askboard", askboard);
-//		model.addAttribute("askreply", askreply);
+		model.addAttribute("askreply", askreply);
 	
 		return "./product/askBoard/productAskBoardSelectForm";
 	}

@@ -27,8 +27,9 @@ public interface ProductDetailDao {
 	
 	// 리뷰 불러오기
 	Review prselect(int rid);
-
-	int total();
+	
+	// 문의 합계
+	int total(String pid);
 	
 //	페이징 처리
 	List<Review> list(Map<String, Object> map);
@@ -55,6 +56,8 @@ public interface ProductDetailDao {
 	
 	// 리뷰 등록 pid 불러오기 
 	List<Map<String, Object>> plist(String mEmail);
+	// 문의 합계
+	int asktotal(String pid);
 	
 
 

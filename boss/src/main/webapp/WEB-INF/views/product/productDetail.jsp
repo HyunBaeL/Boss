@@ -160,7 +160,6 @@
 							<fmt:formatDate value="${review.rreg}" var="formattedDate"
 								pattern="YYYY년 MM월 dd일" />
 							<td>${formattedDate}</td>
-							<td>별점추가예정</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -172,26 +171,26 @@
 			</table>
 			<!-- 여기 추가함 -->
 			<div class="detail_page">
-				<c:if test="${pp.startPage != 1 }">
+				<c:if test="${reviewpp.startPage != 1 }">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?nowPage=${reviewpp.startPage - 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
 						< </a>
 				</c:if>
-				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+				<c:forEach begin="${reviewpp.startPage }" end="${reviewpp.endPage }" var="p">
 					<c:choose>
-						<c:when test="${p == pp.nowPage }">
+						<c:when test="${p == reviewpp.nowPage }">
 							<b>${p }</b>
 						</c:when>
-						<c:when test="${p != pp.nowPage }">
+						<c:when test="${p != reviewpp.nowPage }">
 							<a style="text-decoration: none; color: black"
-								href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+								href="./productDetail.do?nowPage=${p }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
 								${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
-				<c:if test="${pp.endPage != pp.lastPage}">
+				<c:if test="${reviewpp.endPage != reviewpp.lastPage}">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?nowPage=${reviewpp.endPage + 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
 						> </a>
 				</c:if>
 			</div>
@@ -249,28 +248,28 @@
 			</table>
 			<!-- 여기 추가함 -->
 				<div class="detail_page">
-					<c:if test="${pp.startPage != 1 }">
+					<c:if test="${askpp.startPage != 1 }">
 						<a style="text-decoration: none; color: black"
-							href="./productDetail.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+							href="./productDetail.do?nowPage=${askpp.startPage - 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
 							< </a>
 					</c:if>
 					
-					<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+					<c:forEach begin="${askpp.startPage }" end="${askpp.endPage }" var="p">
 						<c:choose>
-							<c:when test="${p == pp.nowPage }">
+							<c:when test="${p == askpp.nowPage }">
 								<b>${p }</b>
 							</c:when>
 							
-							<c:when test="${p != pp.nowPage }">
+							<c:when test="${p != askpp.nowPage }">
 								<a style="text-decoration: none; color: black"
-									href="./productDetail.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+									href="./productDetail.do?nowPage=${p }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
 									${p }</a>
 							</c:when>
 						</c:choose>
 					</c:forEach>
-					<c:if test="${pp.endPage != pp.lastPage}">
+					<c:if test="${askpp.endPage != askpp.lastPage}">
 						<a style="text-decoration: none; color: black"
-							href="./productDetail.do?nowPage=${pp.endPage + 1 }&cntPerPage=${pp.cntPerPage}&pid=${pid}">
+							href="./productDetail.do?nowPage=${askpp.endPage + 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
 							> </a>
 					</c:if>
 				</div>
