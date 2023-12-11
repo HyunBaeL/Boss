@@ -48,16 +48,16 @@
 	</table>
 
 	<c:if test="${mnd.rnum != 1 }">
-			<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum-1 }&cntPerPage=${pp.cntPerPage}">다음글</a>
+			<a href="masterNoticeSearchMove.do?rnum=${mnd.rnum-1 }&cntPerPage=${pp.cntPerPage}&keyword=${pp.keyword }">다음글</a>
 			<br>
 	</c:if>
 	
 	<c:if test="${mnd.rnum != pp.total }">
-			<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum+1 }&cntPerPage=${pp.cntPerPage}">이전글</a>
+			<a href="masterNoticeSearchMove.do?rnum=${mnd.rnum+1 }&cntPerPage=${pp.cntPerPage}&keyword=${pp.keyword }">이전글</a>
 			<br>
 	</c:if>
 		<button type="button" class="review_button1"
-			onclick="location.href='masterNotice.do?nowPage=${Integer.toString(Math.floor((mnd.rnum-1)/pp.cntPerPage)+1)}'">목록으로</button>
+			onclick="location.href='masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${Integer.toString(Math.floor((mnd.rnum-1)/pp.cntPerPage)+1)}'">목록으로</button>
 	<!-- css 양식 include -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

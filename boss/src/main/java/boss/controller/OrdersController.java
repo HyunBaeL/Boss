@@ -49,6 +49,18 @@ public class OrdersController {
 		List<String> bidList = new ArrayList<String>();
 
 		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		
+		// 바로 구매하기로 넘어옴
+		if((bid == null || bid == "") && (bidAll == null)) {
+			System.out.println("바로 구매하기로 넘어옴");
+			model.addAttribute("pid", pid);
+			model.addAttribute("amountCount", amountCount);
+			model.addAttribute("member", member);
+			model.addAttribute("omessage", omessage);
+			model.addAttribute("totalPrice", totalPrice);
+			
+			return "orders/oneOrdersForm";
+		}
 
 		if ((bid != null && bid != "") || (bidAll != null)) { // 값이 뭐라도 한개있음
 			if ((bid != null && bid != "") && (bidAll == null)) { // 값이 단일값임
@@ -88,10 +100,11 @@ public class OrdersController {
 	 * 결제 폼 이동 메소드
 	 */
 	@RequestMapping("moveOrdersForm.do")
-	public String moveOrdersForm(Bucket bucket, String bid, String pid, HttpServletRequest request, HttpSession session,
+	public String moveOrdersForm(Bucket bucket, String quantity,String bid, String pid, HttpServletRequest request, HttpSession session,
 			Model model) {
 		System.out.println("moveOrdersForm");
-		int result,amountCount = 0, totalPrice = 0;
+		int result = 0 ,amountCount = 0;
+		int totalPrice = 0;
 
 		List<String> bidList = new ArrayList<String>();
 		List<Bucket> bucketList = new ArrayList<Bucket>();
@@ -137,9 +150,19 @@ public class OrdersController {
 				}
 				model.addAttribute("amountCount", amountCount);
 			}
-		} else { // 값이 하나도 안들어옴.
-			System.out.println("아무값도 없음.");
-			return "./bucket/bucketList";
+		} else { // 상품 상세정보에서 바로 구매하기를 눌렀을 경우
+			System.out.println("상품 상세정보에서 바로 구매하기를 눌렀을 경우");
+			System.out.println("quantity : " + quantity);
+			System.out.println("pid : " + pid);
+			result = 2;
+			Product product = mps.selectOne(pid);
+			totalPrice = Integer.parseInt(quantity) * product.getPprice();
+			model.addAttribute("member", member);
+			model.addAttribute("product", product);
+			model.addAttribute("result", result);
+			model.addAttribute("pid", pid);
+			model.addAttribute("totalPrice", totalPrice);
+			model.addAttribute("amountCount", Integer.parseInt(quantity));
 		}
 
 		return "./orders/moveOrdersForm";
@@ -204,4 +227,48 @@ public class OrdersController {
 
 		return "hi";
 	}
+	
+	@ResponseBody
+	@RequestMapping("oneOrderResult.do")
+	public String oneOrderResult(String mEmail, String amountCount,Orders orders, String pid,String omessage) {
+		System.out.println("단일 결제");
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		orders.setMemail(mEmail);
+		int result = os.insertOrders(orders);
+		orders = os.selectOrdersOne(orders.getMemail());
+		Product product = mps.selectOne(pid);
+		map.put("product", product);
+		map.put("oid", orders.getOid());
+		map.put("amountCount", amountCount);
+		int insertOrderDetail = os.insertOrderDetail(map);
+		map.put("pid", pid);
+		int productCount = os.updateProductCount(map);
+		
+		System.out.println("구매 완료");
+		
+		return "hi";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

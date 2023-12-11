@@ -65,7 +65,7 @@
 					<input type="text" id="search" maxlength="50" placeholder="검색어를 입력하세요."
 					onkeyup="enterkey()"><br>
 				</div>
-				<c:if test="${not empty search}">
+				<c:if test="${not empty list}">
 				<div style="float: right;">
 					<select id="cntPerPage" name="sel" onchange="selChange()"
 						class="selected-five">

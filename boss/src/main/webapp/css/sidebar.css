@@ -76,7 +76,7 @@ h1 {
 .reviewtable, .ordertable {
 	border-collapse: collapse;
 	width: calc(100% - 25%); /* 페이지 전체 너비에서 사이드바의 너비를 뺀 값으로 지정 */
-	margin-bottom: 50px;
+	margin-bottom: 200px;
 	margin-left: 50px;
 }
 

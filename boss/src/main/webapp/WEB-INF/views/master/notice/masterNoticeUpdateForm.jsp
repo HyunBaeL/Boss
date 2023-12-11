@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!--
 	Phantom by HTML5 UP
@@ -15,7 +16,14 @@
 <div class="container" align="center">
 		<h2>공지사항</h2>
 		<div class="inner">
-		<form action="masterNoticeUpdate.do?mnId=${masterNotice.mnId}&nowPage=${Integer.toString(Math.floor((mn.rnum-1)/pp.cntPerPage)+1)}&cntPerPage=${pp.cntPerPage}" method="post" enctype="multipart/form-data" target="repacatFrame">
+		<form action="masterNoticeUpdate.do" 
+		method="post" enctype="multipart/form-data" target="repacatFrame">
+			<c:if test="${pp.keyword != null }">
+				<input type="hidden" name="keyword" value="${pp.keyword }">
+			</c:if>
+			<input type="hidden" name="mnId" value="${masterNotice.mnId }">
+			<input type="hidden" name="nowPage" value="${mn.rnum }">
+			<input type="hidden" name="cntPerPage" value="${pp.cntPerPage }">
 			<table class="table table-hover">
 				<tr>
 					<td>제목</td>
