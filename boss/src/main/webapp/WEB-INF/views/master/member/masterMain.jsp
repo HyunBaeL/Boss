@@ -57,7 +57,7 @@
 					배송상태 변경 및 배송메시지 전송을 관리합니다.</td>
 			</tr>
 		</table>
-		<button type="button" onclick="location.href='reportWriteForm.do' " ">신고하기 : 회원</button>
+		<button type="button" onclick="location.href='reportWriteForm.do' ">신고하기 : 회원</button>
 	</div>
 </body>
 </html>
