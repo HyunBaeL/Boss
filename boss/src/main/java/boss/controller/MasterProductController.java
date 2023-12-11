@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.common.primitives.Floats;
+
+import boss.common.OpenAI;
 import boss.common.PagePgm;
+import boss.common.Pinecone;
 import boss.common.Search;
 import boss.model.Amount;
 import boss.model.Member;
@@ -206,6 +210,15 @@ public class MasterProductController {
       model.addAttribute("product", product);
       model.addAttribute("msg", "productInsertTrue");
       System.out.println("???????");
+      
+      // by hyesun start
+      // OpenAI API로 상품정보에 대해 embedding하고 해당 vector를 pinecone vector store에 등록
+      OpenAI openAI = new OpenAI();
+      Pinecone vecStore = new Pinecone();
+      
+      float[] embedding = Floats.toArray(openAI.getEmbedding(pro.toString()));
+      vecStore.upsert(embedding, pro.getPid());
+      // by hyesun end
 
       return "./master/product/masterMoveProductList";
    }
@@ -326,6 +339,19 @@ public class MasterProductController {
             System.out.println("여러명 삭제 완료 : " + result);
 
          }
+         // by hyesun start
+         // vector store에 id에 해당하는 embedding 삭제
+         Pinecone vecStore = new Pinecone();
+         if (id != null) {
+        	 vecStore.delete(Integer.valueOf(id));
+         } else if (id == null && ids != null) {
+        	 idList = Arrays.asList(ids);
+        	 idList.forEach((String _id) -> 
+        	 	vecStore.delete(Integer.valueOf(_id))
+        	 );
+         }
+         // by hyesun end
+         
       } else { // 모든값이 Null이라면.
          model.addAttribute("result", result);
          model.addAttribute("msg", "수정할 글을 선택하세요.");

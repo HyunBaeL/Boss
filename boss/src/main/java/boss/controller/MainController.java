@@ -1,5 +1,7 @@
 package boss.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,15 @@ public class MainController {
 		// 초기값 뿌려줌
 		Map<String, MainImage> mainImageList = new HashMap<String, MainImage>();
 		List<MainImage> mainImageList_db = service.selectMainProductList();
+		
+		//by hyesun 
+		Collections.sort(mainImageList_db, new Comparator<MainImage>() {
+            @Override
+            public int compare(MainImage o1, MainImage o2) {
+                return o2.getPid() - o1.getPid();	//pid 기준으로 내림차순 정렬되게 함
+            }
+        });
+		//by hyesun end
 
 		if (mainImageList_db.size() > 0) { // 1개라도 구해옴.
 			for (int i = 0; i < mainImageList_db.size(); i++) { // list size만큼 put
@@ -41,6 +52,7 @@ public class MainController {
 				model.addAttribute("block" + (i + 1), i + 1);
 
 				model.addAttribute("mainImageList" + i, mainImageList_db.get(i));
+				System.out.println(mainImageList_db.get(i).getPid());
 			}
 		} else {
 			System.out.println("1개도 못구해옴.");
