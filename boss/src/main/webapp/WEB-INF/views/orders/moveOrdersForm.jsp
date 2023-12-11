@@ -119,6 +119,29 @@
 
             </table>
              </c:if>
+             
+             <c:if test="${result == 2 }">
+             	<table class="table_product">
+               <tr>
+                  <td class="product_img" rowspan="5"><img
+                     src="./imeges/${product.pimage}"></td>
+               <tr>
+                  <td><input type="text" value="${product.pname}" name="bname"
+                     readonly style="color: palegreen; font-size: 30px"></td>
+               </tr>
+
+               <tr>
+                  <td>${product.psize}</td>
+               </tr>
+               <tr>
+                  <td>${product.pcolor}</td>
+               </tr>
+               <tr>
+                  <td>${product.pprice}&#8361;${amountCount}개</td>
+               </tr>
+
+            </table>
+             </c:if>
 
          </div>
          <div class="container_right">
