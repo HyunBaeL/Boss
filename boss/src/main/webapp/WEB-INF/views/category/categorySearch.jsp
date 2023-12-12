@@ -18,29 +18,28 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-		var a = '${category.keyword}'
-		
+	var a = '${category.keyword}'
+
 	function selChange() {
-			
+
 		var sel = document.getElementById('cntPerPage').value;
 		location.href = "categorySearch.do?nowPage=${pp.nowPage}&newCid=${category.newCid}&cntPerPage="
-				+ sel+"&keyword="+a;
+				+ sel + "&keyword=" + a;
 	}
-	
+
 	function enterkey() {
 		if (window.event.keyCode == 13) {
-	    	// 엔터키가 눌렸을 때
-	    	var s = document.getElementById("search").value;
-	    	console.log(a)
-	    	location.href="categorySearch.do?newCid=${category.newCid}&keyword="+s;
-	    }
+			// 엔터키가 눌렸을 때
+			var s = document.getElementById("search").value;
+			console.log(a)
+			location.href = "categorySearch.do?newCid=${category.newCid}&keyword="
+					+ s;
+		}
 	}
 </script>
 </head>
 
-<body class="is-preload">
-
-	<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -54,70 +53,67 @@
 				<%@include file="../common/header.jsp"%>
 
 				<!--1. 회원 or 비회원 페이지 -->
-					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-					</div>
-					<div align="center" width="30px" height="100px">
-						<input type="text" maxlength="30"
-							value="${param.keyword }" id="search"
-							onkeyup="enterkey()">
-					</div>
-					<c:if test="${not empty list}">
-				<div style="float: right;">
-					<select id="cntPerPage" name="sel" onchange="selChange()"
-						class="selected-five">
-						<option value="15"
-							<c:if test="${pp.cntPerPage == 15}">selected</c:if>>15개
-							보기</option>
-						<option value="30"
-							<c:if test="${pp.cntPerPage == 30}">selected</c:if>>30개
-							보기</option>
-						<option value="45"
-							<c:if test="${pp.cntPerPage == 45}">selected</c:if>>45개
-							보기</option>
-					</select>
+				<div class="category-link" align="center">
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">OUTER</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">KNIT</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 				</div>
-				</c:if>
-					<br>
 
-					<!---------------------- Nav --------------------->
-					<nav>
-						<ul>
-							<li><a href="#menu">Menu</a></li>
-						</ul>
-					</nav>
+				<c:if test="${not empty list}">
+					<div style="float: right;">
+						<select id="cntPerPage" name="sel" onchange="selChange()"
+							class="selected-five">
+							<option value="15"
+								<c:if test="${pp.cntPerPage == 15}">selected</c:if>>15개
+								보기</option>
+							<option value="30"
+								<c:if test="${pp.cntPerPage == 30}">selected</c:if>>30개
+								보기</option>
+							<option value="45"
+								<c:if test="${pp.cntPerPage == 45}">selected</c:if>>45개
+								보기</option>
+						</select>
+					</div>
+				</c:if>
+				<br>
+
+				<!---------------------- Nav --------------------->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="main.do">Home</a></li>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="productDetail.do">Tempus etiam</a></li>
-				<li><a href="productDetail.do">Consequat dolor</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
+				<li><a href="category.do?newCid=코트"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
+				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
+		<!---------------------- Nav ------------------->
 
 		<!-- Main -->
 		<div id="main">
@@ -129,32 +125,49 @@
 				</header>
 
 				<section class="tiles">
-				<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
-				
-				
-					<c:forEach var="list" items="${list }" varStatus="loop">
-						<article class="style1">
-							<span class="image"> <img src="images/${list.pimage}" onerror="this.src='images/1.png'">
-							<!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
-							</span> <a href="productDetail.do?pid=${list.pid }">
-								<h2>${list.pname }</h2>
-								<div class="content">
-									<p>${list.pcontent }</p>
-								</div>
-							</a>
-						</article>
-					</c:forEach>
-					
-					
+					<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
+
+
+					<c:if test="${not empty list}">
+						<c:forEach var="list" items="${list }" varStatus="loop">
+							<article class="style1">
+								<span class="image"> <img src="images/${list.pimage}"
+									onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
+								</span> <a href="productDetail.do?pid=${list.pid }">
+									<h2>${list.pname }</h2>
+									<div class="content">
+										<p>${list.pcontent }</p>
+									</div>
+								</a>
+							</article>
+						</c:forEach>
 				</section>
+				</c:if>
+
+					<c:if test="${empty list}">
+						<br>
+						<br>
+						<br>
+						<div align="center">
+							<h1>등록된 상품이 없습니다</h1>
+						</div>
+					</c:if>
+
+				<div>
+				<form action="categorySearch.do">
+					<input type="text" align="right" id="keyword" name="keyword"
+						value="${param.keyword }" maxlength="10" class="text-input">
+					<input type="submit" class="putsub"> <input type="hidden"
+						name="newCid" value="${param.newCid }">
+				</form>
+				</div>
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
-						<- 
-					</a>
+						href="./categorySearch.do?newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
+						<- </a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 					<c:choose>
@@ -163,13 +176,13 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">${p }</a>
+								href="./categorySearch.do?newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./categorySearch.do?cid=${cid }&newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
+						href="./categorySearch.do?newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&keyword=${category.keyword}">
 						-> </a>
 				</c:if>
 			</div>

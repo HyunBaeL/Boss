@@ -12,10 +12,7 @@
 
 <script>
 	function popup() {
-		var url = "myPageQnaBoardInsertForm.do?memail=${memail}";
-		var name = "QNA";
-		var option = "width = 1000, height = 800, top = 100, left = 200, location = no"
-		window.open(url, name, option);
+		location.href="myPageQnaBoardInsertForm.do?memail=${memail}"
 	}
 	//qna 상세보기
 	function qna(a,b,c) {
@@ -37,6 +34,7 @@
         	location.href="mypageQnaBoardDelete.do?qid="+abc+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
         	alert("삭제되었습니다!")		
         }
+        event.stopPropagation()
       }
 	
 </script>
@@ -80,26 +78,25 @@
 
 							<!-- 문의글 출력 -->
 							<c:if test="${QnaBoard.qrid ==0 }">
-								<tr>
-									<td onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })">${QnaBoard.qid } ${QnaBoard.qnatitle }</td>
-									<td onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })">${QnaBoard.qnacontent }</td>
+								<tr onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })">
+									<td>${QnaBoard.qnatitle }</td>
+									<td>${QnaBoard.qnacontent }</td>
 									<!-- 첨부파일 -->
 									<c:if test="${QnaBoard.qnaorifile != null }">
-										<td style="position: relative;"
-										onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })">
+										<td style="position: relative;">
 										<img src="./images/${QnaBoard.qnaorifile }" width="50" height="50"
 											class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 										</td>
 									</c:if>
 									<c:if test="${QnaBoard.qnaorifile == null }">
-										<td onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })">첨부파일이 없습니다.</td>
+										<td>첨부파일이 없습니다.</td>
 									</c:if>
 
-									<td onclick="javascript:qna(${QnaBoard.rnum },${QnaBoard.qid },${pp.cntPerPage })"><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
+									<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
 											value="${QnaBoard.qnareg }"></fmt:formatDate></td>
 									<td>
 										<input type="button" value="삭제"
-										onclick="location.href='javascript:deleteCheck(${QnaBoard.qid})'">
+										onclick="javascript:deleteCheck(${QnaBoard.qid})">
 									</td>
 								</tr>
 							</c:if>

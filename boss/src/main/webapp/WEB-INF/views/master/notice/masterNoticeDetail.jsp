@@ -36,7 +36,7 @@
 
 
 		<tr>
-			<td colspan="4" style="color: black;">${mnd.mnContent }</td>
+			<td colspan="4" style="color: black;"><pre>${mnd.mnContent }</pre></td>
 		</tr>
 
 		<c:if test="${mnd.mnOriFile != null }">

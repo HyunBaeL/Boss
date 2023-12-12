@@ -52,9 +52,9 @@ public class MasterNoticeService {
 		dao.masterNoticeUpdate(mn);
 	}
 
-	public int noticeCount(String keyword) {
+	public int noticeCount(PagePgm pp) {
 
-		return dao.noticeCount(keyword);
+		return dao.noticeCount(pp);
 	}
 
 	public List<MasterNotice> noticeSearchList(PagePgm pp) {

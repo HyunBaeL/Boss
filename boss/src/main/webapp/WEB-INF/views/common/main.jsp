@@ -217,7 +217,7 @@
 						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=코트"
+							href="category.do?newCid=상의"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">KNIT</a> <a
 							href="category.do?newCid=코트"
@@ -492,7 +492,8 @@
 			</div>
 
 			<div align="center" width="100px" height="100px">
-				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
+				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
+				><br>
 			</div>
 
 			<!-- Nav -->

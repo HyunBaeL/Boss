@@ -13,9 +13,17 @@
 <head>
 <title>Phantom by HTML5 UP</title>
 <meta charset="utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+
+<!-- buttons_master css -->
+<link rel="stylesheet" href="assets/css/mainhs.css" />
+<!-- <link rel="stylesheet" href="assets/css/mainhsSlide.css" /> -->
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
@@ -45,12 +53,62 @@
     	event.stopPropagation()
     }
 </script>
+
+<style type="text/css">
+/* 팝업 스타일 */
+.popup {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* background-color: rgba(0,0,0,0.7); */
+	z-index: 9999; /* 팝업을 최상위로 올림 */
+}
+
+.popup-content {
+	position: absolute;
+	top: 50%;
+	left: 6%;
+	/*transform: translate(-50%, -50%);*/
+	background-color: #fff;
+	padding: 10px; /* 팝업 내용 여백 조절 */
+	text-align: center;
+	max-width: 400px; /* 팝업 최대 가로 크기 설정 */
+	width: 100%; /* 팝업 너비 100%로 설정 */
+	max-height: 400px; /* 팝업 최대 세로 크기 설정 */
+	overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+/* 팝업 내용 스타일 조절 */
+.popup-content p {
+	font-size: 14px; /* 내용 폰트 크기 조절 */
+	line-height: 1.4; /* 내용 줄 간격 조절 */
+}
+/* 팝업 내 이미지 스타일 조절 */
+.popup-content img {
+	max-width: 100%; /* 이미지 최대 가로 크기를 부모 요소에 맞춤 */
+	height: auto; /* 이미지 세로 크기 자동 조절 */
+}
+
+/* 닫기 버튼 스타일 */
+.popup-close {
+	position: absolute;
+	bottom: 10px; /* 아래쪽 여백 조절 */
+	right: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+</style>
 </head>
 
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -60,49 +118,53 @@
 
 				<!--1. 회원 or 비회원 페이지 -->
 					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=맨투맨"
+							href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=맨투맨"
+							href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 					</div>
+					<div align="center" width="30px" height="100px">
+					</div>
+					<br>
 
-				<div align="center" width="100px" height="100px">
-					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
-						id="search" onkeyup="enterkey()"><br>
-				</div>
-				
-				<!-- Nav -->
-				<nav>
+					<!---------------------- Nav --------------------->
+					<nav>
 						<ul>
 							<li><a href="#menu">Menu</a></li>
 						</ul>
 					</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="freeBoardList.do">커뮤니티</a></li>
-				<li><a href="masterNotice.do">공지사항</a></li>
-				<li><a href="elements.do">Elements</a></li>
+				<li><a href="category.do?newCid=코트"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
+				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
+		<!---------------------- Nav ------------------->
+		
+		
 
 		<!-- Main -->
 		<div id="main">
@@ -124,6 +186,8 @@
 									<th>제목</th>
 									<th>작성일</th>
 									<th>조회수</th>
+									<th></th>
+									<th></th>
 								</tr>
 								<c:set var="i" value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
@@ -152,6 +216,18 @@
 							</c:if>
 					</form>
 				</section>
+				<form action="masterNoticeSearch.do">
+		<select class="putsub" name="searchtype">
+			<option value="">검색 유형 선택</option>
+			<option value="mnTitle">제목</option>
+			<option value="mnContent">내용</option>
+		</select> <input type="text" align="right" id="keyword" name="keyword"
+			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
+		<input type="submit" value="검색" class="putsub">
+	</form>
+				
+				
+				
 			</div>
 
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
@@ -178,8 +254,10 @@
 						-> </a>
 				</c:if>
 			</div>
+			
+	
 
-		</div>
+	</div>
 
 
 

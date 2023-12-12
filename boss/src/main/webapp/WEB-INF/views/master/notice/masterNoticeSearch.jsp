@@ -20,35 +20,26 @@
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script>
-    function popup(){
-        var url = "masterNoticeInsertForm.do";
-        var name = "공지사항";
-        var option = "width = 1000, height = 800, top = 100, left = 200, location = no"
-        window.open(url, name, option);
+    function popup(a,b){
+        location.href="masterNoticeSearchInsertForm.do?searchtype="+a+"&keyword="+b+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
     }
     
-    function deleteCheck(a,b) {
+    function deleteCheck(a,b,c) {
         if(window.confirm("삭제하시겠습니까?")){
-        	location.href="masterNoticeDelete.do?mnId="+abc+"&keyword="+b+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
+        	location.href="masterNoticeSearchDelete.do?mnId="+a+"&searchtype="+b+"&keyword="+c+"&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }"
         	alert("삭제되었습니다!")		
         }
         	event.stopPropagation()
       }
-    function enterkey() {
-		if (window.event.keyCode == 13) {
-			// 엔터키가 눌렸을 때
-			var s = document.getElementById("search").value;
-			location.href = "masterNoticeSearch.do?keyword=" + s;
-		}
-	}
     
-    function update(a,b,c){
-    	location.href="masterNoticeUpdateForm.do?rnum="+a+"&mnId="+b+"&keyword="+c+"&cntPerPage=${pp.cntPerPage}";
+    function update(a,b,c,d){
+    	location.href="masterNoticeSearchUpdateForm.do?rnum="+a+"&mnId="+b+"&searchtype="+c+"&keyword="+d+"&cntPerPage=${pp.cntPerPage}";
     	event.stopPropagation()
     }
 </script>
 </head>
 
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -63,27 +54,25 @@
 
 				<!--1. 회원 or 비회원 페이지 -->
 					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=맨투맨"
+							href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
 							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=맨투맨"
+							href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=맨투맨"
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 					</div>
 					<div align="center" width="30px" height="100px">
-						<input type="text" maxlength="30"
-							value="${pp.keyword }" id="search"
-							onkeyup="enterkey()">
+						
 					</div>
 					<br>
 
@@ -99,9 +88,13 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=맨투맨" style="text-decoration: none">카테고리</a></li><br>
-				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li><br>
-				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li><br>
+				<li><a href="category.do?newCid=코트"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
 				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
@@ -134,16 +127,14 @@
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
-									<th>내용</th>
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
 								<c:set var="i" value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
-									<tr onclick="location.href='masterNoticeSearchDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }&keyword=${pp.keyword }' ">
+									<tr onclick="location.href='masterNoticeSearchDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }&keyword=${pp.keyword }&searchtype=${pp.searchtype }' ">
 										<td id="${i }">${i }</td>
 										<td>${masterNotice.mnTitle}</td>
-										<td>${masterNotice.mnContent}</td>
 										<td><fmt:formatDate
 												pattern="yyyy-MM-dd hh:mm" value="${masterNotice.mnReg}" /></td>
 										<td>${masterNotice.mnReadCount}
@@ -151,9 +142,10 @@
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
 											<td>
 												<button type="button"
-													onclick="javascript:update(${masterNotice.rnum},${masterNotice.mnId},'수')">수정 ${pp.keyword}</button>
+													onclick="javascript:update('${masterNotice.rnum}','${masterNotice.mnId}','${param.searchtype }','${param.keyword }')">
+													수정</button>
 												<button type="button" 
-													onclick="javascript:deleteCheck(${masterNotice.mnId},'수')">삭제</button> 
+													onclick="javascript:deleteCheck('${masterNotice.mnId}','${param.searchtype }','${param.keyword }')">삭제</button> 
 												<!-- mnId는 items="{list}" 안에 포함된 정보.  -->
 											</td>
 										</c:if>
@@ -164,15 +156,28 @@
 					</c:if>
 				</section>
 							<c:if test="${member ne null && member.mEmail eq 'master'}">
-								<button type="button" class="putsub" onclick="javascript:popup()">공지사항 등록</button>
+								<button type="button" class="putsub" onclick="javascript:popup('${param.searchtype}','${param.keyword }')">공지사항 등록</button>
 							</c:if>
+				<form action="masterNoticeSearch.do">
+		<select class="putsub" name="searchtype">
+			<option value="">검색 유형 선택</option>
+			<option value="mnTitle" ${param.searchtype =='mnTitle' ? 'selected="selected"' : '' }>제목</option>
+			<option value="mnContent" ${param.searchtype == 'mnContent' ? 'selected="selected"' : '' }>내용</option>
+			<!-- 삼항연산자를 통해 처리 -->
+		</select> <input type="text" align="right" id="keyword" name="keyword"
+			value="${pp.keyword }" maxlength="10" class="text-input">
+		<input type="submit" value="검색" class="putsub">
+	</form>			
+							
+							
+							
 			</div>
 
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">
 				<c:if test="${pp.startPage != 1 }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}&searchtype=${pp.searchtype}">
 						<- </a>
 				</c:if>
 				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
@@ -182,16 +187,19 @@
 						</c:when>
 						<c:when test="${p != pp.nowPage }">
 							<a style="text-decoration: none; color: deeppink"
-								href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+								href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${p }&cntPerPage=${pp.cntPerPage}&searchtype=${pp.searchtype}">${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${pp.endPage != pp.lastPage}">
 					<a style="text-decoration: none; color: deeppink"
-						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+						href="./masterNoticeSearch.do?keyword=${pp.keyword }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}&searchtype=${pp.searchtype}">
 						-> </a>
 				</c:if>
 			</div>
+			
+			
+			
 
 		</div>
 
