@@ -92,7 +92,8 @@
 
 			</table>
 			<div class="button-container">
-				<button type="button" id="buy" class="button1" onclick="moveOrdersForm();">구매하기</button>
+				<button type="button" id="buy" class="button1"
+					onclick="moveOrdersForm();">구매하기</button>
 				<button type="button" id="bucket" class="button1"
 					onclick="moveToCart();">장바구니</button>
 
@@ -138,28 +139,43 @@
 					<th>리뷰 게시글</th>
 					<th>이름</th>
 					<th>날짜</th>
-					<th>별점</th>
+					<th>신고</th>
 				</tr>
 				<c:set var="i" value="1"></c:set>
 				<c:if test="${not empty reviewList}">
 					<c:forEach var="review" items="${reviewList }" varStatus="loop">
-						<tr
-							onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">
-							<td>${review.rid}</td>
-							<td>${review.memail}</td>
+						<tr>
+							<td
+								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${review.rid}</td>
+							<td
+								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${review.memail}</td>
 							<c:if test="${review.rimage != null}">
-								<td style="position: relative;"><img
+								<td style="position: relative;"
+									onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'"><img
 									src="./images/${review.rimage }" width="50" height="50"
 									class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 							</c:if>
 							<c:if test="${review.rimage == null}">
-								<td>첨부 파일이 없습니다.</td>
+								<td
+									onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">첨부
+									파일이 없습니다.</td>
 							</c:if>
-							<td>${review.rcontent}</td>
-							<td>${review.rwriter}</td>
+							<td
+								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${review.rcontent}</td>
+							<td
+								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${review.rwriter}</td>
 							<fmt:formatDate value="${review.rreg}" var="formattedDate"
 								pattern="YYYY년 MM월 dd일" />
-							<td>${formattedDate}</td>
+							<td
+								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${formattedDate}</td>
+							<c:if test="${member.mEmail ne null }">
+								<td><img src="images/report.png"
+									onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
+									style="width: 25px; height: 25px;"></td>
+							</c:if>
+							<c:if test="${member.mEmail eq null }">
+								<td>&nbsp;</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -176,7 +192,8 @@
 						href="./productDetail.do?nowPage=${reviewpp.startPage - 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
 						< </a>
 				</c:if>
-				<c:forEach begin="${reviewpp.startPage }" end="${reviewpp.endPage }" var="p">
+				<c:forEach begin="${reviewpp.startPage }" end="${reviewpp.endPage }"
+					var="p">
 					<c:choose>
 						<c:when test="${p == reviewpp.nowPage }">
 							<b>${p }</b>
@@ -247,32 +264,33 @@
 				</c:if>
 			</table>
 			<!-- 여기 추가함 -->
-				<div class="detail_page">
-					<c:if test="${askpp.startPage != 1 }">
-						<a style="text-decoration: none; color: black"
-							href="./productDetail.do?nowPage=${askpp.startPage - 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
-							< </a>
-					</c:if>
-					
-					<c:forEach begin="${askpp.startPage }" end="${askpp.endPage }" var="p">
-						<c:choose>
-							<c:when test="${p == askpp.nowPage }">
-								<b>${p }</b>
-							</c:when>
-							
-							<c:when test="${p != askpp.nowPage }">
-								<a style="text-decoration: none; color: black"
-									href="./productDetail.do?nowPage=${p }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
-									${p }</a>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${askpp.endPage != askpp.lastPage}">
-						<a style="text-decoration: none; color: black"
-							href="./productDetail.do?nowPage=${askpp.endPage + 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
-							> </a>
-					</c:if>
-				</div>
+			<div class="detail_page">
+				<c:if test="${askpp.startPage != 1 }">
+					<a style="text-decoration: none; color: black"
+						href="./productDetail.do?nowPage=${askpp.startPage - 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+						< </a>
+				</c:if>
+
+				<c:forEach begin="${askpp.startPage }" end="${askpp.endPage }"
+					var="p">
+					<c:choose>
+						<c:when test="${p == askpp.nowPage }">
+							<b>${p }</b>
+						</c:when>
+
+						<c:when test="${p != askpp.nowPage }">
+							<a style="text-decoration: none; color: black"
+								href="./productDetail.do?nowPage=${p }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+								${p }</a>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${askpp.endPage != askpp.lastPage}">
+					<a style="text-decoration: none; color: black"
+						href="./productDetail.do?nowPage=${askpp.endPage + 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+						> </a>
+				</c:if>
+			</div>
 
 			<button type="button" class="askbutton1"
 				onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의

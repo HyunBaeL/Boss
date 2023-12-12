@@ -23,9 +23,10 @@ public interface MasterReportDao {
 	// 페이징 처리 게시글 조회
 	List<Report> list(PagePgm pp);
 
-	int deleteReview(List<String> idList);
+	int deleteReport(List<String> idList);
+	
 	// 리뷰 유형별 검색
-	List<Report> searchReviewList(Search search);
+	List<Report> searchReportList(Search search);
 
 	
 

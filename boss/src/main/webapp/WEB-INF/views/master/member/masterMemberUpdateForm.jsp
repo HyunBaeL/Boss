@@ -27,8 +27,8 @@
 					<th>우편번호</th>
 					<th>주소</th>
 					<th>회원등급</th>
-					<th>가입일</th>
 					<th>삭제여부</th>
+					<th>가입일</th>
 					<th>관리</th>
 				</tr>
 				<tr align="center">

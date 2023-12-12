@@ -129,7 +129,6 @@
 		<h4 class="info-message">회원별 개별 문자 전송이 가능합니다.</h4>
 	</div>
 
-	<%@ include file="../../common/footer.jsp"%>
  
 
 </body>

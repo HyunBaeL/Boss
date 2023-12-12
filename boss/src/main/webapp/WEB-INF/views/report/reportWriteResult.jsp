@@ -13,14 +13,14 @@
 	<c:if test="${result == 1 }">
 		<script>
 			alert('${msg}');
-			location.href = 'masterMain.do';
+			location.href = 'main.do';
 		</script>
 	</c:if>
 	<!-- 파일이 없는경우 -->
 	<c:if test="${result == -1 }">
 		<script>
 			alert('${msg}');
-			location.href = 'masterMain.do';
+			location.href = 'main.do';
 		</script>
 	</c:if>
 	<!-- 용량이 초과한경우 -->

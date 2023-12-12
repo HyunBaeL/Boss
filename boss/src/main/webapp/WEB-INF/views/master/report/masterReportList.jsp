@@ -51,85 +51,88 @@
 				<tr>
 					<th><label><input type="checkbox"
 							class="check-all-checkbox">RID</label></th>
+					<th>피신고자</th>
 					<th>신고자</th>
 					<th>제목</th>
 					<th>내용</th>
 					<th>이미지</th>
 					<th>신고작성일</th>
-					<th>피신고자</th>
 					<th>답변</th>
 					<th>답변일</th>
 					<th>답변여부</th>
 					<th>삭제여부</th>
+					<th>관리</th>
 				</tr>
 
 				<c:set var="i" value="1"></c:set>
 				<c:forEach var="Report" items="${list}" varStatus="loop">
 					<tr>
+
+
 						<td id="${i }"><label><input type="checkbox"
 								name="chkId" value="${Report.reportid}">
 								${Report.reportid }</label></td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.memail}</td>
+						<td style="color: deeppink;"
+							onclick="location.href='masterMemberSelect.do?id=${Report.reportname}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportname}</td>
+						<td style="color: DodgerBlue;"
+							onclick="location.href='masterMemberSelect.do?id=${Report.memail}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.memail}</td>
 						<td
 							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reporttitle}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportcontent}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
-							<img src="uploadReport/${Report.reportimage}" width="50" height="50">
-
-						</td>
+						<td><input type="text" maxlength="10"
+							value="${Report.reportcontent}"></td>
+						<c:if test="${Report.reportimage ne null}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
+								<img src="uploadReport/${Report.reportimage}" width="50"
+								height="50">
+							</td>
+						</c:if>
+						<c:if test="${Report.reportimage eq null}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
+								<label>X</label>
+							</td>
+						</c:if>
 						<td
 							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${Report.reportreg}" /></td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportname}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportreply}</td>
+
+
+						<td><input type="text" maxlength="10"
+							value="${Report.reportreply}"></td>
 						<td
 							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportreplyreg}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportanswer}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportdrop}</td>
-
-
-
-						<%-- 						<c:if test="${Report.qnayn == 'Y'}"> --%>
-						<!-- 							<td -->
-						<%-- 								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' " --%>
-						<%-- 								style="color: cyan;">${Report.qnayn}</td> --%>
-						<%-- 						</c:if> --%>
-						<%-- 						<c:if test="${Report.qnayn == 'N'}"> --%>
-						<!-- 							<td -->
-						<%-- 								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' " --%>
-						<%-- 								style="color: red;">${Report.qnayn}</td> --%>
-						<%-- 						</c:if> --%>
-						<%-- 						<c:if test="${Report.qnadrop == 'Y'}"> --%>
-						<!-- 							<td -->
-						<%-- 								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' " --%>
-						<%-- 								style="color: cyan;">${Report.qnadrop}</td> --%>
-
-						<!-- 							</td> -->
-						<%-- 						</c:if> --%>
-						<%-- 						<c:if test="${Report.qnadrop == 'N'}"> --%>
-						<!-- 							<td -->
-						<%-- 								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' " --%>
-						<%-- 								style="color: red;">${Report.qnadrop}</td> --%>
-						<%-- 						</c:if> --%>
-
-						<%-- 						<td><c:if test="${Report.qnayn == 'N'}"> --%>
-						<!-- 								<button type="button" -->
-						<%-- 									onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button> --%>
-						<!-- 								<button type="button" -->
-						<%-- 									onclick="location.href='masterReportDelete.do?id=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button> --%>
-						<%-- 							</c:if> <c:if test="${Report.qnayn == 'Y'}"> --%>
-						<!-- 								<button type="button" -->
-						<%-- 									onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">수정</button> --%>
-						<!-- 								<button type="button" -->
-						<%-- 									onclick="location.href='masterReportDelete.do?id=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button> --%>
-						<%-- 							</c:if></td> --%>
+						<c:if test="${Report.reportanswer == 'Y'}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+								style="color: cyan;">${Report.reportanswer}</td>
+						</c:if>
+						<c:if test="${Report.reportanswer == 'N'}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+								style="color: red;">${Report.reportanswer}</td>
+						</c:if>
+						<c:if test="${Report.reportdrop == 'Y'}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+								style="color: cyan;">${Report.reportdrop}</td>
+						</c:if>
+						<c:if test="${Report.reportdrop == 'N'}">
+							<td
+								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' "
+								style="color: red;">${Report.reportdrop}</td>
+						</c:if>
+						<td><c:if test="${Report.reportdrop == 'N'}">
+								<button type="button"
+									onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button>
+								<button type="button"
+									onclick="location.href='masterReportDelete.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+							</c:if> <c:if test="${Report.reportdrop == 'Y'}">
+								<button type="button"
+									onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button>
+								<button type="button"
+									onclick="location.href='masterReportDelete.do?id=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+							</c:if></td>
 					</tr>
 					<c:set var="i" value="${i + 1}"></c:set>
 				</c:forEach>
@@ -138,44 +141,45 @@
 			<button type="submit" align="left" class="putsub">삭제여부 수정</button>
 			<div align="right" class="search">
 	</form>
-	<!-- 	<form action="masterReportSearch.do" method="post"> -->
-	<!-- 		<select class="putsub" name="searchtype"> -->
-	<!-- 			<option value="">검색 유형 선택</option> -->
-	<!-- 			<option value="memail">ID</option> -->
-	<!-- 			<option value="reportid">글번호</option> -->
-	<!-- 			<option value="qnatitle">글제목</option> -->
-	<!-- 			<option value="qnayn">답변여부</option> -->
-	<!-- 		</select> <input type="text" align="right" id="keyword" name="keyword" -->
-	<!-- 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input"> -->
-	<!-- 		<input type="submit" value="검색" class="putsub"> -->
-	<!-- 	</form> -->
+	<form action="masterReportSearch.do" method="post">
+		<select class="putsub" name="searchtype">
+			<option value="">검색 유형 선택</option>
+			<option value="memail">ID</option>
+			<option value="reportid">글번호</option>
+			<option value="reporttitle">글제목</option>
+			<option value="reportanswer">답변여부</option>
+			<option value="reportdrop">삭제여부</option>
+		</select> <input type="text" align="right" id="keyword" name="keyword"
+			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
+		<input type="submit" value="검색" class="putsub">
+	</form>
 
 	<div class="pageFont1">
-		<c:if test="${page.startPage != 1 }">
+		<c:if test="${pp.startPage != 1 }">
 			<a style="text-decoration: none; color: deeppink"
-				href="./masterReportList.do?nowPage=${page.startPage - 1 }&cntPerPage=${page.cntPerPage}">
+				href="./masterReportList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
 				< </a>
 		</c:if>
-		<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
+		<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
 			<c:choose>
-				<c:when test="${p == page.nowPage }">
+				<c:when test="${p == pp.nowPage }">
 					<b>${p }</b>
 				</c:when>
-				<c:when test="${p != page.nowPage }">
+				<c:when test="${p != pp.nowPage }">
 					<a style="text-decoration: none; color: deeppink"
-						href="./masterReportList.do?nowPage=${p }&cntPerPage=${page.cntPerPage}">${p }</a>
+						href="./masterReportList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
-		<c:if test="${page.endPage != page.lastPage}">
+		<c:if test="${pp.endPage != pp.lastPage}">
 			<a style="text-decoration: none; color: deeppink"
-				href="./masterReportList.do?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">
+				href="./masterReportList.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
 				> </a>
 		</c:if>
 	</div>
 	<h4 class="info-message">클릭시 해당 신고글로 이동합니다.</h4>
+	<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
 	</div>
 
-	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>
