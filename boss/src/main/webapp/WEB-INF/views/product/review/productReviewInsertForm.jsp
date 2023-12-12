@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./js/product.js"></script>
 <title>리뷰 페이지</title>
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/productDetailReview.css">
@@ -62,7 +64,7 @@
 			</table>
 
 			<div class="review_insert_button2">
-				<input type="submit" value="등록" class="review_insert_button" /> <input
+				<input type="submit" value="등록" class="review_insert_button" id="review_insert_button" /> <input
 					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>

@@ -50,15 +50,26 @@
 	margin-right: 10px;
 }
 
-/* 선 css */
-.line_1 {
-	position: absolute;
-	top: 0; /* 선을 상단에 위치시킵니다. */
-	right: 200px; /* 선을 오른쪽에 위치시킵니다. */
-	height: 5px;
-	background-color: black;
-	width: 35%;
-	/* 	margin-top: 100px; */
+/* 상품제목  */
+h1 {
+	font-size: 55px; /* 키우고 싶은 크기로 조절하세요 */
+}
+/* css 적용하는중 */
+.container {
+	width: 80%;
+	max-width: 800px; /* 최대 폭을 설정하세요 */
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.pcontent {
+	width: 100%;
+	height: 350px; 원하는 높이로 조절하세요
+	resize: none; 사용자 크기 조절 비활성화
+	border: none;
+	font-weight: bold; 굵게 설정
+	font-size: 40px; 원하는 크기로 조절하세요
+	overflow: hidden;
 }
 /* 테이블 상품 */
 .table_product {
@@ -95,34 +106,60 @@
 	background-color: black;
 }
 
-.product_count th, .product_count td{
+.product_count th, .product_count td {
 	padding: 5px; /* 조절 가능한 값으로 변경 */
 	font-size: 12px; /* 조절 가능한 값으로 변경 */
 	width: 20px;
 }
 
-.product_count input{
+.product_count input {
 	padding: 5px;
 	font-size: 10px;
-	width: 10px	
+	width: 10px
 }
+input[type="number"] {
+	align: left;
+	width: 10%;
+	font-size: 30px;
+	min: 1;
+	max: 20;
+}
+
 /* 내용 글씨 css */
-.detail_content h1 {
-	font-size: 24px;
-	font-weight: bold; /* 굵게 */
-	color: #0066cc; /* 파란색 */
-}
+   .editable-content {
+            width: 80%;
+            max-width: 800px; /* 최대 폭을 설정하세요 */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가했습니다 */
+        }
+
+        [contenteditable="true"] {
+            outline: none; /* 포커스 효과를 제거했습니다 */
+            width: 80%;
+            max-width: 1000px; /* 최대 폭을 설정하세요 */
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가했습니다 */
+            border: none;
+            font-size:150%;
+            margin-bottom: 10%
+        }
 
 /* right 컨테이너쪽 버튼 2개(장바구니,구매하기) */
 .button-container {
 	display: flex;
-	margin-top: 200px; /*상품 갯수와 버튼 사이의 간격을 조절할 여백 크기를 설정하세요 */
-	/* 	margin-right: 10px; */
+	margin-top: 100px; /*상품 갯수와 버튼 사이의 간격을 조절할 여백 크기를 설정하세요 */
+		margin-left: 80px;
 }
 
-.button1{
-	flex: 0.3;
-	margin-left: 80px; /*오른쪽으로 10px만큼 이동*/
+.button1 {
+	flex: 0.8;
+	margin-right: 190px; /*오른쪽으로 10px만큼 이동*/
 	padding: 8px 14px;
 	font-size: 14px;
 	font-weight: bold;
@@ -133,15 +170,14 @@
 	border: 2px solid #000000;
 	border-radius: 5px;
 	transition: background-color 0.3s ease, color 0.3s ease;
-	margin-right: 5%; /* 오른쪽 여백을 부모 요소의 크기에 대한 퍼센트로 조절 */
 	margin-bottom: 10%; /* 아래쪽 여백을 부모 요소의 크기에 대한 퍼센트로 조절 */
-	bottom: -30%; /* 아래로 10% 이동 */
+ 	bottom: -30%; /*아래로 10% 이동 */
 }
 
 /* 문의버튼 */
 .askbutton1 {
- 	flex: 0.3;
-    margin-left: 1602px; 
+	flex: 0.3;
+	margin-left: 1602px;
 	padding: 8px 14px;
 	font-size: 14px;
 	font-weight: bold;
@@ -156,7 +192,6 @@
 	margin-bottom: 10%; /* 아래쪽 여백을 부모 요소의 크기에 대한 퍼센트로 조절 */
 	bottom: -30%; /* 아래로 10% 이동 */
 }
-
 
 .review_button {
 	display: flex;
@@ -176,7 +211,7 @@
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	/* 	margin-bottom: 10%; 여기에 간격을 조절하는 값 추가 */
+	margin-bottom: 10%;
 }
 
 /* 리뷰 caption */
@@ -233,4 +268,5 @@
 
 .detail_page {
 	text-align: center; /* 텍스트 내용을 가운데 정렬 */
+	margin-top: 40px;
 }

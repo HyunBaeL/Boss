@@ -17,6 +17,7 @@
 <script>
 function deleteAsk(askid,pid) {
 	   var confirmDelete = confirm("진짜 삭제하시겠습니까?");
+	   console.log(askid);
 	   if(confirmDelete){
 		$.ajax({
 	        type:"POST",
