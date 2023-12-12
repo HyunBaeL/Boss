@@ -232,6 +232,5 @@ function ajax_change(status, odid) {
 	</form>
 	</div>
 
-	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

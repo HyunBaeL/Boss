@@ -9,7 +9,6 @@ import boss.common.PagePgm;
 import boss.common.Search;
 import boss.dao.MasterReportDao;
 import boss.model.Report;
-import boss.model.Review;
 
 @Service
 public class MasterReportService {
@@ -28,18 +27,18 @@ public class MasterReportService {
 		return dao.list(pp);
 	}
 
-//	public int update(Report review) {
-//		return dao.update(review);
-//	}
-//
-//
-//	public int deleteReview(List<String> idList) {
-//		return dao.deleteReview(idList);
-//	}
-//	
-//
-//	// 리뷰 유형별 검색
-//	public List<Report> searchReviewList(Search search) {
-//		return dao.searchReviewList(search);
-//	}
+	public int update(Report report) {
+		return dao.update(report);
+	}
+
+
+	public int deleteReport(List<String> idList) {
+		return dao.deleteReport(idList);
+	}
+	
+
+	// 신고 유형별 검색
+	public List<Report> searchReportList(Search search) {
+		return dao.searchReportList(search);
+	}
 }

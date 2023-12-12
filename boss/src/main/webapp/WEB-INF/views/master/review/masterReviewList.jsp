@@ -53,8 +53,8 @@
 				<tr>
 					<th><label><input type="checkbox"
 							class="check-all-checkbox">글번호</label></th>
-					<th>ID</th>
 					<th>상품번호</th>
+					<th>ID</th>
 					<th>작성자</th>
 					<th>제목</th>
 					<th>내용</th>
@@ -70,19 +70,26 @@
 						<td id="${i }"><label><input type="checkbox"
 								name="chkId" value="${review.rid }"> ${review.rid }</label></td>
 						<td
-							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.memail}</td>
-						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.pid}</td>
+						<td
+							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.memail}</td>
+
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rwriter}</td>
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rtitle}</td>
 						<td><input type="text" value="${review.rcontent}"
 							readonly="readonly"></td>
-
-						<td
-							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">
-							<img src="images/${review.rimage}" width="50" height="50">
+						<c:if test="${review.rimage ne null }">
+							<td
+								onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">
+								<img src="images/${review.rimage}" width="50" height="50">
+						</c:if>
+						<c:if test="${review.rimage eq null }">
+							<td
+								onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">
+								X
+						</c:if>
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${review.rid}' ">${review.rreg}</td>
 						<td
@@ -100,8 +107,6 @@
 						</c:if>
 
 						<td>
-							<button type="button"
-								onclick="location.href='masterReviewUpdateForm.do?rid=${review.rid}'">수정</button>
 							<button type="button"
 								onclick="location.href='masterReviewDelete.do?rid=${review.rid}' ">삭제</button>
 						</td>
@@ -150,7 +155,7 @@
 	</div>
 	<h4 class="info-message">클릭시 해당 리뷰로 이동합니다.</h4>
 	<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
+	<h4 class="info-message">회원의 리뷰는 수정할 수 없습니다.</h4>
 	</div>
-	<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>

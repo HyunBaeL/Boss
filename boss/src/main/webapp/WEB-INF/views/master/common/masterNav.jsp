@@ -22,7 +22,7 @@
   
 </nav>
 
-	<div class="bottom-buttons">
+	<div class="bottom-buttons" id="bottom-buttons">
 		<a href="#" onclick="history.go(-1)"><</a> <a href="masterMain.do">Master</a>
 		<a href="main.do">MAIN</a>
 	</div>
