@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이 페이지</title>
 </head>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>

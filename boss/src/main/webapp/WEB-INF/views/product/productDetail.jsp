@@ -45,7 +45,11 @@
 <!--구매하기 버튼, 장바구니 ajax -->
 <script src="./js/bucket.js"></script>
 
-
+<script>
+	if(){
+		
+	}
+</script>
 </head>
 
 
@@ -94,11 +98,18 @@
 
 			</table>
 			<div class="button-container">
-				<button type="button" id="buy" class="button1"
-					onclick="moveOrdersForm();">구매하기</button>
+			<c:if test="${member.mEmail != null }">
+				<button type="button" id="buy" class="button1" onclick="moveOrdersForm();">구매하기</button>
 				<button type="button" id="bucket" class="button1"
 					onclick="moveToCart();">장바구니</button>
-
+			</c:if>
+			
+			<c:if test="${member.mEmail == null }">
+				<button type="button" id="bucket" class="button1" onclick="location.href='NaverLogin.do'">로그인 (비회원 구매 불가)</button>
+				<button type="button" id="bucket" class="button1"
+					onclick="location.href='main.do'">메인 페이지</button>
+					
+			</c:if>
 
 			</div>
 		</div>
