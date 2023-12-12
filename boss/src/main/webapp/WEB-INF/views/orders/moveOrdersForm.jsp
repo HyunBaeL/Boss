@@ -30,7 +30,7 @@
          </center>
          <div class="container_left">
 
-            <h2>배송지 입력</h2>
+            <h2>수령자 정보</h2>
             <table class="table_orders1">
                <tr>
                   <td><input type="text" value="${member.mName } "
@@ -54,7 +54,7 @@
                      name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70"></td>
                </tr>
             </table>
-            <h2>주문자 입력</h2>
+            <h2>주문자</h2>
             <table class="table_orders2">
                <tr>
                   <td><input type="text" value="${member.mName }" readonly
@@ -76,8 +76,8 @@
             <input type="hidden" name="bidAll" value="${bucket.bid }">
             <table class="table_product">
                <tr>
-                  <td class="product_img" rowspan="5"><img
-                     src="./imeges/${bucket.bimage}"></td>
+                  <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="150" height="100"></td>
+                  
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
                      readonly style="color: palegreen; font-size: 30px"></td>
@@ -90,7 +90,7 @@
                   <td>${bucket.bcolor}</td>
                </tr>
                <tr>
-                  <td>${bucket.bprice}&#8361;${bucket.bcount}개</td>
+                  <td>&#8361;${bucket.bprice}&nbsp;&nbsp;[${bucket.bcount}개]</td>
                </tr>
 
             </table>
@@ -101,7 +101,7 @@
              	<table class="table_product">
                <tr>
                   <td class="product_img" rowspan="5"><img
-                     src="./imeges/${bucket.bimage}"></td>
+                     src="./images/${bucket.bimage}" width="150" height="100"></td>
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
                      readonly style="color: palegreen; font-size: 30px"></td>
@@ -114,7 +114,7 @@
                   <td>${bucket.bcolor}</td>
                </tr>
                <tr>
-                  <td>${bucket.bprice}&#8361;${bucket.bcount}개</td>
+                  <td>&#8361;${bucket.bprice}&nbsp;&nbsp;[${bucket.bcount}개]</td>
                </tr>
 
             </table>
@@ -137,7 +137,7 @@
                   <td>${product.pcolor}</td>
                </tr>
                <tr>
-                  <td>${product.pprice}&#8361;${amountCount}개</td>
+                  <td>&#8361;${product.pprice}&nbsp;&nbsp;[${amountCount}개]</td>
                </tr>
 
             </table>

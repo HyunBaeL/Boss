@@ -88,7 +88,7 @@
 		#{memail}, #{oid}, #{pid},
 		#{rwriter},
 		#{rtitle},
-		#{rimage}, sysdate, 0, 'N', #{rcontent}
+		#{rimage,jdbcType=VARCHAR}, sysdate, 0, 'N', #{rcontent}
 		)
 	</insert>
 	
@@ -111,7 +111,7 @@
 	<!-- 리뷰 업데이트 폼 -->
 	<update id="reviewupdate" parameterType="review">
 		update review
-		set rwriter=#{rwriter}, rtitle=#{rtitle}, rimage=#{rimage},
+		set rwriter=#{rwriter}, rtitle=#{rtitle}, rimage=#{rimage,jdbcType=VARCHAR},
 		rreg=sysdate, rcontent=#{rcontent} where rid = #{rid}
 	</update>
 

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 쓴 리뷰</title>
+<title>상품 문</title>
 
 <link rel="stylesheet" href="css/sidebar.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>

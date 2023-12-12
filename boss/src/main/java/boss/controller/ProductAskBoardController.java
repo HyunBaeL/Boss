@@ -84,7 +84,7 @@ public class ProductAskBoardController {
 
 		System.out.println("askboard : " + askboard);
 
-		askboard = service.askselect(askid);
+		askboard = service.askselect(askboard.getAskid());
 
 		model.addAttribute("askboard", askboard);
 		return "./product/askBoard/productAskBoardUpdateForm";
@@ -92,19 +92,21 @@ public class ProductAskBoardController {
 
 	// 문의 수정
 	@RequestMapping("productAskBoardUpdateCheck.do")
-	public String productAskBoardUpdateCheck(Model model, AskBoard askboard) {
+	public String productAskBoardUpdateCheck(Model model, String askcontent, int askid) {
 		System.out.println("productAskBoardUpdateCheck");
 
 		int result = 0;
-
-		System.out.println(askboard.getAskid());
-
-		result = service.askboardupdate(askboard);
+		
+		AskBoard asb = service.askselect(askid);
+		
+		asb.setAskcontent(askcontent);
+		
+		result = service.askboardupdate(asb);
 
 		System.out.println(result);
 
 		model.addAttribute("result", result);
-		model.addAttribute("askboard", askboard);
+		model.addAttribute("askboard", asb);
 
 		return "./product/askBoard/productAskBoardUpdateCheck";
 	}
@@ -117,6 +119,8 @@ public class ProductAskBoardController {
 		System.out.println(askid);
 		
 		int result = service.askdelete(askid);
+		
+		System.out.println("result 삭제 확인 : " + result);
 		
 		if(result == 1) {
 			return "Y";

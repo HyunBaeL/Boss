@@ -10,24 +10,27 @@
 <title>상세 페이지</title>
 
 <script>
-    function changePage(newPage) {
-        var cntPerPage = document.getElementById('cntPerPage').value;
-        var pid = "${pid}"; // JSP 변수를 스크립트에 사용
-        location.href = "./productDetail.do?nowPage=" + newPage + "&cntPerPage=" + cntPerPage + "&pid=" + pid;
-    }
+	function changePage(newPage) {
+		var cntPerPage = document.getElementById('cntPerPage').value;
+		var pid = "${pid}"; // JSP 변수를 스크립트에 사용
+		location.href = "./productDetail.do?nowPage=" + newPage
+				+ "&cntPerPage=" + cntPerPage + "&pid=" + pid;
+	}
 </script>
 
 <script>
 	function moveToCart() {
-		 var quantity = document.getElementById('bucketCount').value;
-		 window.location.href = 'cartFormMove.do?pid=${product.pid}&quantity=' + quantity;
+		var quantity = document.getElementById('bucketCount').value;
+		window.location.href = 'cartFormMove.do?pid=${product.pid}&quantity='
+				+ quantity;
 	}
 </script>
 
 <script>
 	function moveOrdersForm() {
-		 var quantity = document.getElementById('bucketCount').value;
-		 location.href = 'moveOrdersForm.do?pid=${product.pid}&quantity=' + quantity;
+		var quantity = document.getElementById('bucketCount').value;
+		location.href = 'moveOrdersForm.do?pid=${product.pid}&quantity='
+				+ quantity;
 	}
 </script>
 
@@ -42,7 +45,11 @@
 <!--구매하기 버튼, 장바구니 ajax -->
 <script src="./js/bucket.js"></script>
 
-
+<script>
+	if(){
+		
+	}
+</script>
 </head>
 
 
@@ -54,8 +61,7 @@
 		<div class="container_left">
 			<!-- 이미지 경로 불러오기 -->
 			<img alt="상품이미지" src="./images/${product.pimage }"
-				class="centered-image"> <img alt="상품이미지"
-				src="./images/${product.pimage }" class="centered-image">
+				class="centered-image">
 		</div>
 
 		<div class="container_right">
@@ -92,11 +98,18 @@
 
 			</table>
 			<div class="button-container">
-				<button type="button" id="buy" class="button1"
-					onclick="moveOrdersForm();">구매하기</button>
+			<c:if test="${member.mEmail != null }">
+				<button type="button" id="buy" class="button1" onclick="moveOrdersForm();">구매하기</button>
 				<button type="button" id="bucket" class="button1"
 					onclick="moveToCart();">장바구니</button>
-
+			</c:if>
+			
+			<c:if test="${member.mEmail == null }">
+				<button type="button" id="bucket" class="button1" onclick="location.href='NaverLogin.do'">로그인 (비회원 구매 불가)</button>
+				<button type="button" id="bucket" class="button1"
+					onclick="location.href='main.do'">메인 페이지</button>
+					
+			</c:if>
 
 			</div>
 		</div>
@@ -106,18 +119,8 @@
 
 
 	<div class="detail_content" align="center">
+		<div contenteditable="true">${product.pcontent }</div>
 
-		<h1>${product.pcontent }</h1>
-		<br>
-		<h1>이옷은 멋있고</h1>
-		<br>
-		<h1>이옷은 우종윤이꺼고</h1>
-		<br>
-		<h1>우종윤이 입었으니까 비싸고</h1>
-		<br>
-		<h1>비싸니까 환불/교한 안돼</h1>
-		<br>
-		<h1>잘 선택 해야돼!</h1>
 
 
 
@@ -174,7 +177,7 @@
 									style="width: 25px; height: 25px;"></td>
 							</c:if>
 							<c:if test="${member.mEmail eq null }">
-								<td>&nbsp;</td>
+								<td>로그인 후 신고</td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -189,34 +192,35 @@
 			<div class="detail_page">
 				<c:if test="${reviewpp.startPage != 1 }">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${reviewpp.startPage - 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?nowPage=${reviewpp.startPage - 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}
+						                        &anowPage=${askpp.startPage }&acntPerPage=${askpp.cntPerPage}">
 						< </a>
 				</c:if>
+
 				<c:forEach begin="${reviewpp.startPage }" end="${reviewpp.endPage }"
 					var="p">
 					<c:choose>
 						<c:when test="${p == reviewpp.nowPage }">
 							<b>${p }</b>
 						</c:when>
+
 						<c:when test="${p != reviewpp.nowPage }">
 							<a style="text-decoration: none; color: black"
-								href="./productDetail.do?nowPage=${p }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
+								href="./productDetail.do?nowPage=${p }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}
+														&anowPage=${askpp.startPage }&acntPerPage=${askpp.cntPerPage}">
 								${p }</a>
 						</c:when>
 					</c:choose>
+
 				</c:forEach>
 				<c:if test="${reviewpp.endPage != reviewpp.lastPage}">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${reviewpp.endPage + 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?nowPage=${reviewpp.endPage + 1 }&cntPerPage=${reviewpp.cntPerPage}&pid=${pid}
+												&anowPage=${askpp.startPage }&acntPerPage=${askpp.cntPerPage}">
 						> </a>
 				</c:if>
 			</div>
-			<script>
-			function 
-			
-			
-			
-			</script>
+
 
 
 		</div>
@@ -267,7 +271,8 @@
 			<div class="detail_page">
 				<c:if test="${askpp.startPage != 1 }">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${askpp.startPage - 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?anowPage=${askpp.startPage - 1 }&acntPerPage=${askpp.cntPerPage}&pid=${pid}
+													&nowPage=${reviewpp.startPage}&cntPerPage=${reviewpp.cntPerPage}">
 						< </a>
 				</c:if>
 
@@ -280,21 +285,24 @@
 
 						<c:when test="${p != askpp.nowPage }">
 							<a style="text-decoration: none; color: black"
-								href="./productDetail.do?nowPage=${p }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+								href="./productDetail.do?anowPage=${p }&acntPerPage=${askpp.cntPerPage}&pid=${pid}
+															&nowPage=${reviewpp.startPage}&cntPerPage=${reviewpp.cntPerPage}">
 								${p }</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${askpp.endPage != askpp.lastPage}">
 					<a style="text-decoration: none; color: black"
-						href="./productDetail.do?nowPage=${askpp.endPage + 1 }&cntPerPage=${askpp.cntPerPage}&pid=${pid}">
+						href="./productDetail.do?anowPage=${askpp.endPage + 1 }&acntPerPage=${askpp.cntPerPage}&pid=${pid}
+													 &nowPage=${reviewpp.startPage}&cntPerPage=${reviewpp.cntPerPage}">
 						> </a>
 				</c:if>
 			</div>
-
-			<button type="button" class="askbutton1"
-				onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
-				작성</button>
+			<c:if test="${member != null }">
+				<button type="button" class="askbutton1"
+					onclick="location.href='productAskBoardInsertForm.do?pid=${pid}'">문의
+					작성</button>
+			</c:if>
 		</div>
 	</div>
 
