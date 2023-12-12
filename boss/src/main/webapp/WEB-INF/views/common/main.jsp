@@ -55,7 +55,7 @@
 <style>
 .carousel-inner>.carousel-item>img {
 	width: 640px;
-	height: 700px;
+	height: 550px;
 }
 </style>
 
@@ -102,7 +102,7 @@
 	text-align: center;
 	max-width: 400px; /* 팝업 최대 가로 크기 설정 */
 	width: 100%; /* 팝업 너비 100%로 설정 */
-	max-height: 400px; /* 팝업 최대 세로 크기 설정 */
+	max-height: 700px; /* 팝업 최대 세로 크기 설정 */
 	overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
 }
 
@@ -150,13 +150,14 @@
 		}
 
 		// 팝업 닫기 버튼 이벤트 처리
-		document.querySelector(".popup-close").addEventListener("click", function() {
-			// 팝업 닫기
-			document.getElementById("popup").style.display = "none";
+		document.querySelector(".popup-close").addEventListener("click",
+				function() {
+					// 팝업 닫기
+					document.getElementById("popup").style.display = "none";
 
-			// "오늘 그만 보기" 상태 저장
-			setPopupClosedStatus();
-		});
+					// "오늘 그만 보기" 상태 저장
+					setPopupClosedStatus();
+				});
 	});
 
 	// "오늘 그만 보기" 상태를 저장
@@ -192,8 +193,6 @@
 		return tomorrow.toUTCString();
 	}
 </script>
-
-
 
 
 </head>
@@ -257,8 +256,6 @@
 				<br>
 				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
 				<br>
-				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
-				<br>
 			</ul>
 		</nav>
 		<!---------------------- Nav ------------------->
@@ -287,14 +284,14 @@
 								<!--가로-->
 								<img class="d-block w-100" src="images/slide1.png"
 									alt="First slide">
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100" src="images/slide2.png"
-									alt="Second slide">
 								<div class="carousel-caption d-none d-md-block">
 									<h5>BOSSMALL</h5>
 									<p>BOSSMALLBOSSMALL</p>
 								</div>
+							</div>
+							<div class="carousel-item">
+								<img class="d-block w-100" src="images/slide2.png"
+									alt="Second slide">
 							</div>
 							<div class="carousel-item">
 								<img class="d-block w-100" src="images/slide3.png"
@@ -515,8 +512,6 @@
 			<br>
 			<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
 			<br>
-			<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
-			<br>
 			<input type="button" value="관리자페이지"
 				onclick="location.href='masterMain.do'">
 			<br>
@@ -582,7 +577,7 @@
 						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
 					</p>
 					<br>
-					<h3 text-align="center">WEEKLY BEST</h3>
+					<h3 text-align="center">WHAT'S NEW</h3>
 			</header>
 			<section class="tiles">
 				<article class="style1">

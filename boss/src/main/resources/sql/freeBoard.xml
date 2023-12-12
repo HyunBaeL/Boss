@@ -41,6 +41,7 @@ values
 		</where>			
 			 order by fid desc) a )
 			where rn between #{startRow} and #{endRow}
+			 and fDrop = 'N' 
 	</select>
 
 
