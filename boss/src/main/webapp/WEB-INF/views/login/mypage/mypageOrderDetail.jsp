@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내 주문 내역</title>
 </head>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -37,7 +37,7 @@
 		            	alert("이미 환불 요청을 처리중 입니다.");
 		            	location.href = "mypageOrderDetail.do?oid="+ oid;
 		            } else{
-		            	alert("환불 처리가 완료 되었습니다.");
+		            	alert("이미 환불 처리가 완료 되었습니다.");
 		            	location.href = "mypageOrderDetail.do?oid="+ oid;
 		            }
 		        },
