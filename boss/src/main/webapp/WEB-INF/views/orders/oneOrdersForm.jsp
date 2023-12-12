@@ -94,7 +94,7 @@
              
 		} else {
             alert('결제실패');
-            location.href='productDetail.do?pid=pid';
+            location.href='productDetail.do?pid=${pid}';
          }
       });
    }
