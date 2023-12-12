@@ -37,10 +37,10 @@ function add(){
 	</c:if>
 	<!-- 게시글번호=시퀀스,회원이메일(아이디),qna제목,내용,첨부파일,qna 쓴 날짜(sysdate),삭제여부(초기값N),답변여부(초기값N) -->
 	<div class="container" align="center">
-		<h2>공지사항</h2>
+		<h2>문의 작성</h2>
 		<div class="inner">
 			<form action="myPageQnaBoardInsert.do" method="post"
-				enctype="multipart/form-data" target="repacatFrame"
+				enctype="multipart/form-data"
 				onSubmit="return ">
 				<!-- 이 페이지는 팝업창.  -->
 				<!-- 경로를 부모창의 함수로 지정. 부모창에서 myPageQnaBoardInsert.do로. 그 후 팝업창은 꺼지고, 부모창은 새로고침 

@@ -26,7 +26,7 @@ public interface MasterNoticeDao {
 
 		void masterNoticeUpdate(MasterNotice mn);
 
-		int noticeCount(String keyword);
+		int noticeCount(PagePgm pp);
 
 		List<MasterNotice> noticeSearchList(PagePgm pp);
 

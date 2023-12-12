@@ -27,12 +27,13 @@ public class PagePgm extends Search {
 	}
 	
 	//검색용 생성자
-	public PagePgm(int total, int nowPage, int cntPerPage, String search) {
+	public PagePgm(int total, int nowPage, int cntPerPage, PagePgm pp) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
-		setKeyword(search);
-
+		setKeyword(getKeyword());
+		setSearchtype(getSearchtype());
+		
 		calcLastPage(getTotal(), getCntPerPage());
 		calcStartEndPage(getNowPage(), cntPage);
 		calcStartEnd(getNowPage(), getCntPerPage());

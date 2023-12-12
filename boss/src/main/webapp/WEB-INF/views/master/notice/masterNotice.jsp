@@ -13,9 +13,19 @@
 <head>
 <title>Phantom by HTML5 UP</title>
 <meta charset="utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+
+
+<!-- buttons_master css -->
+<link rel="stylesheet" href="assets/css/mainhs.css" />
+<!-- <link rel="stylesheet" href="assets/css/mainhsSlide.css" /> -->
+
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
@@ -45,12 +55,76 @@
     	event.stopPropagation()
     }
 </script>
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.content {
+	padding: 16px;
+	overflow-y: auto;
+	box-sizing: border-box;
+	margin-left: 20%; /* 사이드바 너비만큼 여백을 주기 위해 조절 */
+}
+
+.ordertable {
+	border-collapse: collapse;
+	width: calc(100% - 25%); /* 페이지 전체 너비에서 사이드바의 너비를 뺀 값으로 지정 */
+	margin-bottom: 200px;
+	margin-left: 50px;
+}
+
+.ordertable th, .ordertable td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 텍스트를 셀 내에서 숨김 */
+    text-overflow: ellipsis; /* 텍스트 오버플로우 시 ...으로 표시 */
+    
+}
+
+.ordertable th {
+	background-color: #333;
+	color: white;
+	text-align: center;
+}
+
+.ordertable tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.ordertable tr:hover {
+	background-color: #ddd;
+}
+
+.ordertable td.lastcolumn, .ordertable th.lastcolumn {
+    background-color: #FFFFFF; /* 브라우저 바탕의 흰색 */
+    padding: 0; /* 패딩 제거 */
+    border: 2px solid white;
+    
+}
+
+button {
+
+    margin-right: 10px; /* 오른쪽 여백을 조절하여 간격을 벌립니다. */
+}
+
+/* 마지막 버튼의 오른쪽 여백을 제거합니다. */
+button:last-child {
+    margin-right: 0;
+}
+</style>
+
 </head>
 
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -59,50 +133,53 @@
 				<%@include file="../../common/header.jsp"%>
 
 				<!--1. 회원 or 비회원 페이지 -->
-					<div class="category-link" align="center">
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=맨투맨"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-					</div>
-
-				<div align="center" width="100px" height="100px">
-					<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
-						id="search" onkeyup="enterkey()"><br>
+				<div class="category-link" align="center">
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">OUTER</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">KNIT</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 				</div>
-				
-				<!-- Nav -->
+				<div align="center" width="30px" height="100px"></div>
+				<br>
+
+				<!---------------------- Nav --------------------->
 				<nav>
-						<ul>
-							<li><a href="#menu">Menu</a></li>
-						</ul>
-					</nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do">카테고리</a></li>
-				<li><a href="freeBoardList.do">커뮤니티</a></li>
-				<li><a href="masterNotice.do">공지사항</a></li>
-				<li><a href="elements.do">Elements</a></li>
+				<li><a href="category.do?newCid=코트"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
+				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
+		<!---------------------- Nav ------------------->
+
+
 
 		<!-- Main -->
 		<div id="main">
@@ -115,27 +192,31 @@
 				<section class="tiles">
 
 					<!-- 공지사항 테이블 출력 -->
-						<div class="container">
-							<!-- 옵션선택 끝 -->
-							<table
-								style="border: 1px solid black; margin-left: auto; margin-right: auto;">
+					<div class="content">
+						<div class="container_orders">
+							<table border="1" class="ordertable">
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
 									<th>작성일</th>
 									<th>조회수</th>
+									<c:if test="${member ne null && member.mEmail eq 'master'}">
+											<td class="lastcolumn">
+											</td>
+										</c:if>
 								</tr>
-								<c:set var="i" value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
+								<c:set var="i"
+									value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
 								<c:forEach var="masterNotice" items="${list}" varStatus="loop">
-									<tr 
-									onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">
+									<tr
+										onclick="location.href='masterNoticeDetail.do?mnId=${masterNotice.mnId}&nowPage=${pp.nowPage }&cntPerPage=${pp.cntPerPage }' ">
 										<td id="${i }">${i }</td>
 										<td>${masterNotice.mnTitle}</td>
-										<td><fmt:formatDate
-												pattern="yyyy-MM-dd hh:mm" value="${masterNotice.mnReg}" /></td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
+												value="${masterNotice.mnReg}" /></td>
 										<td>${masterNotice.mnReadCount}</td>
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
-											<td>
+											<td class="lastcolumn">
 												<button type="button"
 													onclick="javascript:update(${masterNotice.rnum},${masterNotice.mnId})">수정</button>
 												<button type="button" id="delete"
@@ -148,10 +229,25 @@
 								</c:forEach>
 							</table>
 							<c:if test="${member ne null && member.mEmail eq 'master'}">
-								<button type="button" class="putsub" onclick="javascript:popup()">공지사항 등록</button>
+								<button type="button" class="putsub"
+									onclick="javascript:popup()">공지사항 등록</button>
 							</c:if>
-					</form>
+						</div>
+					</div>
 				</section>
+				
+				<form action="masterNoticeSearch.do">
+					<select class="putsub" name="searchtype">
+						<option value="">검색 유형 선택</option>
+						<option value="mnTitle">제목</option>
+						<option value="mnContent">내용</option>
+					</select> <input type="text" align="right" id="keyword" name="keyword"
+						placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
+					<input type="submit" value="검색" class="putsub">
+				</form>
+
+
+
 			</div>
 
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
@@ -178,6 +274,8 @@
 						-> </a>
 				</c:if>
 			</div>
+
+
 
 		</div>
 

@@ -40,11 +40,12 @@ public class SearchController {
 		
 		
 		
-		pp = new PagePgm(total,pp.getNowPage(), pp.getCntPerPage(), pp.getKeyword());
+		PagePgm pp1 = new PagePgm(total,pp.getNowPage(), pp.getCntPerPage(), pp);
+		pp1.setKeyword(pp.getKeyword());
 		
-		List<Product> searchList = ss.allSearch(pp);
+		List<Product> searchList = ss.allSearch(pp1);
 		model.addAttribute("search", searchList);
-		model.addAttribute("pp", pp);
+		model.addAttribute("pp", pp1);
 		
 		return "./product/search";
 }

@@ -17,7 +17,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnId DESC
+		ORDER BY mnReg DESC
 		) NOTICE
 		)
 		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
@@ -42,7 +42,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnId DESC
+		ORDER BY mnreg DESC
 		) NOTICE
 		)
 		WHERE mnId=#{mnId}
@@ -76,22 +76,38 @@
 	</update>
 	
 	<!-- 검색된 글 수 구하기 -->
-	<select id="noticeCount" parameterType="string" resultType="int">
-		SELECT COUNT(*) FROM masterNotice where mnTitle like '%'||#{keyword}||'%'
+	<select id="noticeCount" parameterType="pagePgm" resultType="int">
+		SELECT COUNT(*) FROM masterNotice where 
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%'||#{keyword}||'%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%'||#{keyword}||'%'
+		</when>
+		</choose>
 	</select>
 	
 	<!-- 페이징 처리된 검색 게시글 -->
 	<select id="noticeSearchList" resultType="masterNotice" parameterType="pagePgm">
 		SELECT *
 		FROM (
-		SELECT ROWNUM RN, NOTICE.*
+		SELECT ROWNUM RNUM, NOTICE.*
 		FROM (
 		SELECT *
-		FROM MasterNotice where mnTitle like '%' || #{keyword} || '%'
-		ORDER BY mnId DESC
+		FROM MasterNotice where 
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%' || #{keyword} || '%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%' || #{keyword} || '%'
+		</when>
+		</choose>
+		ORDER BY mnreg DESC
 		) NOTICE
 		)
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectMove" parameterType="int" resultType="masterNotice">
@@ -102,7 +118,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnId DESC
+		ORDER BY mnreg DESC
 		) NOTICE
 		)
 		WHERE RNUM=#{rnum}
@@ -116,8 +132,16 @@
 		SELECT ROWNUM RNUM, NOTICE.*
 		FROM (
 		SELECT *
-		FROM MasterNotice where mntitle like '%' || #{keyword} || '%'
-		ORDER BY mnId DESC
+		FROM MasterNotice where
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%' || #{keyword} || '%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%' || #{keyword} || '%'
+		</when>
+		</choose>
+		ORDER BY mnreg DESC
 		) NOTICE
 		)
 		WHERE mnId=#{mnid}
@@ -133,7 +157,7 @@
 		FROM (
 		SELECT *
 		FROM MasterNotice
-		ORDER BY mnId DESC
+		ORDER BY mnreg DESC
 		) NOTICE WHERE mntitle like '%' || #{keyword} || '%'
 		) where rnum=#{rnum}
 	</select>

@@ -29,7 +29,7 @@
 	function selChange() {
 
 		var sel = document.getElementById('cntPerPage').value;
-		location.href = "allSearch.do?keyword=${pp.keyword}&nowPage=${pp.nowPage}&cntPerPage="
+		location.href = "allSearch.do?keyword=${param.keyword}&nowPage=${pp.nowPage}&cntPerPage="
 		+ sel;
 		}
 </script>
@@ -39,12 +39,33 @@
 
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
 
 				<!-- 쇼핑몰 로고 & 상단 아이콘 불러오기 -->
 				<%@include file="../common/header.jsp"%>
+
+				<!--1. 회원 or 비회원 페이지 -->
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">OUTER</a> <a
+							href="category.do?newCid=상의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+							style="text-decoration: none">KNIT</a> <a
+							href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
 
 				<c:if test="${sessionId eq null}">
 					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
@@ -63,7 +84,7 @@
 				</c:if>
 				<div align="center" width="100px" height="100px">
 					<input type="text" id="search" maxlength="50"
-						value ="${pp.keyword }" onkeyup="enterkey()"><br>
+						value ="${param.keyword }" onkeyup="enterkey()"><br>
 				</div>
 				
 				<c:if test="${not empty search}">
@@ -83,32 +104,30 @@
 				</div>
 				</c:if>
 
-				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+				<!---------------------- Nav --------------------->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="index.do">JOIN</a></li>
-				<li><a href="NaverLogin.do">LOGIN</a></li>
-				<li><a href="mypage.do">MYPAGE</a></li>
-				<li><a href="CartFormMove.do">CART</a></li>
-				<li><a href="freeBoardList.do">커뮤니티</a></li>
-				<li><a href="masterNotice.do">공지사항</a></li>
-				<li><a href="elements.do">Elements</a></li>
-				<!-- 최종에서는 관리자페이지 빼기 -->
-				<input type="button" value="관리자페이지"
-					onclick="location.href='masterMain.do'">
+				<li><a href="category.do?newCid=코트"
+					style="text-decoration: none">카테고리</a></li>
+				<br>
+				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
+				<br>
+				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
+				<br>
+				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
+		<!---------------------- Nav ------------------->
 
 		<!-- Main -->
 		<div id="main">

@@ -16,11 +16,12 @@
 <div class="container" align="center">
 		<h2>공지사항</h2>
 		<div class="inner">
-		<form action="masterNoticeUpdate.do" 
+		<form action="masterNoticeSearchUpdate.do" 
 		method="post" enctype="multipart/form-data">
 			<input type="hidden" name="mnId" value="${mn.mnId }">
-			<input type="hidden" name="nowPage" value="${mn.rnum }">
 			<input type="hidden" name="cntPerPage" value="${pp.cntPerPage }">
+			<input type="hidden" name="searchtype" value="${pp.searchtype }">
+			<input type="hidden" name="keyword" value="${pp.keyword }">
 			<table class="table table-hover">
 				<tr>
 					<td>제목</td>
@@ -28,12 +29,7 @@
 				</tr>
 				<tr>
 					<td>첨부파일</td>
-					<td><input type = "file" id="mnOriFile1" name="mnOriFile1"></td>
-				</tr>
-				<tr>
-				<td colspan="2">
-				<img
-				src="C:\\bossRepository\\boss\\src\\main\\webapp\\images\\${mnd.mnOriFile}">
+					<td><input type = "file" name="mnOriFile1"></td>
 				</tr>
 				<tr>
 					<td>내용</td>

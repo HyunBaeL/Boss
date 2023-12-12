@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import boss.common.PagePgm;
+import boss.common.Search;
 import boss.model.MasterNotice;
 import boss.service.MasterNoticeService;
 
@@ -28,7 +29,6 @@ public class MasterNoticeController {
 	MasterNoticeService service;
 
 	// 글 등록폼 이동 메소드
-
 	@RequestMapping("masterNoticeInsertForm.do")
 	public String masterNoticeInsertForm() {
 
@@ -47,7 +47,7 @@ public class MasterNoticeController {
 		String filename = mfile.getOriginalFilename();
 		// 전송된 파일에서 이름만 채취
 		System.out.println("파일이름:" + filename);
-		String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
+		String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
 		// path = request.getRealPath("upload");
 		System.out.println(path);
 		// 파일 저장될 경로 path
@@ -70,7 +70,7 @@ public class MasterNoticeController {
 			file[1] = st.nextToken();
 			// file[0]에 파일명, file[1] 에 확장자가 저장됨.
 
-			if (size > 6000) { // 사이즈가 설정된 범위 초과할 경우
+			if (size > 600000) { // 사이즈가 설정된 범위 초과할 경우
 				sizeCheck = -1;
 				model.addAttribute("sizeCheck", sizeCheck);
 				System.out.println("설정범위 초과");
@@ -118,19 +118,9 @@ public class MasterNoticeController {
 
 		System.out.println("masterNoticeDelete");
 		
-		if(pp.getKeyword() != "") {
-			System.out.println("검색어:"+pp.getKeyword());
-			service.noticeDelete(mnId);
-			
-			model.addAttribute("keyword", pp.getKeyword());
-			model.addAttribute("nowPage", pp.getNowPage());
-			
-			return "redirect:/masterNoticeSearch.do";
-		}else {
 			service.noticeDelete(mnId);
 			model.addAttribute("nowPage", pp.getNowPage());
 			return "redirect:/masterNotice.do";
-		}
 		
 		
 	}
@@ -140,6 +130,8 @@ public class MasterNoticeController {
 	public String masterNoticeUpdateForm(PagePgm pp, Model model, MasterNotice mn,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+		
+		mn = service.selectOne(mn.getmnId());
 
 		model.addAttribute("mn", mn);
 		model.addAttribute("pp", pp);
@@ -158,7 +150,7 @@ public class MasterNoticeController {
 		int sizeCheck, extensionCheck;
 		String filename = mfile.getOriginalFilename();
 		int size = (int) mfile.getSize();
-		String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
+		String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
 		int result = 0;
 		String file[] = new String[2];
 		String newfilename = "";
@@ -181,7 +173,7 @@ public class MasterNoticeController {
 			file[0] = st.nextToken(); // 파일명
 			file[1] = st.nextToken(); // 확장자
 
-			if (size > 600) { // 사이즈가 설정된 범위 초과할 경우
+			if (size > 600000) { // 사이즈가 설정된 범위 초과할 경우
 				sizeCheck = -1;
 				model.addAttribute("sizeCheck", sizeCheck);
 				System.out.println("설정범위 초과");
@@ -223,19 +215,18 @@ public class MasterNoticeController {
 		
 		
 			// update문 실행. 완성된 DTO 객체를 전송, 테이블에 덮어씌움
+			System.out.println("수정전:"+mn.getmnId());
 			service.masterNoticeUpdate(mn);
+			System.out.println("수정후:"+mn.getmnId());
+			mn = service.selectOne(mn.getmnId());
 			
 			model.addAttribute("mnId", mn.getmnId());
 			model.addAttribute("nowPage", pp.getNowPage());
 			model.addAttribute("cntPerPage", pp.getCntPerPage());
 			model.addAttribute("rnum", mn.getRnum());
 
-			if(pp.getKeyword() != "") {
-				model.addAttribute("keyword", pp.getKeyword());
-				return "redirect:/masterNoticeSearchDetail.do";
-			}else {
 				return "redirect:/masterNoticeDetail.do";
-			}
+			
 		
 	}
 
@@ -304,7 +295,6 @@ public class MasterNoticeController {
 	// 공지 내용 : 이전글/다음글로 이동
 	@RequestMapping("masterNoticeDetailMove.do")
 	public String masterNoticeDetailMove(PagePgm pp, Model model, MasterNotice mn,
-			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
 
@@ -323,6 +313,7 @@ public class MasterNoticeController {
 
 		model.addAttribute("mnId", mn.getmnId());
 		model.addAttribute("cntPerPage", pp.getCntPerPage());
+		model.addAttribute("rnum", mn.getRnum());
 		// model.addAttribute를 통해 단일값을 공유하면 get방식으로 공유됨. url 주소에서 확인 가능
 		model.addAttribute("pp", pp);
 		model.addAttribute("mnd", mn);
@@ -342,16 +333,25 @@ public class MasterNoticeController {
 				pp.setNowPage(Integer.parseInt(nowPage));
 			}
 			cntPerPage = "20";
+			System.out.println();
 
-			int total = service.noticeCount(pp.getKeyword());
+			int total = service.noticeCount(pp);
+			System.out.println("total:"+ total);
 
-			pp = new PagePgm(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), pp.getKeyword());
-			List<MasterNotice> noticeSearch = service.noticeSearchList(pp);
+			PagePgm pp1 = new PagePgm(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), pp);
+			pp1.setSearchtype(pp.getSearchtype());
+			pp1.setKeyword(pp.getKeyword());
+			System.out.println(pp1.getNowPage());
+			System.out.println(pp1.getStartPage());
+			System.out.println(pp1.getEndPage());
 			
-			model.addAttribute("pp", pp);
+			List<MasterNotice> noticeSearch = service.noticeSearchList(pp1);
+			System.out.println("list:"+ noticeSearch);
+			
+			model.addAttribute("pp", pp1);
 			model.addAttribute("list", noticeSearch);
 
-			return "./master/notice/masterNoticeSearch";
+			return "master/notice/masterNoticeSearch";
 		}
 		
 	//검색어가 있을 때 세부내용
@@ -364,10 +364,13 @@ public class MasterNoticeController {
 
 				if (mn.getRnum() != 0) {
 					map.put("keyword", pp.getKeyword());
+					map.put("searchtype", pp.getSearchtype());
 					map.put("rnum", mn.getRnum());
 					mn = service.searchMove(map);
 				}else {
 					map.put("keyword", pp.getKeyword());
+					System.out.println("제목?"+pp.getSearchtype());
+					map.put("searchtype", pp.getSearchtype());
 					map.put("mnid", mn.getmnId());
 					// 해당 공지 번호의 자료 조회
 					mn = service.searchOne(map);
@@ -376,7 +379,7 @@ public class MasterNoticeController {
 				System.out.println("검색조회1");
 				
 				// 글 번호의 최대값 구하기
-				pp.setTotal(service.noticeCount(pp.getKeyword()));
+				pp.setTotal(service.noticeCount(pp));
 				System.out.println(mn.getRnum());
 
 				model.addAttribute("mnId", mn.getmnId());
@@ -398,13 +401,14 @@ public class MasterNoticeController {
 		System.out.println(pp.getKeyword());
 
 		// 글 번호의 최대값 구하기
-		int t = service.noticeCount(pp.getKeyword());
+		int t = service.noticeCount(pp);
 		pp.setTotal(t);
 		System.out.println("최대값:" + pp.getTotal());
 
 		// 해당 글 번호의 자료 조회
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", pp.getKeyword());
+		map.put("searchtype", pp.getSearchtype());
 		map.put("rnum", mn.getRnum());
 		mn = service.searchMove(map);
 
@@ -414,52 +418,75 @@ public class MasterNoticeController {
 		model.addAttribute("mnId", mn.getmnId());
 		model.addAttribute("cntPerPage", pp.getCntPerPage());
 		model.addAttribute("keyword",pp.getKeyword());
+		model.addAttribute("searchtype",pp.getSearchtype());
+		
 		// model.addAttribute를 통해 단일값을 공유하면 get방식으로 공유됨. url 주소에서 확인 가능
 
 		return "redirect:/masterNoticeSearchDetail.do";
 	}
-	
-	// 검색어가 있을 때 글 수정
-		@RequestMapping(value = "masterNoticeSearchUpdate.do", method = RequestMethod.POST)
-		public String masterNoticeSearchUpdate(PagePgm pp, Model model, MasterNotice mn,
+		
+		// 검색 시 글 수정 폼
+		@RequestMapping("masterNoticeSearchUpdateForm.do")
+		public String masterNoticeSearchUpdateForm(PagePgm pp, Model model, MasterNotice mn,
 				@RequestParam(value = "nowPage", required = false) String nowPage,
-				@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-				@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile) throws Exception {
+				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+			
+			mn = service.selectOne(mn.getmnId());
 
-			System.out.println("수정 진입");
+			model.addAttribute("mn", mn);
+			model.addAttribute("pp", pp);
+
+			return "./master/notice/masterNoticeSearchUpdateForm";
+		}
+		
+		//검색어가 있을 때 글 등록 폼
+		@RequestMapping("masterNoticeSearchInsertForm.do")
+		public String masterNoticeSearchInsertForm(PagePgm pp,Model model) {
+
+			model.addAttribute("pp", pp);
+			return "./master/notice/masterNoticeSearchInsertForm";
+		}
+		
+		// 검색어가 있을 때 새 글 등록
+		@RequestMapping(value = "masterNoticeSearchInsert.do", method = { RequestMethod.POST })
+		public String masterNoticeSearchInsert(MasterNotice notice, Model model,PagePgm pp,
+				@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile,
+				// 파일은 MasterNotice에서 받는 것이 불가능. 해당 DTO는 String형. 파일 이름만 저장 가능
+				HttpServletRequest request) throws Exception {
+
+			int result = 0;
 			int sizeCheck, extensionCheck;
 			String filename = mfile.getOriginalFilename();
+			// 전송된 파일에서 이름만 채취
+			System.out.println("파일이름:" + filename);
+			String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
+			// path = request.getRealPath("upload");
+			System.out.println(path);
+			// 파일 저장될 경로 path
 			int size = (int) mfile.getSize();
-			String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
-			int result = 0;
-			String file[] = new String[2];
+			// 첨부 파일 사이즈 (Byte) int size
+			String[] file = new String[2];
+			// 확장자 잘라서 저장할 배열
 			String newfilename = "";
+			// 새로운 파일명 저장 번수
 
-			mn.setMnTitle(mn.getMnTitle() + "(수정)");
-			System.out.println(mn.getMnTitle());
-
-			if (filename != "") { // 첨부파일이 전송된 경우
-
-				// 파일 중복문제 해결
+			if (filename != "") { // 첨부 파일이 전송된 경우
 				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-				System.out.println("extension:" + extension);
-
+				// .뒤에 확장자만 자르기
 				UUID uuid = UUID.randomUUID();
-
+				// 난수를 발생시켜 중복 문제 해결후 확장자 결합
 				newfilename = uuid.toString() + extension;
-				System.out.println("newfilename:" + newfilename);
-
 				StringTokenizer st = new StringTokenizer(filename, ".");
-				file[0] = st.nextToken(); // 파일명
-				file[1] = st.nextToken(); // 확장자
+				// 확장자를 구분해 조건을 주기 위해 잘라줌
+				file[0] = st.nextToken();
+				file[1] = st.nextToken();
+				// file[0]에 파일명, file[1] 에 확장자가 저장됨.
 
-				if (size > 600) { // 사이즈가 설정된 범위 초과할 경우
+				if (size > 600000) { // 사이즈가 설정된 범위 초과할 경우
 					sizeCheck = -1;
 					model.addAttribute("sizeCheck", sizeCheck);
 					System.out.println("설정범위 초과");
-
-					return "./master/notice/masterNotice"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
-
+					return "redirect:/masterNoticeSearch.do"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
 				} else if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
 						&& !file[1].equals("gif"))
 				// 확장자가 jpg, png, jpeg, gif 가 아닐경우
@@ -468,42 +495,139 @@ public class MasterNoticeController {
 					model.addAttribute("extensionCheck", extensionCheck);
 
 					System.out.println("올바른 확장자가 아닙니다");
-					return "./master/notice/masterNotice"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
+					return "redirect:/masterNoticeSearch.do"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
 
 				}
 
+				// 첨부파일이 전송된 경우
+				if (size > 0) {
+					mfile.transferTo(new File(path + "/" + newfilename));
+					notice.setMnOriFile(newfilename);
+					// 업로드 파일 내부의 파일을 바꾸고 DTO 내부의 이름을 바꿔버림
+					System.out.println("전송됐음!!");
+				}
 			}
 
-			if (size > 0) { // 첨부파일이 전송된 경우
-				mfile.transferTo(new File(path + "/" + newfilename));
-				mn.setMnOriFile(newfilename);
-				// 업로드 파일 내부의 파일을 바꾸고 DTO 내부의 이름을 바꿔버림
-				System.out.println("전송됐음!!");
+			System.out.println("파일명:" + notice.getMnOriFile());
+
+			// 공지 등록
+			result = service.noticeInsert(notice);
+			System.out.println("공지 입력 성공");
+
+			if (result == 1) {
+				System.out.println("공지사항 등록 성공");
+			} else {
+				System.out.println("공지사항 등록 실패");
 			}
 
-			if (size == 0) { // 첨부 파일이 수정되지 않으면 파일 유지
-								// 이 코드가 없으면 null값으로 변해버림
-				System.out.println(mn.getmnId());
-				MasterNotice oldmn = service.selectOne(mn.getmnId());
-				System.out.println(oldmn.getMnOriFile());
-
-				String oldfilename = oldmn.getMnOriFile();
-				// sql문을 호출. 테이블에 존재하는 파일명을 가져와 저장
-				mn.setMnOriFile(oldfilename); // 테이블에 저장된 파일명을 설정
-
-			}
-			
-				System.out.println("검색어:"+pp.getKeyword());
-				
-				service.masterNoticeUpdate(mn);
-				
-				model.addAttribute("keyword", pp.getKeyword());
-				model.addAttribute("mnId", mn.getmnId());
-				model.addAttribute("cntPerPage", pp.getCntPerPage());
-				model.addAttribute("rnum", mn.getRnum());
-				
-				return "redirect:/masterNoticeSearchDetail.do";
-			
+			model.addAttribute("searchtype", pp.getSearchtype());
+			model.addAttribute("keyword", pp.getKeyword());
+			return "redirect:/masterNoticeSearch.do";
 		}
+		
+		
+		
+		// 검색어가 있을 때 글 수정
+				@RequestMapping(value = "masterNoticeSearchUpdate.do", method = RequestMethod.POST)
+				public String masterNoticeSearchUpdate(PagePgm pp, Model model, MasterNotice mn,
+						@RequestParam(value = "nowPage", required = false) String nowPage,
+						@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+						@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile) throws Exception {
+
+					System.out.println("수정 진입");
+					int sizeCheck, extensionCheck;
+					String filename = mfile.getOriginalFilename();
+					int size = (int) mfile.getSize();
+					String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
+					int result = 0;
+					String file[] = new String[2];
+					String newfilename = "";
+
+					mn.setMnTitle(mn.getMnTitle() + "(수정)");
+					System.out.println(mn.getMnTitle());
+
+					if (filename != "") { // 첨부파일이 전송된 경우
+
+						// 파일 중복문제 해결
+						String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+						System.out.println("extension:" + extension);
+
+						UUID uuid = UUID.randomUUID();
+
+						newfilename = uuid.toString() + extension;
+						System.out.println("newfilename:" + newfilename);
+
+						StringTokenizer st = new StringTokenizer(filename, ".");
+						file[0] = st.nextToken(); // 파일명
+						file[1] = st.nextToken(); // 확장자
+
+						if (size > 600000) { // 사이즈가 설정된 범위 초과할 경우
+							sizeCheck = -1;
+							model.addAttribute("sizeCheck", sizeCheck);
+							System.out.println("설정범위 초과");
+
+							return "./master/notice/masterNoticeSearch"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
+
+						} else if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
+								&& !file[1].equals("gif"))
+						// 확장자가 jpg, png, jpeg, gif 가 아닐경우
+						{
+							extensionCheck = -1;
+							model.addAttribute("extensionCheck", extensionCheck);
+
+							System.out.println("올바른 확장자가 아닙니다");
+							return "./master/notice/masterNoticeSearch"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
+
+						}
+
+					}
+
+					if (size > 0) { // 첨부파일이 전송된 경우
+						mfile.transferTo(new File(path + "/" + newfilename));
+						mn.setMnOriFile(newfilename);
+						// 업로드 파일 내부의 파일을 바꾸고 DTO 내부의 이름을 바꿔버림
+						System.out.println("전송됐음!!");
+					}
+
+					if (size == 0) { // 첨부 파일이 수정되지 않으면 파일 유지
+										// 이 코드가 없으면 null값으로 변해버림
+						System.out.println(mn.getmnId());
+						MasterNotice oldmn = service.selectOne(mn.getmnId());
+						System.out.println(oldmn.getMnOriFile());
+
+						String oldfilename = oldmn.getMnOriFile();
+						// sql문을 호출. 테이블에 존재하는 파일명을 가져와 저장
+						mn.setMnOriFile(oldfilename); // 테이블에 저장된 파일명을 설정
+
+					}
+					
+						System.out.println("검색어:"+pp.getKeyword());
+						
+						service.masterNoticeUpdate(mn);
+						
+						model.addAttribute("mnId", mn.getmnId());
+						model.addAttribute("cntPerPage", pp.getCntPerPage());
+						model.addAttribute("rnum", mn.getRnum());
+						
+						return "redirect:/masterNoticeDetail.do";
+					
+				}
+				
+				// 검색어가 있을 때 글 삭제
+				@RequestMapping("masterNoticeSearchDelete.do")
+				public String masterNoticeSearchDelete(PagePgm pp, MasterNotice mn, Model model) {
+
+					System.out.println("masterNoticeSearchDelete");
+					
+						service.noticeDelete(mn.getmnId());
+						model.addAttribute("searchtype", pp.getSearchtype());
+						model.addAttribute("keyword", pp.getKeyword());
+						model.addAttribute("mnId", mn.getmnId());
+						model.addAttribute("cntPerPage", pp.getCntPerPage());
+						
+						return "redirect:/masterNoticeSearch.do";
+					
+					
+				}
 
 }

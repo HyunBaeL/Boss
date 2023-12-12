@@ -15,7 +15,7 @@
 <div class="container" align="center">
 		<h2>공지사항</h2>
 		<div class="inner">
-		<form action="masterNoticeInsert.do" method="post" enctype="multipart/form-data" target="repacatFrame">
+		<form action="masterNoticeInsert.do" method="post" enctype="multipart/form-data">
 			<table class="table table-hover">
 				<tr>
 					<td>제목</td>
