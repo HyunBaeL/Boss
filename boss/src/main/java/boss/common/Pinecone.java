@@ -95,8 +95,12 @@ public class Pinecone {
         		.addIds(vectorId)
         		.build();
 
-        DeleteResponse deleteResponse = conn.getBlockingStub().delete(request);
-        System.out.println("vectorId " + vectorId +" deleted");
+        try {
+	        DeleteResponse deleteResponse = conn.getBlockingStub().delete(request);
+	        System.out.println("vectorId " + vectorId +" deleted");
+        } catch(Exception e) {
+        	System.out.println("vectorId " + vectorId +" deleted fail");
+        }
 	}
 	
 	//임베딩두개로 코사인시밀러리티(벡터내적과비슷한것) 구하면 0~1사이의 값이 나오고 이게 높을수록 유사한것

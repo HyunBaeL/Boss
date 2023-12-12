@@ -103,13 +103,13 @@
 			</caption>
 			<tr>
 				<th width="5%">번호</th>
-				<th width="40%">제목</th>
-				<th width="15%">첨부파일</th>
-				<th width="13%">작성자</th>
-				<th width="13%">작성일</th>
+				<th width="38%">제목</th>
+				<th width="13%">첨부파일</th>
+				<th width="12%">작성자</th>
+				<th width="10%">작성일</th>
 				<th width="7%">조회수</th>
 				<th width="8%">좋아요</th>
-				<th width="8%">신고</th>
+				<th width="7%">신고</th>
 			</tr>
 
 			<c:if test="${empty list}">
@@ -154,17 +154,18 @@
 								</c:if></td>
 							<td>${board.mEmail}</td>
 							<td><fmt:formatDate value="${board.fReg}"
-									pattern="yyyy-MM-dd" /></td>
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${board.fReadCount}</td>
 							<td>${board.fLike}</td>
-							<c:if test="${member.mEmail ne null }">
-								<td><img src="images/report.png"
-									onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
-									style="width: 25px; height: 25px;"></td>
-							</c:if>
-							<c:if test="${member.mEmail eq null }">
-								<td>&nbsp;</td>
-							</c:if>
+						</c:if>
+						<!-- 신고하기 -->
+						<c:if test="${sessionScope.member.mEmail ne null }">
+							<td><img src="images/report.png"
+								onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
+								style="width: 25px; height: 25px;"></td>
+						</c:if>
+						<c:if test="${sessionScope.member.mEmail eq null }">
+							<td>&nbsp;</td>
 						</c:if>
 					</tr>
 				</c:forEach>

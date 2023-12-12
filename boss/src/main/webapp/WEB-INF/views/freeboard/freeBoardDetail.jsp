@@ -108,7 +108,7 @@
 			</tr>
 			<tr>
 				<td>작성일</td>
-				<td><fmt:formatDate value="${detail.fReg}" pattern="yyyy-MM-dd" /></td>
+				<td><fmt:formatDate value="${detail.fReg}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 			</tr>
 			<tr>
 				<td>내용</td>

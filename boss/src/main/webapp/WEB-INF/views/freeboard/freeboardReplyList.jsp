@@ -92,9 +92,9 @@ function del(frId,fId) { //삭제 버튼 (클릭시 바로 삭제)
 				<c:forEach var="frboard" items="${freplylist}">
 					<tr>
 						<!-- 삭제글인지 아닌지 판별 -->
-						<c:if test="${frboard.frDrop =='Y' }">
-							<td colspan="6">삭제된 데이터 입니다</td>
-						</c:if>
+<%-- 						<c:if test="${frboard.frDrop =='Y' }"> --%>
+<!-- 							<td colspan="6">삭제된 데이터 입니다</td> -->
+<%-- 						</c:if> --%>
 
 						<c:if test="${frboard.frDrop !='Y' }">
 							<td>${frboard.mEmail}</td>

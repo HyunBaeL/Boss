@@ -215,9 +215,10 @@ public class MasterProductController {
       // OpenAI API로 상품정보에 대해 embedding하고 해당 vector를 pinecone vector store에 등록
       OpenAI openAI = new OpenAI();
       Pinecone vecStore = new Pinecone();
-      
-      float[] embedding = Floats.toArray(openAI.getEmbedding(pro.toString()));
-      vecStore.upsert(embedding, pro.getPid());
+      if(openAI.getService() != null) {
+	      float[] embedding = Floats.toArray(openAI.getEmbedding(pro.toString()));
+	      vecStore.upsert(embedding, pro.getPid());
+      }
       // by hyesun end
 
       return "./master/product/masterMoveProductList";

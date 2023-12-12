@@ -29,7 +29,7 @@
 		<c:if test="${empty sessionScope.member}">
 			<a href="NaverLogin.do"><img src="./images/login.png"
 				style="text-decoration: none"></a>
-			<a href="NaverLogin.do"><img src="./images/join.png"
+			<a href="insertForm.do"><img src="./images/join.png"
 				style="text-decoration: none"></a>
 			<br>
 		</c:if>
@@ -61,7 +61,7 @@
 				src="./images/logout.png" style="text-decoration: none"></a>
 			<a href="mypage.do"><img src="./images/my.png"
 				style="text-decoration: none"></a>
-			<a href="productInsertForm.do"><img src="./images/cart.png"
+			<a href="cartFormMove.do"><img src="./images/cart.png"
 				style="text-decoration: none"></a>
 			<br>
 				${sessionScope.member.mName }님 환영합니다.

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.google.common.primitives.Floats;
 import com.theokanning.openai.completion.chat.ChatCompletionChunk;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
@@ -18,14 +20,24 @@ import io.reactivex.schedulers.Schedulers;
 
 public class OpenAI {
 	//openAI API key
-	private String API_KEY = "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";
+	private String API_KEY;
+//	private String API_KEY="챗봇이용시 key 혜선에게 문의";
+
 	private OpenAiService service;
 	private int maxToken = 512;
 	private List<ChatMessage> messages;
 
 	public OpenAI() {
-		service = new OpenAiService(API_KEY);
-//		messages = new ArrayList<ChatMessage>();
+		if(API_KEY == null || API_KEY.equals("")) {
+			service = null;
+		} else {
+			service = new OpenAiService(API_KEY);
+//			messages = new ArrayList<ChatMessage>();
+		}
+	}
+	
+	public OpenAiService getService() {
+		return service;
 	}
 	
 	public String getRespByTxt(String prompt, String model) {
@@ -52,7 +64,7 @@ public class OpenAI {
 	//embeddingRequest로 text를 숫자로 바꿈 
 	public List<Double> getEmbedding(String text) {
 		List<Double> res;
-		
+
 		List<String> in = new ArrayList<String>();
 		in.add(text);
 		String model = "text-embedding-ada-002";
