@@ -167,7 +167,6 @@
 						<c:if test="${sessionScope.member.mEmail eq null }">
 							<td>&nbsp;</td>
 						</c:if>
-						
 					</tr>
 				</c:forEach>
 			</c:if>

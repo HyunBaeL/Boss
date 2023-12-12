@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./js/product.js"></script>
+
 <title>상품 문의 작성폼</title>
 
 <!-- css 양식 include -->
@@ -41,7 +44,7 @@
 			</table>
 
 			<div class="ask_insert_button">
-				<input type="submit" value="등록" class="review_insert_button" /> 
+				<input type="submit" value="등록" class="review_insert_button" id="review_insert_button" /> 
 				<input type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>

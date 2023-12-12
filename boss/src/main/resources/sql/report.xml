@@ -5,13 +5,15 @@
 <mapper namespace="boss.dao.ReportDao">
 	<insert id="insert" parameterType="report">
 		insert into report values(
-		REPORT_SEQ.NEXTVAL, #{memail}, #{reporttitle}, 
-		#{reportcontent}, #{reportimage}, sysdate, #{reportname}, 
-		#{reportreply, jdbcType=VARCHAR}, sysdate, default, default
+		REPORT_SEQ.NEXTVAL, #{memail}, #{reportname}, #{reporttitle, jdbcType=VARCHAR},
+		#{reportcontent}, #{reportimage,jdbcType=VARCHAR}, #{reportreg},
+		#{reporttype}, #{reportnum},
+		#{reportreply, jdbcType=VARCHAR}, #{reportreplyreg, jdbcType=VARCHAR}, default, default
 		)
 	</insert>
 
-
+ 
+ 
 
 
 </mapper>

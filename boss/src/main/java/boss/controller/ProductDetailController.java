@@ -38,22 +38,23 @@ public class ProductDetailController {
 
 	// 상세페이지
 	@RequestMapping("productDetail.do")
-	public String productDetail(String pid, PagePgm pp, Model model,
+	public String productDetail(String pid, Model model,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search,AskBoard askboard) throws Exception {
-		System.out.println("productDetail");
-
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search,AskBoard askboard,
+			@RequestParam(value = "anowPage", required = false) String anowPage, 
+			@RequestParam(value = "acntPerPage", required = false) String acntPerPage) throws Exception {
+		
 		// 상품 불러오기
 		Product product = service.selectProduct(pid);
-
-		// 페이징 처리
-		System.out.println("productReviewList 들어가");
+		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("anowPage : " + anowPage);
+		System.out.println("nowPage : " + nowPage);
+		System.out.println("productdelete.do 들어왔음");
+		
+		
 		
 		// 리뷰 합계
 		int total = service.total(pid);
-		
-		// 문의 합계
-		int asktotal = service.asktotal(pid);
 		
 		// 페이징 처리
 		if (nowPage == null && cntPerPage == null) {
@@ -65,37 +66,50 @@ public class ProductDetailController {
 			cntPerPage = "5";
 		}
 
-		System.out.println("페이징 나옴.");
-		
-		// 문의 페이징 처리
-		Map<String, Object> map = new HashMap<String, Object>();
-		
 		// 리뷰
 		PagePgm reviewpp = new PagePgm(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 
-		// 문의 
-		PagePgm askpp = new PagePgm(asktotal, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-				
+		// 리뷰 페이징 처리
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		model.addAttribute("pp", pp);
-		
-		map.put("pp", pp);
 		map.put("pid", pid);
 		map.put("reviewpp", reviewpp);
-		map.put("askpp", askpp);
-		
-		System.out.println("pp공유끝.");
 
-		System.out.println("pp. sr: " + pp.getStartRow());
-		System.out.println("pp. er: " + pp.getEndRow());
-		System.out.println("pid : " + pid);
-		
-		// 리뷰 
+		// 리뷰 구해오기
 		List<Review> list = service.list(map);
 		
-		// Ask
-		List<AskBoard> asklist = service.asklist(map);
+		
+		/*      문의 페이징 처리 시작      */
+		
+		// 문의 합계
+		int asktotal = service.asktotal(pid);
+		
+		// 문의 필드 초기화
+		if (anowPage == null && acntPerPage == null) {
+			anowPage = "1";
+			acntPerPage = "5";
+		} else if (anowPage == null) {
+			anowPage = "1";
+		} else if (acntPerPage == null) {
+			acntPerPage = "5";
+		}
+		
+		System.out.println("anowPage : " + anowPage);
+		System.out.println("nowPage : " + nowPage);
+		
+		// 문의 페이징 생성자 초기화
+		PagePgm askpp = new PagePgm(asktotal, Integer.parseInt(anowPage), Integer.parseInt(acntPerPage));
+		
+		// 문의 페이징 처리 ( 쿼리문 )
+		Map<String, Object> amap = new HashMap<String, Object>();
+		amap.put("pid", pid);
+		amap.put("askpp", askpp);
+		
+		// 문의
+		List<AskBoard> asklist = service.asklist(amap);
 
+		
+		
 		if (!list.equals(null) && list.size() > 0) { //review 1개라도 구해옴.
 			System.out.println("list.size() : " + list.size());
 			model.addAttribute("reviewList", list);
@@ -110,6 +124,13 @@ public class ProductDetailController {
 		}else {	// askBoard 1개라도 못구해옴
 			System.out.println("asklist 못구함:" + asklist.size());
 		}
+		String pcon = product.getPcontent();
+		System.out.println("변경전 : " + pcon);
+		String pcon2 = pcon.replace("\n", "<br>");
+		System.out.println("변경후 : " + pcon2);
+		
+		
+		
 		
 		model.addAttribute("product", product);
 		model.addAttribute("pid", pid);

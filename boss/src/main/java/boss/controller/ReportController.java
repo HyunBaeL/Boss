@@ -1,6 +1,7 @@
 package boss.controller;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +15,37 @@ import boss.model.Report;
 import boss.service.ReportService;
 
 @Controller
-public class ReportController {  
+public class ReportController {
 
 	@Autowired
 	ReportService rs;
 
 	// 신고 작성 폼 이동
 	@RequestMapping("reportWriteForm.do")
-	public String reportWriteForm() {
+	public String reportWriteForm(Report report, Model model) {
 		System.out.println("reportWriteForm");
+		String reporttype = report.getReporttype();
+		String reportnum = "" + report.getReportnum();
+
+		System.out.println("type : " + reporttype);
+		System.out.println("reportnum : " + reportnum);
+
+		if (reporttype.equals("review")) {
+			model.addAttribute("Report", report);
+
+		} else if (reporttype.equals("freeBoard")) {
+			model.addAttribute("Report", report);
+		}
 		return "report/reportWriteForm";
 	}
 
-	// 신고 작성 폼 이동 
+	// 신고 작성 폼 이동
 	@RequestMapping("reportWrite.do")
-	public String reportWrite(Report report, Model model,
+	public String reportWrite(Report report, Model model, Date reportreg,
 			@RequestParam(value = "image1", required = false) MultipartFile mfile) throws Exception {
 		System.out.println("reportWrite");
+		System.out.println("reportreg " + reportreg);
+		System.out.println("report.reg " + report.getReportreg());
 		int result = 0;
 		String realFileName = mfile.getOriginalFilename();
 		int size = (int) mfile.getSize();
@@ -41,7 +56,7 @@ public class ReportController {
 				System.out.println("용량초과");
 				model.addAttribute("result", 2);
 				model.addAttribute("msg", "용량이 3MB 이상입니다.");
-				return "report/reportWriteResult"; 
+				return "report/reportWriteResult";
 			} else if (!extension.equals(".jpg") && !extension.equals(".png") && !extension.equals(".jpeg")
 					&& !extension.equals(".gif")) { // 이미지 형식이 올바르지 않은경우.
 				System.out.println("이미지 형식 다름");
@@ -54,16 +69,11 @@ public class ReportController {
 			report.setReportimage(newFileName);
 			String path = "C:\\gitBoss\\boss\\src\\main\\webapp\\uploadReport";
 			mfile.transferTo(new File(path + "/" + newFileName));
-		} else { // 파일이 없는경우
-			System.out.println("파일이 없음.");
-			model.addAttribute("result", -1);
-			model.addAttribute("msg", "파일이 존재하지 않습니다.");
-			return "report/reportWriteResult";
 		}
-		
+
+		report.setReportreg(reportreg);
 		result = rs.insert(report);
 		if (result == 1) {
-
 			model.addAttribute("msg", "신고가 접수되었습니다.");
 			model.addAttribute("result", result);
 		} else {

@@ -9,12 +9,11 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
+<script src="js/masterQnaBoard.js" ></script> 
 <title>Qna 상세정보</title>
-
 
 </head>
 <body>
-
 	<%@ include file="../common/masterNav.jsp"%>
 	<form method="post" action="masterQnaReplyInsert.do">
 		<input type="hidden" name="memail" value="${qnaBoard.memail  }">
@@ -41,8 +40,7 @@
 					<td>${qnaBoard.qnacontent}</td>
 					<td><img src="images/${qnaBoard.qnaorifile}" width="50"
 						height="50">
-					<td><input type="text" value="${qnaBoard.qnareg}"
-						readonly="readonly"></td>
+					<td><fmt:formatDate value="${qnaBoard.qnareg}" pattern="yyyy-MM-dd HH:mm" /></td>
 
 					<td>${qnaBoard.qnadrop}</td>
 					<td>
@@ -84,7 +82,7 @@
 				<c:if test="${qnaReply.qrcontent == null}">
 					<tr>
 						<td colspan="5" autofocus="autofocus"><textarea
-								name="qrcontent">${qnaReply.qrcontent }</textarea></td>
+								id="qrcontent" name="qrcontent">${qnaReply.qrcontent }</textarea></td>
 
 					</tr>
 			</table>
