@@ -28,7 +28,7 @@
 
 	<!-- 문의 삭제하기 -->
 	<update id="askdelete" parameterType="String">
-		update askboard set askdrop = 'Y'
+		update askboard set askdrop = 'Y' where askid = #{askid}
 	</update>
 	
  	<!-- 문의 댓글 불러오기 -->

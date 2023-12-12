@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./js/product.js"></script>
+
 <title>상품 문의 작성폼</title>
 
 <!-- css 양식 include -->
@@ -19,8 +22,8 @@
 
 	<div class="Ask_insert">
 		<h1 class="" align="center">문의 수정</h1>
-		<form method="post" action="productAskBoardUpdateCheck.do">
-
+		<form method="post" action="productAskBoardUpdateCheck.do?askid=${askboard.askid }">
+			
 			<table class="askinsert_table">
 				<tr>
 					<th>상품번호</th>
@@ -45,7 +48,7 @@
 			</table>
 
 			<div class="ask_insert_button">
-				<input type="submit" value="수정" class="review_insert_button" /> <input
+				<input type="submit" value="수정" class="review_insert_button" id="review_insert_button" /> <input
 					type="reset" value="취소" class="review_insert_button"
 					onclick="history.go(-1)" />
 			</div>
