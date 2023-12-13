@@ -159,14 +159,24 @@
 							<td>${board.fLike}</td>
 						</c:if>
 						<!-- 신고하기 -->
-						<c:if test="${sessionScope.member.mEmail ne null }">
-							<td><img src="images/report.png"
-								onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
-								style="width: 25px; height: 25px;"></td>
-						</c:if>
-						<c:if test="${sessionScope.member.mEmail eq null }">
-							<td>&nbsp;</td>
-						</c:if>
+<%-- 						<c:if test="${sessionScope.member.mEmail ne null }"> --%>
+<!-- 							<td><img src="images/report.png" -->
+<%-- 								onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' " --%>
+<!-- 								style="width: 25px; height: 25px;"></td> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test="${sessionScope.member.mEmail eq null }"> --%>
+<!-- 							<td>&nbsp;</td> -->
+<%-- 						</c:if> --%>
+<!-- 신고하기 -->
+                  <c:if test="${sessionScope.member.mEmail ne null }">
+                     <td><img src="images/report.png"
+                        onclick="location.href='reportWriteForm.do?reporttype=freeBoard&reportnum=${board.fId}&reportname=${board.mEmail}' "
+                        style="width: 25px; height: 25px;"></td>
+                  </c:if>
+                  <c:if test="${sessionScope.member.mEmail eq null }">
+                     <td>&nbsp;</td>
+                  </c:if>
+
 					</tr>
 				</c:forEach>
 			</c:if>

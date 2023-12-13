@@ -29,12 +29,18 @@ public class ChatbotController {
 	public @ResponseBody Map<String, Object> requestChatbot(String prompt) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		OpenAI openAI = new OpenAI();
+		OpenAI openAI = OpenAI.getInstance();
 		String model = "gpt-4-1106-preview";
+		Pinecone vecStore = Pinecone.getInstance();
+		List<Double> embedding;
+		int pid;
 		
-		Pinecone vecStore = new Pinecone();
-		List<Double> embedding = openAI.getEmbedding(prompt);
-		int pid = vecStore.query(Floats.toArray(embedding), 1);
+		if(openAI.getService() != null) {
+			embedding = openAI.getEmbedding(prompt);
+			pid = vecStore.query(Floats.toArray(embedding), 1);
+		} else {
+			pid = -1;
+		}
 		
 		String answer;
 		if(pid > 0) {

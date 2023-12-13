@@ -19,15 +19,25 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class OpenAI {
+	//OpenAI instance 생성
+	private static OpenAI instance = null;
 	//openAI API key
 	private String API_KEY;
-//	private String API_KEY="챗봇이용시 key 혜선에게 문의";
+//	private String API_KEY="챗봇 이용시 혜선key필요";
 
 	private OpenAiService service;
 	private int maxToken = 512;
 	private List<ChatMessage> messages;
 
-	public OpenAI() {
+	public static OpenAI getInstance() {
+		if(instance == null) {
+			instance = new OpenAI();
+		}
+
+		return instance;
+	}
+
+	private OpenAI() {
 		if(API_KEY == null || API_KEY.equals("")) {
 			service = null;
 		} else {
