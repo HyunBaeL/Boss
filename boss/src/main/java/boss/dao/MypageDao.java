@@ -11,6 +11,7 @@ import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
 import boss.model.QnaReply;
+import boss.model.Report;
 import boss.model.Review;
 
 @Mapper
@@ -46,6 +47,10 @@ public interface MypageDao {
 
 	void qnaDelete(int qid);
 
-	void replyDelete(int qid); 
+	void replyDelete(int qid);
+
+	List<Report> listReport(String mEmail);
+
+	Report oneReport(String reportid); 
 
 }

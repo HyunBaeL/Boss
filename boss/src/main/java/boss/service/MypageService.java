@@ -13,6 +13,7 @@ import boss.model.OrderDetail;
 import boss.model.Orders;
 import boss.model.QnaBoard;
 import boss.model.QnaReply;
+import boss.model.Report;
 import boss.model.Review;
 
 @Service
@@ -106,6 +107,14 @@ public class MypageService {
 	public void replyDelete(int qid) {
 
 		dao.replyDelete(qid);
+	}
+
+	public List<Report> listReport(String mEmail) {
+		return dao.listReport(mEmail);
+	}
+
+	public Report oneReport(String reportid) {
+		return dao.oneReport(reportid);
 	}
 
 }

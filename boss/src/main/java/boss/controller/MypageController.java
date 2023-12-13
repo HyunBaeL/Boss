@@ -28,6 +28,7 @@ import boss.model.Orders;
 import boss.model.Product;
 import boss.model.QnaBoard;
 import boss.model.QnaReply;
+import boss.model.Report;
 import boss.model.Review;
 import boss.service.MasterOrdersService;
 import boss.service.MasterProductService;
@@ -386,6 +387,29 @@ public class MypageController {
 		return "login/mypage/mypageAskBoard";
 	}
 	
-	//
+	// mypage 신고폼 이동
+	@RequestMapping("mypageReport.do")
+	public String mypageReport(HttpSession session, Model model) {
+		
+		Member member = (Member) session.getAttribute("member");
+		
+		String mEmail = member.getmEmail();
+		
+		//내가 신고한 목록
+		List<Report> rlist = service.listReport(mEmail);
+		System.out.println("rlist.size() : " + rlist.size());
+		model.addAttribute("rlist", rlist);
+		return "login/mypage/mypageReport";
+	}
+	
+	//mypageDetail 폼 이동
+	@RequestMapping("mypageReportDetail.do")
+	public String mypageReportDetail(String reportid, Model model) {
+		
+		Report report = service.oneReport(reportid);
+		
+		model.addAttribute("report", report);
+		return "login/mypage/mypageReportDetail";
+	}
 
 }
