@@ -83,8 +83,9 @@
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor}</td>
 						<td
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize}</td>
-						
-						<td><input type="text" value="${product.pcontent}" maxlength="10" readonly></td>
+
+						<td><input type="text" value="${product.pcontent}"
+							maxlength="10" readonly></td>
 						<td
 							onclick="location.href='masterProductDetail.do?id=${product.pid}' "><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${product.preg}" /></td>
@@ -134,7 +135,15 @@
 		<input type="submit" value="검색" class="putsub">
 	</form>
 
-	<c:if test="${type == 'change' }">
+	<c:if test="${type eq 'change' and search eq 'search'}">
+		
+	</c:if>
+
+	<c:if test="${type ne 'change' and search eq 'search'}">
+		
+	</c:if>
+
+	<c:if test="${type == 'change' and search ne 'search'}">
 		<div class="pageFont1">
 			<c:if test="${page.startPage != 1 }">
 				<a style="text-decoration: none; color: deeppink"
@@ -162,11 +171,11 @@
 		</div>
 	</c:if>
 
-	<c:if test="${type != 'change' }">
+	<c:if test="${type != 'change' and search ne 'search'}">
 		<div class="pageFont1">
 			<c:if test="${page.startPage != 1 }">
 				<a style="text-decoration: none; color: deeppink"
-					href="./masterProductList.do?nowPage=${page.startPage-2}&cntPerPage=${page.cntPerPage}">
+					href="./masterProductList.do?nowPage=${page.startPage-1}&cntPerPage=${page.cntPerPage}">
 					< </a>
 			</c:if>
 			<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
@@ -182,7 +191,7 @@
 			</c:forEach>
 			<c:if test="${page.endPage != page.lastPage}">
 				<a style="text-decoration: none; color: deeppink"
-					href="./masterProductList.do?nowPage=${page.endPage+2 }&cntPerPage=${page.cntPerPage}">
+					href="./masterProductList.do?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">
 					> </a>
 			</c:if>
 		</div>
