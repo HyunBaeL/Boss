@@ -184,7 +184,7 @@
 				</c:if>
 				<c:if test="${empty reviewList}">
 					<tr>
-						<td colspan="7">상품 리뷰글이 없습니다.</td>
+						<td colspan="7"><h3>상품 리뷰글이 없습니다.</h3></td>
 					</tr>
 				</c:if>
 			</table>
@@ -263,7 +263,7 @@
 
 				<c:if test="${empty asklist}">
 					<tr>
-						<td colspan="4">상품 문의글이 없습니다.</td>
+						<td colspan="4"><h3>상품 문의글이 없습니다.</h3></td>
 					</tr>
 				</c:if>
 			</table>
