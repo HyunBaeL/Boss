@@ -44,6 +44,7 @@ import io.pinecone.proto.*;
 
 //pinecone APIkey (pinecone :vector를 관리하는 db)
 public class Pinecone {
+	private static Pinecone instance = null;
 	private String indexId = "hhenyy";
 	private String projectId = "zkapdvp";
 	private String host = "gcp-starter";
@@ -53,8 +54,16 @@ public class Pinecone {
 	private PineconeConnectionConfig connectionConfig;
 	private PineconeClientConfig clientConfig;
 	
+	public static Pinecone getInstance() {
+		if(instance == null) {
+			instance = new Pinecone();
+		}
+
+		return instance;
+	}
+	
 	//pinecone에 숫자로 바뀐 임베딩을 넣음 
-	public Pinecone() {
+	private Pinecone() {
 		pineconeURL = MessageFormat.format("https://{0}-{1}.svc.environment.pinecone.io", indexId, projectId);
 		clientConfig = new PineconeClientConfig()
                 .withApiKey(API_KEY)
@@ -104,7 +113,8 @@ public class Pinecone {
 	}
 	
 	//임베딩두개로 코사인시밀러리티(벡터내적과비슷한것) 구하면 0~1사이의 값이 나오고 이게 높을수록 유사한것
-	//유저가 질문한 내용을 임베딩하고 벡터디비에 저장됨 프로덕트정보에대한 임베딩하고 코사인 시밀러리티 구해서 0.8이상이면 상품추천 
+	//저장된 상품 정보를 embedding하여 vector DB에 저장해두고 유저가 질문한 내용을 embedding하여 
+	//vector DB에 query를 하면 두 개의 embedding으로 유사도를 구하게 되고 이때 코사인유사도 값이 0.8이상이면 상품추천 
 	//여기서 임베딩구할때 오픈ai API씀 
 	public int query(float[] queryData, int topK) {
 		PineconeConnection conn = dataPlaneClient.connect(connectionConfig);

@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import boss.common.OpenAI;
+import boss.common.Pinecone;
 import boss.model.MainImage;
 import boss.model.Product;
 import boss.service.MasterProductService;
@@ -36,12 +38,12 @@ public class MainController {
 		List<MainImage> mainImageList_db = service.selectMainProductList();
 		
 		//by hyesun 
-		Collections.sort(mainImageList_db, new Comparator<MainImage>() {
-            @Override
-            public int compare(MainImage o1, MainImage o2) {
-                return o2.getPid() - o1.getPid();	//pid 기준으로 내림차순 정렬되게 함
-            }
-        });
+//		Collections.sort(mainImageList_db, new Comparator<MainImage>() {
+//            @Override
+//            public int compare(MainImage o1, MainImage o2) {
+//                return o2.getPid() - o1.getPid();	//pid 기준으로 내림차순 정렬되게 함
+//            }
+//        });
 		//by hyesun end
 
 		if (mainImageList_db.size() > 0) { // 1개라도 구해옴.
@@ -59,6 +61,11 @@ public class MainController {
 		}
 		
 		model.addAttribute("block", block);
+		
+		//by hyesun
+		Pinecone.getInstance();
+		OpenAI.getInstance();
+		//by hyesun end
  
 		return "common/main";
 	}

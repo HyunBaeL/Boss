@@ -40,7 +40,7 @@
 <div class="chat-window" id="chat-window1" style="display: none;">
    <div class="message-box" id="messageBox">
       <div class="hi-there">
-         <p class="p1">안녕하세요. <br> BOSS 챗봇 '떠니'에요.</p>
+         <p class="p1">안녕하세요! <br> BOSS 챗봇 '떠니'에요.<img src="images/smile.png" style="width: 20px; height: 20px;"></p>
          <p class="p2">'떠니'가 당신의 취향에 맞게 옷을 추천해 줘요. <br>
           떠니에게 이렇게 물어보세요. <br>ex) '댄디한 셔츠 추천해줘' 
 <!--           <br> 질문 후 조금 기다려 주세요!--></p> 
