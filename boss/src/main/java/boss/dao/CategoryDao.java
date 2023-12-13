@@ -19,4 +19,8 @@ public interface CategoryDao {
 
 	int categorySearchCount(Category c);
 
+	List<String> selectcid();
+
+	Product samplecategory(String cid);
+
 }

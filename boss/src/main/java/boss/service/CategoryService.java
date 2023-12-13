@@ -36,6 +36,16 @@ public class CategoryService {
 
 		return dao.categorySearchCount(c);
 	}
+
+	public List<String> selectcid() {
+
+		return dao.selectcid();
+	}
+
+	public Product samplecategory(String cid) {
+
+		return dao.samplecategory(cid);
+	}
 	
 	
 	

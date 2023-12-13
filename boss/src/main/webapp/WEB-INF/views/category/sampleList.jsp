@@ -34,9 +34,11 @@
 	}
 </script>
 </head>
-
-
-
+<style>
+a {
+  text-decoration: none;
+}
+</style>
 <body class="is-preload">
 
 	<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
@@ -120,31 +122,40 @@
 			<div class="inner">
 				<header align="left">
 
-					<h1>${category.newCid}</h1>
-				</header>
-
-				<c:if test="${not empty list}">
+					<%-- <c:forEach var="sample" items="${sample}" varStatus="loop">
+					${sample}
+					</c:forEach> --%>
+				<c:if test="${not empty clist}">
 					<section class="tiles">
-						<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
-						<c:forEach var="list" items="${list }" varStatus="loop">
+						<c:forEach var="list" items="${clist}">
 							<article class="style1">
-								<span class="image"> <img src="images/${list.pimage}"
+							<header align="left">
+								<h1><a href="category.do?newCid=${list }"> ${list}</a></h1>
+							</header>
+							
+							
+							
+							<%-- <c:forEach var="sample" items="${sample}" varStatus="loop">
+								<span class="image"> <img src="images/${sample.pimage}"
 									onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
-								</span> <a href="productDetail.do?pid=${list.pid }">
-									<h2>${list.pname }</h2>
+								</span> <a href="productDetail.do?pid=${sample.pid}">
+									<h2>${sample.pname }</h2>
 									<div class="content">
-										<p>${list.pcontent }</p>
+										<p>${sample.pcontent }</p>
 									</div>
 								</a>
-								<c:if test="${none != null }">
+								</c:forEach>
+								<c:if test="${empty sample}">
 									<h1>등록된 상품이 없습니다</h1>
 								</c:if>
+							
+								<c:set var="i" value="i+1"></c:set> --%>
 							</article>
 						</c:forEach>
 					</section>
 				</c:if>
 
-				<c:if test="${empty list}">
+				<c:if test="${empty clist}">
 					<br>
 					<br>
 					<br>
@@ -152,6 +163,8 @@
 						<h1>등록된 상품이 없습니다</h1>
 					</div>
 				</c:if>
+				
+				
 
 
 				<form action="categorySearch.do">
@@ -163,35 +176,6 @@
 
 
 			</div>
-			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
-			<div align="center">
-				<c:if test="${pp.startPage != 1 }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?newCid=${cid }&nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-						<- </a>
-				</c:if>
-				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == pp.nowPage }">
-							<b>${p }</b>
-						</c:when>
-						<c:when test="${p != pp.nowPage }">
-							<a style="text-decoration: none; color: deeppink"
-								href="./category.do?newCid=${cid }&nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${pp.endPage != pp.lastPage}">
-					<a style="text-decoration: none; color: deeppink"
-						href="./category.do?newCid=${cid }&nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
-						-> </a>
-				</c:if>
-			</div>
-
-		</div>
-
-
-
 
 		<!-- Footer -->
 		<footer id="footer">
