@@ -9,29 +9,36 @@
 </head>
 <body>
 
-	<!-- 글작성 성공 -->
-	<c:if test="${result == 1 }">
+	<!-- 리뷰에서 글작성 성공 -->
+	<c:if test="${resultType eq 'review_true' }">
 		<script>
 			alert('${msg}');
-			location.href = 'main.do';
+			location.href="productDetail.do?pid=${report.reportnum}";
 		</script>
 	</c:if>
-	<!-- 파일이 없는경우 -->
-	<c:if test="${result == -1 }">
+	<!-- 자유게시판에서 글작성 성공 -->
+	<c:if test="${resultType eq 'freeBoard_true' }">
 		<script>
 			alert('${msg}');
-			location.href = 'main.do';
+			location.href='freeBoardList.do';
+		</script>
+	</c:if>
+	<!--  글작성 실패 -->
+	<c:if test="${resultType eq 'report_false' }">
+		<script>
+			alert('${msg}');
+			location.href='main.do';
 		</script>
 	</c:if>
 	<!-- 용량이 초과한경우 -->
-	<c:if test="${result == 2 }">
+	<c:if test="${result eq 2 }">
 		<script>
 			alert('${msg}');
 			history.go(-1);
 		</script>
 	</c:if>
 	<!-- 파일 형식이 올바르지 않은경우 -->
-	<c:if test="${result == 3 }">
+	<c:if test="${result eq 3 }">
 		<script>
 			alert('${msg}');
 			history.go(-1);

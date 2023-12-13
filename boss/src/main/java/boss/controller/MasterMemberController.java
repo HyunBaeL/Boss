@@ -162,6 +162,7 @@ public class MasterMemberController {
 			List<Member> list = ms.searchMember(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
+			model.addAttribute("search", "search");
 			// return "./master/product/masterProductList";
 		}
 		if (search.getKeyword() == "" && search.getSearchtype() != "") {

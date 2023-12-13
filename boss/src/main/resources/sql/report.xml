@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="report">
 		insert into report values(
 		REPORT_SEQ.NEXTVAL, #{memail}, #{reportname}, #{reporttitle, jdbcType=VARCHAR},
-		#{reportcontent}, #{reportimage,jdbcType=VARCHAR}, #{reportreg},
+		#{reportcontent}, #{reportimage,jdbcType=VARCHAR}, sysdate,
 		#{reporttype}, #{reportnum},
 		#{reportreply, jdbcType=VARCHAR}, #{reportreplyreg, jdbcType=VARCHAR}, default, default
 		)

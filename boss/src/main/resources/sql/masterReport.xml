@@ -16,7 +16,7 @@
 		from (select rownum rnum, report.*
 		from (select *
 		from report order by
-		reportdrop asc, reportanswer asc, reportreg asc)
+		reportdrop asc, reportanswer asc, reportreg desc, reportreply desc)
 		report)
 		where rnum
 		between
@@ -63,18 +63,19 @@
 	<update id="update" parameterType="report">
 		update report set
 		REPORTREPLY =
-		#{reportreply}, REPORTREPLYREG = #{reportreplyreg}, REPORTANSWER =
+		#{reportreply}, REPORTREPLYREG = sysdate, REPORTANSWER =
 		'Y'
-		where reportid = #{reportid}
+		where
+		reportid = #{reportid}
 	</update>
 
 
 
 	<!-- qna게시글 검색 목록 구하기 -->
-	<select id="searchQnaList" parameterType="search"
-		resultType="qnaBoard">
+	<select id="searchReportList" parameterType="search"
+		resultType="report">
 
-		select * from reportboard where
+		select * from report where
 		<choose>
 
 
@@ -86,7 +87,7 @@
 				reportid like '%' || #{keyword} || '%'
 			</when>
 
-			<when test="searchtype == 'qnatitle'">
+			<when test="searchtype == 'reporttitle'">
 				qnatitle like '%' || #{keyword} || '%'
 			</when>
 
@@ -95,6 +96,9 @@
 			</when>
 			<when test="searchtype == 'reportdrop'">
 				reportdrop like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchtype == 'reporttype'">
+				reporttype like '%' || #{keyword} || '%'
 			</when>
 		</choose>
 	</select>

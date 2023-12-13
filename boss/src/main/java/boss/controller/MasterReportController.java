@@ -129,24 +129,24 @@ public class MasterReportController {
 			List<Report> list = rs.searchReportList(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
+			model.addAttribute("search", "search");
 			return "./master/report/masterReportList";
 		}
 		if (search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");
 			model.addAttribute("msg", "검색어를 입력해 주세요.");
-			return "./master/report/masterReportList";
+			return "./master/product/masterMoveProductList";
 		}
 		if (search.getKeyword() != "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notType");
 			model.addAttribute("msg", "검색타입을 선택해 주세요.");
-			return "./master/report/masterReportList";
+			return "./master/product/masterMoveProductList";
 		}
 		if (search.getKeyword() == "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notKeynotType");
 			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
-			return "./master/report/masterMoveProductList";
+			return "./master/product/masterMoveProductList";
 		}
-
 		return "./master/report/masterReportList";
 	}
 }

@@ -106,30 +106,33 @@
 				<input type="submit" value="검색" class="putsub">
 			</form>
 		</div>
-		<div class="pageFont1">
-			<c:if test="${pp.startPage != 1 }">
-				<a style="text-decoration: none; color: deeppink"
-					href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-					< </a>
-			</c:if>
-			<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-				<c:choose>
-					<c:when test="${p == pp.nowPage }">
-						<b>${p }</b>
-					</c:when>
-					<c:when test="${p != pp.nowPage }">
-						<a style="text-decoration: none; color: deeppink"
-							href="./masterOrdersList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
-					</c:when>
-				</c:choose>
-			</c:forEach>
-		</div>
+		<c:if test="${search ne 'search' }">
+			<div class="pageFont1">
+				<c:if test="${pp.startPage != 1 }">
+					<a style="text-decoration: none; color: deeppink"
+						href="./masterOrdersList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+						< </a>
+				</c:if>
+				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pp.nowPage }">
+							<b>${p }</b>
+						</c:when>
+						<c:when test="${p != pp.nowPage }">
+							<a style="text-decoration: none; color: deeppink"
+								href="./masterOrdersList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			</div>
+		</c:if>
+		<c:if test="${search eq 'search' }" />
 		<h4 class="info-message">클릭시 해당 주문으로 이동합니다.</h4>
 		<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
 		<h4 class="info-message">회원별 개별 문자 전송이 가능합니다.</h4>
 	</div>
 
- 
+
 
 </body>
 </html>

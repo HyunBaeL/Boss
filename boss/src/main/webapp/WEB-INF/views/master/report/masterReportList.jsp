@@ -51,6 +51,8 @@
 				<tr>
 					<th><label><input type="checkbox"
 							class="check-all-checkbox">RID</label></th>
+					<th>신고유형</th>
+					<th>신고글번호</th>
 					<th>피신고자</th>
 					<th>신고자</th>
 					<th>제목</th>
@@ -67,18 +69,30 @@
 				<c:set var="i" value="1"></c:set>
 				<c:forEach var="Report" items="${list}" varStatus="loop">
 					<tr>
-
-
 						<td id="${i }"><label><input type="checkbox"
 								name="chkId" value="${Report.reportid}">
 								${Report.reportid }</label></td>
+						<!-- 신고가 리뷰일때 해당글 조회  -->
+						<c:if test="${Report.reporttype eq 'review'}">
+							<td
+								onclick="location.href='masterReviewSelect.do?rid=${Report.reportnum}' ">${Report.reporttype}</td>
+							<td
+								onclick="location.href='masterReviewSelect.do?rid=${Report.reportnum}' ">${Report.reportnum}</td>
+						</c:if>
+						<!-- 신고가 자유게시판일때 해당글 조회 -->
+						<c:if test="${Report.reporttype eq 'freeBoard'}">
+							<td>${Report.reporttype}</td>
+							<td>${Report.reportnum}</td>
+						</c:if>
+
+
 						<td style="color: deeppink;"
 							onclick="location.href='masterMemberSelect.do?id=${Report.reportname}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reportname}</td>
 						<td style="color: DodgerBlue;"
 							onclick="location.href='masterMemberSelect.do?id=${Report.memail}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.memail}</td>
-						<td
-							onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">${Report.reporttitle}</td>
-						<td><input type="text" maxlength="10"
+						<td><input type="text" readonly="readonly" maxlength="10"
+							value="${Report.reporttitle}"></td>
+						<td><input type="text" maxlength="10" readonly="readonly"
 							value="${Report.reportcontent}"></td>
 						<c:if test="${Report.reportimage ne null}">
 							<td
@@ -131,7 +145,7 @@
 								<button type="button"
 									onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }'">답변</button>
 								<button type="button"
-									onclick="location.href='masterReportDelete.do?id=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
+									onclick="location.href='masterReportDelete.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">삭제</button>
 							</c:if></td>
 					</tr>
 					<c:set var="i" value="${i + 1}"></c:set>
@@ -149,35 +163,39 @@
 			<option value="reporttitle">글제목</option>
 			<option value="reportanswer">답변여부</option>
 			<option value="reportdrop">삭제여부</option>
+			<option value="reporttype">신고유형</option>
 		</select> <input type="text" align="right" id="keyword" name="keyword"
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">
 	</form>
-
-	<div class="pageFont1">
-		<c:if test="${pp.startPage != 1 }">
-			<a style="text-decoration: none; color: deeppink"
-				href="./masterReportList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-				< </a>
-		</c:if>
-		<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == pp.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != pp.nowPage }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterReportList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pp.endPage != pp.lastPage}">
-			<a style="text-decoration: none; color: deeppink"
-				href="./masterReportList.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
-				> </a>
-		</c:if>
-	</div>
-	<h4 class="info-message">클릭시 해당 신고글로 이동합니다.</h4>
+	<c:if test="${search ne 'search' }">
+		<div class="pageFont1">
+			<c:if test="${pp.startPage != 1 }">
+				<a style="text-decoration: none; color: deeppink"
+					href="./masterReportList.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+					< </a>
+			</c:if>
+			<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == pp.nowPage }">
+						<b>${p }</b>
+					</c:when>
+					<c:when test="${p != pp.nowPage }">
+						<a style="text-decoration: none; color: deeppink"
+							href="./masterReportList.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${pp.endPage != pp.lastPage}">
+				<a style="text-decoration: none; color: deeppink"
+					href="./masterReportList.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+					> </a>
+			</c:if>
+		</div>
+	</c:if>
+	<c:if test="${search eq 'search' }" />
+	<h4 class="info-message">목록 클릭시 해당 신고글로 이동합니다.</h4>
+	<h4 class="info-message">신고유형 클릭시 문제 글로 이동합니다.</h4>
 	<h4 class="info-message">마우스 드래그로 대략적인 내용을 볼 수 있습니다.</h4>
 	</div>
 
