@@ -1,5 +1,6 @@
 package boss.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,22 @@ public class CategoryController {
 				@RequestParam(value = "nowPage", required = false) String nowPage,
 				@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String search) throws Exception {
 			
+			if(c.getNewCid() == null) {
+				List<String> clist = cs.selectcid();
+				List<Product> sample = new ArrayList<Product>();
+				
+				for (String cid : clist) {
+					sample.add(cs.samplecategory(cid));
+		        }
+				
+				System.out.println(clist);
+				model.addAttribute("clist",clist);
+				model.addAttribute("sample",sample);
+				
+				
+				return "./category/sampleList";
+				
+			}
 			int categoryCount = cs.categoryCount(c.getNewCid());
 			//해당 카테고리의 상품 갯수를 검색
 			
@@ -44,15 +61,12 @@ public class CategoryController {
 			model.addAttribute("pp", pp);  //상품 갯수, 현재페이지번호, 한 페이지에 출력될 번호를 공유
 			c.setNewStartRow(pp.getStartRow());
 			c.setNewEndRow(pp.getEndRow());
-			System.out.println(c.getNewStartRow());
-			System.out.println(c.getNewEndRow());
 			List<Product> list = cs.categoryList(c);
 			if(list != null) {
 				model.addAttribute("list", list);
 			}else {
 				model.addAttribute("list", "상품이 없습니다");
 			}
-			System.out.println(list);
 			model.addAttribute("cid",c.getNewCid());
 			model.addAttribute("category",c);
 			//cid로 찾아낸 해당 카테고리 상품 목록을 페이징 처리하여 공유

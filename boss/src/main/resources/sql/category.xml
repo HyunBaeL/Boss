@@ -4,6 +4,18 @@
 
  <mapper namespace="boss.dao.CategoryDao">
  
+ 	<!-- 모든 카테고리 구하기 -->
+ 	<select id="selectcid" resultType="string">
+ 	select cid from category
+ 	</select>
+ 	
+ 	<!-- 카테고리 별 대표 상품 이미지 -->
+ 	<select id="samplecategory" parameterType="string" resultType="product">
+		select * from 
+		(select * from product where cid=#{cid} order by preg desc) 
+		where rownum=1
+	</select>
+ 
 	<!-- 카테고리 별 상품 갯수 -->
 	<select id="categoryCount" parameterType="string" resultType="int">
 		select count(*) from product where cid=#{cid}

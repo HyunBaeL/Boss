@@ -35,6 +35,8 @@
 </script>
 </head>
 
+
+
 <body class="is-preload">
 
 	<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
