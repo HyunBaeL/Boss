@@ -275,7 +275,7 @@ public class MasterProductController {
     * 상품 검색 메소드
     */
    @RequestMapping("masterProductSearch.do")
-   public String masterProductSearch(Search search, Model model) {
+   public String masterProductSearch(Search search, Model model, String type) {
 
       System.out.println(search.getKeyword());
       System.out.println(search.getSearchtype());
@@ -284,6 +284,7 @@ public class MasterProductController {
          List<Product> list = service.searchList(search);
          System.out.println(list);
          model.addAttribute("list", list);
+         model.addAttribute("search", "search");
          // return "./master/product/masterProductList";
       }
       if (search.getKeyword() == "" && search.getSearchtype() != "") {
@@ -302,6 +303,7 @@ public class MasterProductController {
          return "./master/product/masterMoveProductList";
       }
 
+      model.addAttribute("type", type);
       return "./master/product/masterProductList";
    }
 
