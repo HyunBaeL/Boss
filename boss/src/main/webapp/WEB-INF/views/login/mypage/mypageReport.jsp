@@ -10,33 +10,10 @@
 
 <link rel="stylesheet" href="css/sidebar.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script>
-	function doDetailPage(pid){
-		location.href = "productDetail.do?pid=" + pid;
-	}
-	
-	function deleteReview(rid) {
-	   var confirmDelete = confirm("진짜 삭제하시겠습니까?");
-	   if(confirmDelete){
-		   
-		$.ajax({
-	        type: "POST",
-	        url: "mypageDeleteReview.do",
-	        data: { rid: rid },
-	        success: function (response) {
-	            if (response === "Y") {
-	                alert("리뷰가 삭제 되었습니다.");
-	                location.href = "mypageReview.do";
-	            } else {
-	                alert("리뷰 삭제에 실패했습니다.");
-	                location.href = "mypageReview.do";
-	            }
-	        },
-	        error: function () {
-	            alert("서버 오류가 발생했습니다.");
-	        }
-	    });
-	   }
+	function doDetailPage(reportid){
+		location.href = "mypageReportDetail.do?reportid=" + reportid;
 	}
 </script>
 
@@ -73,32 +50,34 @@
 					<div class="container_review">
 						<table border="1" class="reviewtable">
 							<tr>
-								<th>리뷰 제목</th>
+								<th>피신고자</th>
+								<th>신고자</th>
+								<th>제목</th>
 								<th>내용</th>
 								<th>이미지</th>
-								<th>작성일</th>
-								<th>리뷰 삭제</th>
+								<th>신고작성일</th>
 							</tr>
 
-							<c:forEach items="${rlist }" varStatus="loop" var="review">
+							<c:forEach items="${rlist }" varStatus="loop" var="report">
 								<tr>
-									<td onclick="doDetailPage(${review.pid})">${review.rtitle }</td>
-									<td onclick="doDetailPage(${review.pid})">${review.rcontent }</td>
-									<c:if test="${not empty review.rimage }">
+									<td onclick="doDetailPage(${report.reportid}})">${report.reportname }</td>
+									<td onclick="doDetailPage(${report.reportid})">${report.memail }</td>
+									<td onclick="doDetailPage(${report.reportid})">${report.reporttitle}</td>
+									<td onclick="doDetailPage(${report.reportid})">${report.reportcontent}</td>
+									<c:if test="${not empty report.reportimage }">
 										<td style="position: relative;"
-											onclick="doDetailPage(${review.pid})"><img
-											src="./images/${review.rimage }" width="50" height="50"
-											class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
-										</td>
+											onclick="doDetailPage(${report.reportid})"><img
+											src="./uploadReport/${report.reportimage }" width="70px"
+											height="70px" class="toggle-image"> <span
+											class="text-on-image">${o.PTEXT}</span></td>
 									</c:if>
-									<c:if test="${empty review.rimage }">
-										<td onclick="doDetailPage(${review.pid})">x</td>
+									<c:if test="${empty report.reportimage }">
+										<td> X </td>
 									</c:if>
-									<fmt:formatDate value="${review.rreg }" pattern="yyyy년 MM월 dd일"
-										var="formattedDate" />
-									<td onclick="doDetailPage(${review.pid})">${formattedDate}</td>
-									<td><button class="deleteReview_btn"
-											onclick="deleteReview(${review.rid})">리뷰삭제</button></td>
+
+									<fmt:formatDate value="${report.reportreg }"
+										pattern="yyyy년 MM월 dd일" var="formattedDate" />
+									<td onclick="doDetailPage(${report.reportid})">${formattedDate}</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -109,8 +88,8 @@
 			</c:if>
 		</div>
 		<c:if test="${empty rlist}">
-			<div class="content_noreview">
-				<h1>작성한 리뷰글이 없습니다.</h1>
+			<div class="content_noreport">
+				<h1>신고 기록이 없습니다.</h1>
 			</div>
 		</c:if>
 	</c:if>

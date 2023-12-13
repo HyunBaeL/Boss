@@ -119,5 +119,19 @@
 		join Product ON askboard.pid = Product.pid
 		where askboard.mEmail = #{mEmail} AND askboard.askdrop = 'N'
 	</select>
-
+	
+	<!-- 내 report 구해오기 -->
+	<select id="listReport" parameterType="String" resultType="report">
+		select *
+		from report
+		where memail = #{memail}
+	</select>
+	
+	<!-- 내report pr키로 구해오기 -->
+	<select id="oneReport" parameterType="String" resultType="report">
+		select *
+		from report
+		where reportid = #{reportid}
+	</select>
+	
 </mapper>
