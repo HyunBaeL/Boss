@@ -108,7 +108,7 @@ public class MasterReviewController {
 			List<Review> list = ms.searchReviewList(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
-			//return "./master/product/masterProductList";
+			model.addAttribute("search", "search");
 		}
 		if(search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");

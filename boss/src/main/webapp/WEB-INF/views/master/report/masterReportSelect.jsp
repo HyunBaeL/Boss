@@ -48,12 +48,14 @@
 
 					<td style="color: DodgerBlue;"
 						onclick="location.href='masterMemberSelect.do?id=${Report.memail}' ">${Report.memail}</td>
-					<td>${Report.reporttitle}</td>
-					<td>${Report.reportcontent}</td>
+					<td><input type="text" value="${Report.reporttitle}">
+					</td>
+					<td><input type="text" value="${Report.reportcontent}"
+						readonly="readonly" maxlength="10"></td>
 					<td><img src="uploadReport/${Report.reportimage}" width="50"
 						height="50">
 					<td><input type="text" value="${Report.reportreg}"
-						readonly="readonly"></td>
+						maxlength="10" readonly="readonly"></td>
 					<td><input type="text" value="${Report.reportreply}"
 						maxlength="10" readonly="readonly"></td>
 					<td>${Report.reportreplyreg}</td>
@@ -80,7 +82,12 @@
 						<td
 							onclick="location.href='masterReviewSelect.do?rid=${Report.reportnum}' ">${Report.reportnum }</td>
 					</c:if>
-
+					<c:if test="${Report.reporttype eq 'freeBoard' }">
+						<th>신고유형</th>
+						<td>${Report.reporttype }</td>
+						<th>글번호</th>
+						<td>${Report.reportnum }</td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>제목</th>

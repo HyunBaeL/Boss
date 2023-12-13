@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신고작성 폼</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/report.css">
 <script src="./js/report.js"></script>
@@ -23,7 +23,6 @@
 		pattern="yyyy-MM-dd" />
 	<form method="post" action="reportWrite.do"
 		enctype="multipart/form-data">
-		<input type="hidden" name="reportreg" value="${date }">
 		<div class="container_main">
 			<h1>신고 작성 게시판</h1>
 			<table class="table_main" border="1">
@@ -42,7 +41,7 @@
 						<td colspan="1"><input type="text" id="reportnum"
 							name="reportnum" value="${report.reportnum }" readonly="readonly"></td>
 					</c:if>
-					<c:if test="${fid ne null }">
+					<c:if test="${report.reporttype eq 'freeBoard'}">
 						<td colspan="1"><input type="text" id="reporttype"
 							name="reporttype" value="${report.reporttype }"
 							readonly="readonly"></td>

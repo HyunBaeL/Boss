@@ -58,7 +58,7 @@ public class MasterQnaBoardController {
 
 		// 페이징 처리된 리스트
 		List<QnaBoard> list = service.selectQnaBoardList(page);
-	
+
 		model.addAttribute("page", page);
 		model.addAttribute("list", list);
 
@@ -79,7 +79,7 @@ public class MasterQnaBoardController {
 
 		System.out.println("id : " + id);
 		QnaReply qnaReply = service.selectReplyOne(id);
-		
+
 		model.addAttribute("qnaBoard", qnaBoard);
 		model.addAttribute("qnaReply", qnaReply);
 		model.addAttribute("page", page);
@@ -122,20 +122,20 @@ public class MasterQnaBoardController {
 		map.put("memail", memail);
 		map.put("qrcontent", qrcontent);
 		List<QnaBoard> list = service.selectQnaBoardList(page);
-		
+
 		// 댓글 저장
 		int inset = service.insertReply(map);
 		// qnaBoard 답변 상태 'Y'변겅
 		int update = service.updateQnaBoardReplyYn(id);
 		System.out.println("update성공 : " + update);
-		
+
 		System.out.println("여기까지옴?");
-		//QnaReply qnaReply = service.selectReplyOne(id);
-		
+		// QnaReply qnaReply = service.selectReplyOne(id);
+
 		model.addAttribute("id", id);
-		//model.addAttribute("memail", memail);
+		// model.addAttribute("memail", memail);
 		model.addAttribute("qrcontent", qrcontent);
-		//model.addAttribute("qnaReply", qnaReply);
+		// model.addAttribute("qnaReply", qnaReply);
 		model.addAttribute("page", page);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("cntPerPage", cntPerPage);
@@ -143,66 +143,66 @@ public class MasterQnaBoardController {
 
 		return "redirect:/masterQnaBoardList.do";
 	}
-	
+
 	/*
 	 * qna답글 수정 메소드
 	 */
 	@RequestMapping("masterQnaBoardUpdate.do")
 	public String masterQnaBoardUpdate(String qid, String qrcontent, Model model) {
-		
+
 		int id = Integer.parseInt(qid);
-		
+
 		QnaReply qnaReply = service.selectReplyOne(id);
 		System.out.println(qnaReply.getQrid());
 		System.out.println(qnaReply.getQrcontent());
-		
-		Map<String,Object> map = new HashMap<String,Object>();
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("qrcontent", qrcontent);
-		
+
 		int result = service.updateQnaReply(map);
-		
+
 		return "redirect:/masterQnaBoardList.do";
 	}
-	
+
 	/*
 	 * qna게시글 검색 메소드
 	 */
 	@RequestMapping("masterQnaBoardSearch.do")
 	public String masterQnaBoardSearch(Search search, Model model) {
-		
+
 		System.out.println(search.getKeyword());
 		System.out.println(search.getSearchtype());
-		
-		if(search.getSearchtype().equals("qnayn")) {
+
+		if (search.getSearchtype().equals("qnayn")) {
 			search.setKeyword(search.getKeyword().toUpperCase());
 		}
-		
-		if(search.getKeyword() != "" && search.getSearchtype() != "") {
+
+		if (search.getKeyword() != "" && search.getSearchtype() != "") {
 			List<QnaBoard> list = service.searchQnaList(search);
 			System.out.println(list);
 			model.addAttribute("list", list);
-			//return "./master/product/masterProductList";
+			model.addAttribute("search", "search");
+			// return "./master/product/masterProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() != "") {
+		if (search.getKeyword() == "" && search.getSearchtype() != "") {
 			model.addAttribute("type", "notKey");
 			model.addAttribute("msg", "검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() != "" && search.getSearchtype() == "") {
+		if (search.getKeyword() != "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notType");
 			model.addAttribute("msg", "검색타입을 선택해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		if(search.getKeyword() == "" && search.getSearchtype() == "") {
+		if (search.getKeyword() == "" && search.getSearchtype() == "") {
 			model.addAttribute("type", "notKeynotType");
 			model.addAttribute("msg", "검색타입 & 검색어를 입력해 주세요.");
 			return "./master/product/masterMoveProductList";
 		}
-		
+
 		return "./master/qnaBoard/masterQnaBoardList";
 	}
-
 
 	// 관리자 QNA 삭제
 	@RequestMapping("masterQnaBoardDelete.do")

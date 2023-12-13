@@ -139,30 +139,32 @@
 			placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
 		<input type="submit" value="검색" class="putsub">
 	</form>
-
-	<div class="pageFont1">
-		<c:if test="${page.startPage != 1 }">
-			<a style="text-decoration: none; color: deeppink"
-				href="./masterQnaBoardList.do?nowPage=${page.startPage - 1 }&cntPerPage=${page.cntPerPage}">
-				< </a>
-		</c:if>
-		<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == page.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != page.nowPage }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterQnaBoardList.do?nowPage=${p }&cntPerPage=${page.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${page.endPage != page.lastPage}">
-			<a style="text-decoration: none; color: deeppink"
-				href="./masterQnaBoardList.do?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">
-				> </a>
-		</c:if>
-	</div>
+	<c:if test="${search ne 'search' }">
+		<div class="pageFont1">
+			<c:if test="${page.startPage != 1 }">
+				<a style="text-decoration: none; color: deeppink"
+					href="./masterQnaBoardList.do?nowPage=${page.startPage - 1 }&cntPerPage=${page.cntPerPage}">
+					< </a>
+			</c:if>
+			<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == page.nowPage }">
+						<b>${p }</b>
+					</c:when>
+					<c:when test="${p != page.nowPage }">
+						<a style="text-decoration: none; color: deeppink"
+							href="./masterQnaBoardList.do?nowPage=${p }&cntPerPage=${page.cntPerPage}">${p }</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${page.endPage != page.lastPage}">
+				<a style="text-decoration: none; color: deeppink"
+					href="./masterQnaBoardList.do?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">
+					> </a>
+			</c:if>
+		</div>
+	</c:if>
+	<c:if test="${search eq 'search' }" />
 	<h4 class="info-message">클릭시 해당 회원으로 이동합니다.</h4>
 	</div>
 

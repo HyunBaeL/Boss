@@ -39,20 +39,18 @@ public class ReportController {
 		return "report/reportWriteForm";
 	}
 
-	// 신고 작성 폼 이동
+	// 신고 작성값 받음
 	@RequestMapping("reportWrite.do")
-	public String reportWrite(Report report, Model model, Date reportreg,
+	public String reportWrite(Report report, Model model,
 			@RequestParam(value = "image1", required = false) MultipartFile mfile) throws Exception {
 		System.out.println("reportWrite");
-		System.out.println("reportreg " + reportreg);
-		System.out.println("report.reg " + report.getReportreg());
 		int result = 0;
 		String realFileName = mfile.getOriginalFilename();
 		int size = (int) mfile.getSize();
 		if (realFileName != null && realFileName != "") { // 파일이 있는경우
 			String extension = realFileName.substring(realFileName.lastIndexOf("."), realFileName.length());
 			System.out.println("파일이있음. : " + extension);
-			if (size > 4000000) { // 이미지의 용량이 약 4MB를 초과한 경우.
+			if (size > 5000000) { // 이미지의 용량이 약 4MB를 초과한 경우.
 				System.out.println("용량초과");
 				model.addAttribute("result", 2);
 				model.addAttribute("msg", "용량이 3MB 이상입니다.");
@@ -71,14 +69,22 @@ public class ReportController {
 			mfile.transferTo(new File(path + "/" + newFileName));
 		}
 
-		report.setReportreg(reportreg);
 		result = rs.insert(report);
-		if (result == 1) {
-			model.addAttribute("msg", "신고가 접수되었습니다.");
-			model.addAttribute("result", result);
-		} else {
+		if (result == 1) { // 글 작성 true
+			if (report.getReporttype().equals("review")) { // 리뷰에 글을썼을경우
+				System.out.println("리뷰 글작성 성공");
+				model.addAttribute("msg", "신고가 접수되었습니다.");
+				model.addAttribute("resultType", "review_true");
+				model.addAttribute("report", report);
+			} else if (report.getReporttype().equals("freeBoard")) { // 프리보드에 글을썼을경우
+				System.out.println("프리보드 글작성 성공");
+				model.addAttribute("msg", "신고가 접수되었습니다.");
+				model.addAttribute("resultType", "freeBoard_true");
+				model.addAttribute("report", report);
+			}
+		} else { // 글 작성 false
 			model.addAttribute("msg", "글 작성에 실패하였습니다.");
-			model.addAttribute("result", result);
+			model.addAttribute("resultType", "report_false");
 		}
 
 		return "report/reportWriteResult";
