@@ -74,14 +74,15 @@
 									value="${bucket.bid }"></td>
 								<td><img src="images/${bucket.bimage }" width="50px"
 									height="50px" alt="magic keyboard"></td>
-								<td><a href="#">Bo$$Mall</a><span
+								<td><a href="main.do">Bo$$Mall</a><span
 									class="cart__list__smartstore"> HB & CM</span>
 									<p>${bucket.bname }</p> <sapn class="price">${bucket.bprice }원</sapn><span
 										style="text-decoration: line-through; color:
 										lightgray;">${bucket.bprice}</span></td>
 								<td class="cart__list__option">
 									<p>상품명 : ${bucket.bname } / 수량 : (${bucket.bcount }개)</p>
-									<button class="cart__list__optionbtn">주문조건 추가/변경</button>
+									<!-- <button class="cart__list__optionbtn" >주문조건 추가/변경</button> -->
+									<p>색상 : ${bucket.bcolor } / 사이즈 : ${bucket.bsize }</p>
 								</td>
 								<td><span class="price">${bucket.bprice * bucket.bcount}원</span><br>
 									<button type="button" class="cart__list__orderbtn"
