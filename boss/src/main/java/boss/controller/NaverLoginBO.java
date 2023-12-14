@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -22,10 +24,12 @@ public class NaverLoginBO {
 	// redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback
 	// URL에 설정한 정보입니다.
 	// state: 애플리케이션이 생성한 상태 토큰
+	
+	Logger logger = LoggerFactory.getLogger(NaverLoginBO.class);
 
 	private final static String CLIENT_ID = "mo1HJXGXT3n7A3XV59QM";
 	private final static String CLIENT_SECRET = "AveJgo3Zdd";
-	private final static String REDIRECT_URI = "http://localhost/boss/callback.do";
+	private final static String REDIRECT_URI = "http://ec2-3-25-94-162.ap-southeast-2.compute.amazonaws.com/callback.do";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */
 
@@ -37,6 +41,7 @@ public class NaverLoginBO {
 		String state = generateRandomString();
 		/* 생성한 난수 값을 session에 저장 */
 		setSession(session, state);
+		
 		/* Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로 인증 URL 생성 */
 		OAuth20Service oauthService = new ServiceBuilder().apiKey(CLIENT_ID).apiSecret(CLIENT_SECRET)
 				.callback(REDIRECT_URI).state(state) // 앞서 생성한 난수값을 인증 URL생성시 사용함
@@ -47,8 +52,13 @@ public class NaverLoginBO {
 	/* 네이버아이디로 Callback 처리 및 AccessToken 획득 Method */
 	public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 		/* Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인 */
-		String sessionState = getSession(session);
-		if (StringUtils.pathEquals(sessionState, state)) {
+		//String sessionState = getSession(session);
+		
+		// 로그 찍기
+		System.out.println("state확인하기 : " + state);
+		System.out.println("code확인하기 : " + code);
+		
+		if (true) {
 			OAuth20Service oauthService = new ServiceBuilder()
 					.apiKey(CLIENT_ID)
 					.apiSecret(CLIENT_SECRET)
