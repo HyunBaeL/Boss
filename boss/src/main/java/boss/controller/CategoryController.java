@@ -35,7 +35,6 @@ public class CategoryController {
 					sample.add(cs.samplecategory(cid));
 		        }
 				
-				System.out.println(clist);
 				model.addAttribute("clist",clist);
 				model.addAttribute("sample",sample);
 				
@@ -87,8 +86,6 @@ public class CategoryController {
 			
 			int categorySearchCount = cs.categorySearchCount(c);
 			//카테고리 내에서 해당 검색어를 가진 상품의 갯수를 파악
-			System.out.println("categorySearchCount:"+categorySearchCount);
-			System.out.println(c.getNewCid());
 			
 			if (nowPage == null && cntPerPage == null) {
 				nowPage = "1";
@@ -104,9 +101,6 @@ public class CategoryController {
 			
 			c.setNewStartRow(pp.getStartRow());
 			c.setNewEndRow(pp.getEndRow());
-			System.out.println(c.getNewStartRow());
-			System.out.println(c.getNewEndRow());
-			System.out.println(pp.getEndPage());
 			
 			model.addAttribute("pp", pp);  //상품 갯수, 현재페이지번호, 한 페이지에 출력될 번호를 공유
 			List<Product> list = cs.categorySearch(c);

@@ -28,34 +28,27 @@ public class LikeController {
 	public @ResponseBody Map<String, Object> toggleLike(@RequestParam("fId") int fId, 
 										String mEmail, 
 										Model model) {
-		System.out.println("toggleLike");
-		System.out.println("mEmail:"+ mEmail);
 		
 		//상세페이지에서 하트눌렀던 로그인 유저의 하트 유무 찾기
 		Likes like = lservice.findLike(fId, mEmail);		
 		String likeDrop = "EMPTY";
 		if(like != null)
 			likeDrop = like.getLikeDrop();
-		System.out.println("likeDrop:"+ likeDrop);
 		
 		FreeBoard board = new FreeBoard();
 		board.setmEmail(mEmail);
 		board.setfId(fId);
 		
 		//하트 insert or N/Y update
-		System.out.println("likeDrop:"+ likeDrop);
 		likeDrop = lservice.toggleLike(fId, mEmail, likeDrop);
 		like = lservice.findLike(fId, mEmail);
 		like.setLikeDrop(likeDrop);
-		System.out.println("changelikeDrop:"+ like.getLikeDrop());
 		
 		int countLike = lservice.countLike(fId);	
 		
 		//게시판 좋아요 갯수 설정
-		System.out.println("fLike(before):"+ board.getfLike());
 		board.setfLike(countLike);
 		fservice.setLike(board);
-		System.out.println("fLike(after):"+ board.getfLike());
 		
 		FreeBoard fboard = fservice.getDetail(fId);
 		

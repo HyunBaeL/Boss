@@ -71,7 +71,7 @@
 							<c:if test="${not empty report.reportimage }">
 								<td style="position: relative;"
 									onclick="doDetailPage(${report.reportid})"><img
-									src="./uploadReport/${report.reportimage }" width="500px" height="300px"
+									src="./images/${report.reportimage }" width="500px" height="300px"
 									class="toggle-image"> <span class="text-on-image">${o.PTEXT}</span>
 								</td>
 							</c:if>

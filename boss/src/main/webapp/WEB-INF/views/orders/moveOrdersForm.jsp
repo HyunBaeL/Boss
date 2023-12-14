@@ -76,8 +76,12 @@
             <input type="hidden" name="bidAll" value="${bucket.bid }">
             <table class="table_product">
                <tr>
+               	<c:if test="${bucket.bimage != null }">
                   <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="95%" height="100%"></td>
-                  
+                </c:if>
+                <c:if test="${product.pimage != null }">
+                  <td class="product_img" rowspan="5"><img src="images/${product.pimage }" width="95%" height="100%"></td>
+                </c:if>   
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
                      readonly style="color: green; font-size: 30px; "></td>
