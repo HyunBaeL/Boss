@@ -23,6 +23,7 @@
 		pattern="yyyy-MM-dd" />
 	<form method="post" action="reportWrite.do"
 		enctype="multipart/form-data">
+		<input type="hidden" name="pid" value="${pid }">
 		<div class="container_main">
 			<h1>신고 작성 게시판</h1>
 			<table class="table_main" border="1">

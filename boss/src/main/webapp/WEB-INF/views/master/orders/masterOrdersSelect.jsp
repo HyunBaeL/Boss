@@ -36,7 +36,7 @@ $(document).ready(function() {
 });
  
  // 배송상태 변경 / 변경에따른 문자 전송 여부
-function ajax_change(status, odid) {
+function ajax_change(status, odid, oid) {
     var odstatus = status.value;
 
     $.ajax({ // 배송상태 변경 에이작스
@@ -44,12 +44,14 @@ function ajax_change(status, odid) {
         url: "masterOrdersStatus.do",
         data: {
             odstatus: odstatus,
-            odid: odid
+            odid: odid,
+            oid: oid
         },
         success: function(response) { 
             if (response === "Y") {
-            	if(confirm("배송 메시지를 보내시겠습니까?")){
-            		location.href="masterOrdersSmsMove.do?type=delivery&odstatus="+odstatus+"&odid="+odid;
+            	if(confirm("배송 메시지를 보내시겠습니까?")){ 
+            		location.href="masterOrdersSmsMove.do?type=delivery&odstatus="+odstatus+"&odid="+odid+"&oid="+oid;
+            		//location.href="masterOrdersSmsMove.do?type=delivery&odid="+odid+"&oid="+oid;
             	}
                 
             } else {
@@ -182,7 +184,7 @@ function ajax_change(status, odid) {
 							<button type="button" class="putsub2"
 								onclick="location.href='masterProductUpdateForm.do?id=${o.PID}'">상품수정</button>
 							<select class="select-Dtype"
-							onchange="ajax_change(this,${o.ODID})"
+							onchange="ajax_change(this,${o.ODID},${o.OID })"
 							style="color: black; background-color: gray; font-size: 15px">
 								<option value="0" style="color: black; background-color: gray;"
 									<c:if test="${empty o.ODSTATUS or o.ODSTATUS eq ''}"> selected 

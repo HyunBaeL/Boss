@@ -52,7 +52,7 @@
 					</td>
 					<td><input type="text" value="${Report.reportcontent}"
 						readonly="readonly" maxlength="10"></td>
-					<td><img src="uploadReport/${Report.reportimage}" width="50"
+					<td><img src="images/${Report.reportimage}" width="50"
 						height="50">
 					<td><input type="text" value="${Report.reportreg}"
 						maxlength="10" readonly="readonly"></td>
@@ -101,7 +101,7 @@
 					<th>이미지</th>
 					<c:if test="${Report.reportimage ne null }">
 						<td colspan="6"><img
-							src="uploadReport/${Report.reportimage }" width="65%"
+							src="images/${Report.reportimage }" width="65%"
 							height="400px"></td>
 					</c:if>
 					<c:if test="${Report.reportimage eq null }">

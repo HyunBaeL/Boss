@@ -13,7 +13,7 @@
 	<c:if test="${resultType eq 'review_true' }">
 		<script>
 			alert('${msg}');
-			location.href="productDetail.do?pid=${report.reportnum}";
+			location.href="productDetail.do?pid=${pid}";
 		</script>
 	</c:if>
 	<!-- 자유게시판에서 글작성 성공 -->
