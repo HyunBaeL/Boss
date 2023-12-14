@@ -77,7 +77,7 @@
 </script>
 <div class="div_iframe">
 	<caption>
-		<h2>유투브 '남성 패션' 검색 조회수 TOP 9 유투브 영상</h2>
+		<h2><img src="images/youtube.png">'남성 패션' 조회수 TOP 9</h2>
 	</caption>
 	<br>
 	<iframe width="400" height="300"></iframe>
@@ -99,7 +99,7 @@
 	<div class="community">
 		<table class="table_community">
 			<caption>
-				<a1>BOSS COMMUNITY</a1>
+				<a1>BOSS 커뮤니티에서 자유롭게 이야기 나눠보세요!</a1>
 			</caption>
 			<tr>
 				<th width="5%">번호</th>

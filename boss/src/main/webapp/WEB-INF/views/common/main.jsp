@@ -125,6 +125,11 @@
 	font-size: 20px;
 	cursor: pointer;
 }
+
+/*메인이미지*/
+.mainimg-senter {
+	text-align: center;
+}
 </style>
 
 <!-- 팝업 창 -->
@@ -134,8 +139,8 @@
 		<p>
 			<img src="images/popup.png">
 		</p>
-		<label for="closeForToday"> 오늘 하루 그만 보기 </label> 
-		<input type="checkbox" id="closeForToday">
+		<label for="closeForToday"> 오늘 하루 그만 보기 </label> <input
+			type="checkbox" id="closeForToday">
 	</div>
 </div>
 
@@ -214,10 +219,10 @@
 					test="${!empty sessionScope.member && member.mEmail ne 'master' || empty sessionScope.member}">
 					<div class="category-link" align="center">
 						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a> 
-							<a href="category.do?newCid=상의"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a> 
-							<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
+						<a href="category.do?newCid=상의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
+						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
 						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
@@ -320,12 +325,12 @@
 
 
 						<br>
-						<p align="left">
-							남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br>
-							포멀 & 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br>
-							슬림핏과 가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금
-							확인해보세요.
-						</p>
+						<!-- 						<p align="left"> -->
+						<!-- 							남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> -->
+						<!-- 							포멀 & 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> -->
+						<!-- 							슬림핏과 가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 -->
+						<!-- 							확인해보세요. -->
+						<!-- 						</p> -->
 						<br>
 						<h3 text-align="center">BEST ITEM</h3>
 				</header>
@@ -337,12 +342,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList1.pid }">
-							<h3>${mainImageList1.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList1.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList1.mainpname }</p>
+							<img src="images/hititem.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block2 == 2 }">
@@ -351,12 +358,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList2.pid }">
-							<h3>${mainImageList2.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList2.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList2.mainpname }</p>
+							<img src="images/hit.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block3 == 3 }">
@@ -365,12 +374,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList3.pid }">
-							<h3>${mainImageList3.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList3.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList3.mainpname }</p>
+							<img src="images/best.png">
+						</div>
 					</article>
 					<!-- <br><h3 text-align="center">WEEKLY BEST</h3><br> -->
 					<article class="style1">
@@ -380,12 +391,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList4.pid }">
-							<h3>${mainImageList4.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList4.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList4.mainpname }</p>
+							<img src="images/new.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block5 == 5 }">
@@ -394,12 +407,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList5.pid }">
-							<h3>${mainImageList5.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList5.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList5.mainpname }</p>
+							<img src="images/new.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block6 == 6 }">
@@ -408,12 +423,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList6.pid }">
-							<h3>${mainImageList6.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList6.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList6.mainpname }</p>
+							<img src="images/new.png">
+						</div>
 					</article>
 					<!-- 에러시작 -->
 					<article class="style1">
@@ -423,12 +440,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList7.pid }">
-							<h3>${mainImageList7.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList7.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList7.mainpname }</p>
+							<img src="images/todayorder.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block8 == 8 }">
@@ -437,12 +456,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList8.pid }">
-							<h3>${mainImageList8.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList8.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList8.mainpname }</p>
+							<img src="images/todayorder.png">
+						</div>
 					</article>
 					<article class="style1">
 						<span class="image"> <c:if test="${block9 == 9 }">
@@ -451,12 +472,14 @@
 							</c:if>
 
 						</span> <a href="productDetail.do?pid=${mainImageList9.pid }">
-							<h3>${mainImageList9.mainpname }</h3>
 							<div class="content">
 								<p>${mainImageList9.maincontent}</p>
 							</div>
 						</a>
-						<div class="buttons_master"></div>
+						<div class="mainimg-senter">
+							<p>${mainImageList9.mainpname }</p>
+							<img src="images/todayorder.png">
+						</div>
 					</article>
 				</section>
 			</div>
@@ -487,8 +510,7 @@
 			</div>
 
 			<div align="center" width="100px" height="100px">
-				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
-				><br>
+				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
 			</div>
 
 			<!-- Nav -->
@@ -570,11 +592,11 @@
 					<!----------- 슬라이드 부트스트랩 끝-------------->
 
 					<br>
-					<p align="left">
-						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀
-						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과
-						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요.
-					</p>
+					<!-- 					<p align="left"> -->
+					<!-- 						남성을 위한 수트<br> 포멀함과 세심한 디자인의 기능성이 만난 남성 수트를 소개합니다.<br> 포멀 -->
+					<!-- 						& 캐주얼 스타일을 선보이는 우아한 컬렉션에서 소개하는 BO$$만의 실루엣을 발견해보세요.<br> 슬림핏과 -->
+					<!-- 						가벼운 여름 스타일부터 턱시도와 스리피스 디자인까지, 세심한 스타일링에 중점을 둔 수트 컬렉션을 지금 확인해보세요. -->
+					<!-- 					</p> -->
 					<br>
 					<h3 text-align="center">BEST ITEM</h3>
 			</header>
