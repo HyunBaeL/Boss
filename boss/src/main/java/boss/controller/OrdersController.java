@@ -52,8 +52,10 @@ public class OrdersController {
 		
 		// 바로 구매하기로 넘어옴
 		if((bid == null || bid == "") && (bidAll == null)) {
+			Product product = mps.selectOne(pid);
 			System.out.println("바로 구매하기로 넘어옴");
 			model.addAttribute("pid", pid);
+			model.addAttribute("product", product);
 			model.addAttribute("amountCount", amountCount);
 			model.addAttribute("member", member);
 			model.addAttribute("omessage", omessage);
@@ -64,17 +66,22 @@ public class OrdersController {
 
 		if ((bid != null && bid != "") || (bidAll != null)) { // 값이 뭐라도 한개있음
 			if ((bid != null && bid != "") && (bidAll == null)) { // 값이 단일값임
+				Product product = mps.selectOne(pid);
 				System.out.println("1");
 				//bidList.add(0, bid);
+				model.addAttribute("name", product.getPname());
 				model.addAttribute("bidList", bidList);
 				model.addAttribute("pid", pid);
 				model.addAttribute("bid", bid);
 				model.addAttribute("amountCount", amountCount);
 
 			} else if ((bid == null || bid == "") || (bidAll != null)) { // 값이 여러개임
+				Bucket bbucket = bs.OneBucket(Integer.parseInt(bidAll[0]));
 				System.out.println("2");
+				
 				bidList = Arrays.asList(bidAll);
 				model.addAttribute("bidList", bidList);
+				model.addAttribute("name", bbucket.getBname());
 				model.addAttribute("amountCount", amountCount);
 			}
 		} else { // 값이 없음
@@ -111,6 +118,11 @@ public class OrdersController {
 		String[] bids = request.getParameterValues("bidAll");
 		Member member = (Member) session.getAttribute("member");
 		System.out.println("요기요기요기");
+		
+		if(quantity == null && pid == null && bids == null && bid == null) {
+			model.addAttribute("notBucket", "1");
+			return "bucket/bucketMoveForm";
+		}
 
 		if (((bid != null && pid != null) && (bid != "" && pid != "")) || (bids != null)) { // 두 값이 전부 들어온경우.
 
@@ -174,14 +186,17 @@ public class OrdersController {
 	@ResponseBody
 	@RequestMapping("orderResult.do")
 	public String orderResult(String mEmail, String bid, String amountCount,
-			Orders orders, String pid, String bcount,String omessage,@RequestParam Map<String, List<String>> bidList) {
+			Orders orders, String pid, String bcount,String omessage, 
+			HttpSession session,@RequestParam Map<String, List<String>> bidList) {
 		System.out.println("orderResult");
 		System.out.println("bidList : " + bidList);
+		Member member = (Member) session.getAttribute("member");
 		Map<String, Object> map = new HashMap<String, Object>();
 			System.out.println("orders : " + orders);
 			System.out.println("orderResult bid : " + bid);
 		if (orders != null) {
 			orders.setMemail(mEmail);
+			orders.setOname(member.getmName());
 			if(bid != "") {
 				int result = os.insertOrders(orders);
 				if (result == 1) {
@@ -198,6 +213,8 @@ public class OrdersController {
 					int productCount = os.updateProductCount(map);
 				}
 			}else if(bid == "") {
+				orders.setMemail(mEmail);
+				orders.setOname(member.getmName());
 				JSONObject jsonObject = new JSONObject(bidList);
 				String s = (String)jsonObject.get("bidList");
 				System.out.println(s);
@@ -230,11 +247,13 @@ public class OrdersController {
 	
 	@ResponseBody
 	@RequestMapping("oneOrderResult.do")
-	public String oneOrderResult(String mEmail, String amountCount,Orders orders, String pid,String omessage) {
+	public String oneOrderResult(String mEmail, String amountCount,Orders orders, String pid,String omessage,HttpSession session) {
 		System.out.println("단일 결제");
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		orders.setMemail(mEmail);
+		Member member = (Member) session.getAttribute("member");
+		orders.setMemail(member.getmEmail());
+		orders.setOname(member.getmName());
+		System.out.println("구매자 : " + orders.getOname());
 		int result = os.insertOrders(orders);
 		orders = os.selectOrdersOne(orders.getMemail());
 		Product product = mps.selectOne(pid);

@@ -35,7 +35,7 @@
                <tr>
                   <td><input type="text" value="${member.mName } "
                      placeholder="이름을 입력하세요." maxlength="5" name="mName"
-                     style="color: palegreen; font-size: 30px"></td>
+                     style="color: green; font-size: 30px"></td>
                </tr>
                <tr>
                   <td><input type="text" value="${member.mPhone }"
@@ -51,7 +51,7 @@
                </tr>
                <tr>
                   <td><input type="text" 
-                     name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70"></td>
+                     name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70" style="color: red;"></td>
                </tr>
             </table>
             <h2>주문자</h2>
@@ -59,11 +59,11 @@
                <tr>
                   <td><input type="text" value="${member.mName }" readonly
                      placeholder="이름을 입력하세요." maxlength="5"
-                     style="color: palegreen; font-size: 30px"></td>
+                     style="color: green; font-size: 30px"></td>
                </tr>
                <tr>
                   <td><input type="text" value="${member.mPhone }"
-                     name="mPhone" placeholder="휴대폰번호를 입력하세요." maxlength="11"></td>
+                     name="mPhone" placeholder="휴대폰번호를 입력하세요." maxlength="11" readonly></td>
                </tr>
             </table>
 
@@ -76,11 +76,11 @@
             <input type="hidden" name="bidAll" value="${bucket.bid }">
             <table class="table_product">
                <tr>
-                  <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="150" height="100"></td>
+                  <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="95%" height="100%"></td>
                   
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
-                     readonly style="color: palegreen; font-size: 30px"></td>
+                     readonly style="color: green; font-size: 30px; "></td>
                </tr>
 
                <tr>
@@ -104,7 +104,7 @@
                      src="./images/${bucket.bimage}" width="150" height="100"></td>
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
-                     readonly style="color: palegreen; font-size: 30px"></td>
+                     readonly style="color: green; font-size: 30px"></td>
                </tr>
 
                <tr>
@@ -152,17 +152,18 @@
                <tr>
                   <td><input type="text" value="${member.mName }" name="mName"
                      placeholder="이름을 입력하세요." maxlength="5"
-                     style="color: palegreen; font-size: 30px"></td>
+                     style="color: green; font-size: 30px"></td>
                </tr>
                <tr>
                   <td>총금액 : ${totalPrice }</td>
                </tr>
                <tr>
-                  <td>배송비 : 4000</td>
+                  <td>배송비 : 무료</td>
                </tr>
 
             </table>
-            <button type="submit">결제하기</button>
+            <button type="submit" style="margin-top: 20px;">결제하기</button>
+            <button type="button" onclick="location.href='cartFormMove.do'" style="margin-top: 20px;">취소하기</button>
             <div class="img_logo">
                <a href="main.do"><img src="./images/logo.png"
                   style="margin-left: 20px; width: 350px"></a>

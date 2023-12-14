@@ -54,21 +54,20 @@
 
 
 <body>
-	<h1 align="center">상품정보</h1>
+	<h1 align="center">${product.pname }</h1>
 
 
 	<div class="container_main">
 		<div class="container_left">
 			<!-- 이미지 경로 불러오기 -->
 			<img alt="상품이미지" src="./images/${product.pimage }"
-				class="centered-image">
+				class="centered-image" style="width: 70%; margin-left:30%; height:85%; margin-top: 10%;">
 		</div>
 
-		<div class="container_right">
+		<div class="container_right" style="width: 70%; height:80%; margin-top: 5%;">
 			<div class="line_1"></div>
 
 			<table class="table_product">
-				<caption>${product.pname }</caption>
 				<tr>
 					<th>상품명</th>
 					<td>${product.pname }</td>
@@ -92,7 +91,7 @@
 				<tr>
 					<!-- class="product_count" -->
 					<th>상품수량</th>
-					<td class="bucket_count"><input type="number" value="1"
+					<td class="bucket_count"><input type="number" value="1" min="1"
 						id="bucketCount" class="product_count">개</td>
 				</tr>
 
@@ -100,13 +99,13 @@
 			<div class="button-container">
 			<c:if test="${member.mEmail != null }">
 				<button type="button" id="buy" class="button1" onclick="moveOrdersForm();">구매하기</button>
-				<button type="button" id="bucket" class="button1"
+				<button type="button" id="bucket" class="button2"
 					onclick="moveToCart();">장바구니</button>
 			</c:if>
 			
 			<c:if test="${member.mEmail == null }">
 				<button type="button" id="bucket" class="button1" onclick="location.href='NaverLogin.do'">로그인 (비회원 구매 불가)</button>
-				<button type="button" id="bucket" class="button1"
+				<button type="button" id="bucket" class="button2"
 					onclick="location.href='main.do'">메인 페이지</button>
 					
 			</c:if>

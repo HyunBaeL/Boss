@@ -129,10 +129,10 @@ public class MasterProductController {
       int size = (int) mfile.getSize();
       // 파일 저장될 경로
 
-      String path = "C:\\hbBoss\\boss\\src\\main\\webapp\\images";
+      //String path = "C:\\hbBoss\\boss\\src\\main\\webapp\\images";
  
+      String path = request.getRealPath("images");
       System.out.println("oldpath : " + path);
-      // String path = request.getRealPath("upload");
       System.out.println(path);
 
       // 확장자 잘라서 저장할 배열

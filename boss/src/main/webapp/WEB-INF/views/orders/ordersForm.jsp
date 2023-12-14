@@ -31,7 +31,7 @@
    var bid = '${bid}';
    var amountCount = '${amountCount}';
    var bidList = JSON.stringify('${bidList}');
-   var name = '${member.mName}';
+   var name = '${name}';
    var amount = '${totalPrice}';
    var buyer_email = '${member.mEmail}';
    var buyer_name = '${member.mName}';

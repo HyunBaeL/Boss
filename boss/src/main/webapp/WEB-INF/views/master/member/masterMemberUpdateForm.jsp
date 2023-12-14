@@ -9,6 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="css/masterCss.css">
 <script src="js/master.js"></script>
+<script src="js/masterMemberUpdate.js"></script>
 <title>회원 정보수정</title>
 
 </head>
@@ -33,51 +34,30 @@
 				</tr>
 				<tr align="center">
 					<td><input type="text" value="${member.mEmail}"
-						id="${member.mEmail}" name="mEmail" autofocus></td>
+						id="${member.mEmail}" name="mEmail" autofocus readonly></td>
 					<td><input type="text" value="${member.mName}" id="mName"
 						name="mName"></td>
-					<td><input type="text" value="${member.mPhone}" id="phone1"
+					<td><input type="text" value="${member.mPhone}" id="mPhone"
 						name="mPhone"></td>
 					<td><input type="text" value="${member.mPost}" id="mPost"
 						name="mPost"></td>
 					<td><input type="text" value="${member.mAddress}"
 						id="mAddress" name="mAddress"></td>
-					<td><input type="text" value="${member.mGrade}" id="grade"
+					<td><input type="text" value="${member.mGrade}" id="mGrade"
 						name="mGrade"></td>
 					<td><input type="text" value="${member.mDrop}" id="mDrop"
 						name="mDrop"></td>
 					<td><input type="text" value="${member.mReg}" id="mReg"
-						name="mReg"></td>
+						name="mReg" readonly></td>
 					<td>
-						<button type="button" onclick="confirmAndUpdate()">수정</button>
+						<button type="submit" onclick="confirmAndUpdate()">수정</button>
 						<button type="button" onclick="confirmAndRedirect()">취소</button>
 					</td>
 				</tr>
 			</table>
 		</div>
 
-		<script>
-			function confirmAndUpdate() {
-				var userConfirmed = confirm('수정을 하시겠습니까?');
-				if (userConfirmed) {
-					alert('폼 데이터 확인: ' + document.forms[0].mEmail.value); // 예시로 첫 번째 입력 필드의 값을 확인
-					// 예시: document.forms[0].submit(); // 첫 번째 폼을 서버로 전송
-					alert('수정이 완료되었습니다.'); // 서버로 전송하는 대신 알림만 표시 (테스트용)
-					document.forms[0].submit();
-
-					// 					$("#myform").submit();
-				} else {
-					alert("수정을 취소하였습니다.")
-				}
-			}
-
-			function confirmAndRedirect() {
-				var userConfirmed = confirm('수정을 취소하시겠습니까?');
-				if (userConfirmed) {
-					history.go(-1);
-				}
-			}
-		</script>
+		
 	</form>
 </body>
 </html>
