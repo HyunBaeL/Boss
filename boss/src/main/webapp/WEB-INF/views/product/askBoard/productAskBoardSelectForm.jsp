@@ -91,27 +91,6 @@ function deleteAsk(askid,pid) {
 		</form>
 	</div>
 
-	<!-- 댓글 목록을 표시할 영역 -->
-	<!-- 댓글 게시판 -->
-	<div class="arReply">
-			<table class="table_ar" align="center" border="1">
-				<tr align="center">
-					<th>댓글 번호</th>
-					<th>답변 게시글</th>
-					<th>날짜</th>
-				</tr>
-				<tr>
-					<td>${askreply.arid }</td>
-					<td>${askreply.arcontent }</td>
-					<td>${askreply.arreg }</td>
-				</tr>
-				</table>
-				</div>
-
-
-
-
-
 
 	<!-- css 양식 include -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>

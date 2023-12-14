@@ -172,7 +172,7 @@
 								onclick="location.href='productReviewSelect.do?rid=${review.rid}&pid=${review.pid}'">${formattedDate}</td>
 							<c:if test="${member.mEmail ne null }">
 								<td><img src="images/report.png"
-									onclick="location.href='reportWriteForm.do?reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
+									onclick="location.href='reportWriteForm.do?pid=${product.pid }&reporttype=review&reportnum=${review.rid}&reportname=${review.memail}' "
 									style="width: 25px; height: 25px;"></td>
 							</c:if>
 							<c:if test="${member.mEmail eq null }">
