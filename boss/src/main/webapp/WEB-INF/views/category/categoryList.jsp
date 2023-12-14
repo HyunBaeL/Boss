@@ -17,11 +17,17 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+
+
 <script>
 	function enterkey() {
 		if (window.event.keyCode == 13) {
 			// 엔터키가 눌렸을 때
 			var s = document.getElementById("search").value;
+			if(s == ""){
+				alert("검색어를 입력해주세요");
+	            return false;
+			}
 			location.href = "categorySearch.do?newCid=${category.newCid}&keyword="
 					+ s;
 		}
@@ -33,11 +39,15 @@
 				+ sel;
 	}
 </script>
+
+<style type="text/css">
+ .center-div {
+      text-align: center;
+    }
+    </style>
 </head>
 
 
-
-<body class="is-preload">
 
 	<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
@@ -53,23 +63,25 @@
 				<%@include file="../common/header.jsp"%>
 
 				<!--1. 회원 or 비회원 페이지 -->
-				<div class="category-link" align="center">
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">OUTER</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">KNIT</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none;">OUTER</a> 
+							<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a> 
+							<a href="category.do?newCid=상의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=하의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
+				<div align="center" width="30px" height="100px">
+					<input type="text" maxlength="30" placeholder="${param.newCid } 검색"
+						id="search" onkeyup="enterkey()">
 				</div>
 
 				<c:if test="${not empty list}">
@@ -91,25 +103,23 @@
 				<br>
 
 				<!---------------------- Nav --------------------->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=코트"
+				<li><a href="category.do"
 					style="text-decoration: none">카테고리</a></li>
 				<br>
 				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
 				<br>
 				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-				<br>
-				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
@@ -126,40 +136,28 @@
 				<c:if test="${not empty list}">
 					<section class="tiles">
 						<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
-						<c:forEach var="list" items="${list }" varStatus="loop">
+						<c:forEach var="L" items="${list }" varStatus="loop">
 							<article class="style1">
-								<span class="image"> <img src="images/${list.pimage}"
-									onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
-								</span> <a href="productDetail.do?pid=${list.pid }">
-									<h2>${list.pname }</h2>
+								<span class="image"> <img src="images/${L.pimage}"
+								alt="" height="450"> 
+								</span> <a href="productDetail.do?pid=${L.pid }">
+									<h2>${L.pname }</h2>
 									<div class="content">
-										<p>${list.pcontent }</p>
+										<p>${L.pcontent }</p>
 									</div>
 								</a>
-								<c:if test="${none != null }">
-									<h1>등록된 상품이 없습니다</h1>
-								</c:if>
+
 							</article>
 						</c:forEach>
 					</section>
 				</c:if>
 
 				<c:if test="${empty list}">
-					<br>
-					<br>
-					<br>
-					<div align="center">
+					<br><br><br>
+					<div class="center-div">
 						<h1>등록된 상품이 없습니다</h1>
 					</div>
 				</c:if>
-
-
-				<form action="categorySearch.do">
-					<input type="text" align="right" id="keyword" name="keyword"
-						placeholder="${param.newCid } 검색" maxlength="10"
-						class="text-input"> <input type="submit" class="putsub">
-					<input type="hidden" name="newCid" value="${param.newCid }">	
-				</form>
 
 
 			</div>

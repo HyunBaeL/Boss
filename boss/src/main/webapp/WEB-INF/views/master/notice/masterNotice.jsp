@@ -29,6 +29,27 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+ <script type="text/javascript"> 
+ $(function() { 
+	    $('#search').click(function(){
+	    	if ($('#searchtype').val() == "") {
+	            alert("검색 유형을 선택해주세요");
+	            return false;
+	        }
+	    
+	        if ($.trim($('#keyword').val()) == "") {
+	            alert("검색어를 입력해주세요");
+	            $("#keyword").val("").focus();
+	            return false;
+	        }
+	        
+	    }); 
+	});
+</script>    
+
 <script>
     function popup(){
       location.href="masterNoticeInsertForm.do"
@@ -55,6 +76,8 @@
     	event.stopPropagation()
     }
 </script>
+     	
+
 <style type="text/css">
 body {
 	margin: 0;
@@ -70,19 +93,17 @@ body {
 
 .ordertable {
 	border-collapse: collapse;
-	width: calc(100% - 25%); /* 페이지 전체 너비에서 사이드바의 너비를 뺀 값으로 지정 */
-	margin-bottom: 200px;
-	margin-left: 50px;
+	width: 800px;
+	margin-bottom: 10px;
 }
 
 .ordertable th, .ordertable td {
 	border: 1px solid #ddd;
 	padding: 8px;
-	text-align: left;
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-    overflow: hidden; /* 텍스트를 셀 내에서 숨김 */
-    text-overflow: ellipsis; /* 텍스트 오버플로우 시 ...으로 표시 */
-    
+	text-align: center;
+	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+	overflow: hidden; /* 텍스트를 셀 내에서 숨김 */
+	text-overflow: ellipsis; /* 텍스트 오버플로우 시 ...으로 표시 */
 }
 
 .ordertable th {
@@ -100,20 +121,86 @@ body {
 }
 
 .ordertable td.lastcolumn, .ordertable th.lastcolumn {
-    background-color: #FFFFFF; /* 브라우저 바탕의 흰색 */
-    padding: 0; /* 패딩 제거 */
-    border: 2px solid white;
-    
+	background-color: #FFFFFF; /* 브라우저 바탕의 흰색 */
+	padding: 0; /* 패딩 제거 */
+	border: 2px solid white;
 }
 
 button {
-
-    margin-right: 10px; /* 오른쪽 여백을 조절하여 간격을 벌립니다. */
+	margin-right: 10px; /* 오른쪽 여백을 조절하여 간격을 벌립니다. */
 }
 
 /* 마지막 버튼의 오른쪽 여백을 제거합니다. */
 button:last-child {
-    margin-right: 0;
+	margin-right: 0;
+}
+
+.putsub {
+	background-color: black;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+	/* 다른 원하는 스타일 추가 */
+}
+
+.text-input {
+	background-color: white;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+}
+
+.putsub {
+	background-color: white;
+	color: black;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+	/* 다른 원하는 스타일 추가 */
+}
+
+input[type="text"] {
+	width: 100%; /* 부모 요소(여기서는 td)의 너비에 맞게 설정 */
+	max-width: 200px; /* 최대 너비 설정 */
+	box-sizing: border-box; /* 패딩과 테두리 포함하여 전체 너비 설정 */
+	background-color: white;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+}
+
+body #searchtype select {
+	box-sizing: border-box;
+	width: 30% !important;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	font-size: 16pt;
+	font-weight: 50;
+	line-height: 1.75;
+}
+
+#myForm {
+	float: right;
+}
+
+#keyword {
+	float: left;
 }
 </style>
 
@@ -135,14 +222,12 @@ button:last-child {
 				<!--1. 회원 or 비회원 페이지 -->
 				<div class="category-link" align="center">
 					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">OUTER</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">KNIT</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none;">OUTER</a>
 					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
+					<a href="category.do?newCid=상의"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+					<a href="category.do?newCid=하의"
 						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
 					<a href="category.do?newCid=코트"
 						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
@@ -151,29 +236,26 @@ button:last-child {
 					<a href="category.do?newCid=코트"
 						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 				</div>
-				<div align="center" width="30px" height="100px"></div>
 				<br>
 
 				<!---------------------- Nav --------------------->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=코트"
+				<li><a href="category.do"
 					style="text-decoration: none">카테고리</a></li>
 				<br>
 				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
 				<br>
 				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-				<br>
-				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
@@ -201,9 +283,9 @@ button:last-child {
 									<th>작성일</th>
 									<th>조회수</th>
 									<c:if test="${member ne null && member.mEmail eq 'master'}">
-											<td class="lastcolumn">
-											</td>
-										</c:if>
+										<th>관리</th>
+
+									</c:if>
 								</tr>
 								<c:set var="i"
 									value="${pp.total - (pp.nowPage-1)* pp.cntPerPage }"></c:set>
@@ -216,7 +298,7 @@ button:last-child {
 												value="${masterNotice.mnReg}" /></td>
 										<td>${masterNotice.mnReadCount}</td>
 										<c:if test="${member ne null && member.mEmail eq 'master'}">
-											<td class="lastcolumn">
+											<td>
 												<button type="button"
 													onclick="javascript:update(${masterNotice.rnum},${masterNotice.mnId})">수정</button>
 												<button type="button" id="delete"
@@ -229,52 +311,55 @@ button:last-child {
 								</c:forEach>
 							</table>
 							<c:if test="${member ne null && member.mEmail eq 'master'}">
-								<button type="button" class="putsub"
-									onclick="javascript:popup()">공지사항 등록</button>
+								<button type="button" onclick="javascript:popup()">공지사항
+									등록</button>
 							</c:if>
 						</div>
+
+						<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
+
+						<div align="center">
+							<c:if test="${pp.startPage != 1 }">
+								<a style="text-decoration: none; color: deeppink"
+									href="./masterNotice.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
+									<- </a>
+							</c:if>
+							<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == pp.nowPage }">
+										<b>${p }</b>
+									</c:when>
+									<c:when test="${p != pp.nowPage }">
+										<a style="text-decoration: none; color: deeppink"
+											href="./masterNotice.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${pp.endPage != pp.lastPage}">
+								<a style="text-decoration: none; color: deeppink"
+									href="./masterNotice.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
+									-> </a>
+							</c:if>
+						</div>
+
+						<form action="masterNoticeSearch.do" id="myForm">
+							<select class="putsub" name="searchtype" id="searchtype"
+								style="width: 280px">
+								<option value="">검색 유형 선택</option>
+								<option value="mnTitle">제목</option>
+								<option value="mnContent">내용</option>
+							</select> <input type="text" id="keyword" name="keyword"
+								placeholder="검색어를 입력하세요." maxlength="10"> <input
+								type="submit" value="검색" class="putsub" id="search" onsubmit="return search_check()">
+						</form>
+
+
+
 					</div>
 				</section>
-				
-				<form action="masterNoticeSearch.do">
-					<select class="putsub" name="searchtype">
-						<option value="">검색 유형 선택</option>
-						<option value="mnTitle">제목</option>
-						<option value="mnContent">내용</option>
-					</select> <input type="text" align="right" id="keyword" name="keyword"
-						placeholder="검색어를 입력하세요." maxlength="10" class="text-input">
-					<input type="submit" value="검색" class="putsub">
-				</form>
-
 
 
 			</div>
-
-			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
-			<div align="center">
-				<c:if test="${pp.startPage != 1 }">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterNotice.do?nowPage=${pp.startPage - 1 }&cntPerPage=${pp.cntPerPage}">
-						<- </a>
-				</c:if>
-				<c:forEach begin="${pp.startPage }" end="${pp.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == pp.nowPage }">
-							<b>${p }</b>
-						</c:when>
-						<c:when test="${p != pp.nowPage }">
-							<a style="text-decoration: none; color: deeppink"
-								href="./masterNotice.do?nowPage=${p }&cntPerPage=${pp.cntPerPage}">${p }</a>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${pp.endPage != pp.lastPage}">
-					<a style="text-decoration: none; color: deeppink"
-						href="./masterNotice.do?nowPage=${pp.endPage+1 }&cntPerPage=${pp.cntPerPage}">
-						-> </a>
-				</c:if>
-			</div>
-
 
 
 		</div>

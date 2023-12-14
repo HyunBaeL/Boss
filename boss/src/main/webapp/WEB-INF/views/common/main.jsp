@@ -72,10 +72,16 @@
 		var s = document.getElementById("search").value;
 		if (window.event.keyCode == 13) {
 			// 엔터키가 눌렸을 때
+			if(s == ""){
+				alert("검색어를 입력해주세요");
+	            return false;
+			}
 			location.href = "allSearch.do?keyword=" + s;
 		}
 	}
 </script>
+
+
 
 
 
@@ -219,12 +225,12 @@
 					test="${!empty sessionScope.member && member.mEmail ne 'master' || empty sessionScope.member}">
 					<div class="category-link" align="center">
 						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
-						<a href="category.do?newCid=상의"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
-						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none;">OUTER</a> 
+							<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a> 
+							<a href="category.do?newCid=상의"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=코트"
+						<a href="category.do?newCid=하의"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
 						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
@@ -233,11 +239,7 @@
 						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 					</div>
-					<div align="center" width="30px" height="100px">
-						<input type="text" maxlength="30"
-							placeholder="검색어를 입력하세요. 연말준비는 ? BOSS에서 !" id="search"
-							onkeyup="enterkey()">
-					</div>
+					
 					<br>
 
 					<!---------------------- Nav --------------------->
@@ -252,7 +254,7 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=코트"
+				<li><a href="category.do"
 					style="text-decoration: none">카테고리</a></li>
 				<br>
 				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
@@ -497,9 +499,9 @@
 					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">OUTER</a>
 				<a href="category.do?newCid=코트"
 					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a>
-				<a href="category.do?newCid=코트"
+				<a href="category.do?newCid=상의"
 					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-				<a href="category.do?newCid=코트"
+				<a href="category.do?newCid=하의"
 					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
 				<a href="category.do?newCid=코트"
 					style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
@@ -510,7 +512,9 @@
 			</div>
 
 			<div align="center" width="100px" height="100px">
-				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."><br>
+				<input type="text" maxlength="50" placeholder="검색어를 입력하세요."
+				id="search" onkeyup="enterkey()"
+				><br><br>
 			</div>
 
 			<!-- Nav -->

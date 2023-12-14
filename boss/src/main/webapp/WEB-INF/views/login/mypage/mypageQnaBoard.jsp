@@ -38,6 +38,32 @@
       }
 	
 </script>
+
+<style type="text/css">
+.qna_btn {
+	background-color: black;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin-left:auto;
+    margin-right: 230px;
+    width: 150px; /* 버튼을 100%로 설정하여 테이블 셀과 일치시킵니다. */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+.qna_btn:hover{
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.container_orders{
+width: 100%;
+}
+
+.ordertable {
+	margin-bottom: 10px !important;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -67,13 +93,13 @@
 		<c:if test="${not empty qlist}">
 			<div class="content">
 				<h1>내가 쓴 QnA</h1>
-				<div class="container_orders">
 					<table border="1" class="ordertable">
 						<tr>
 							<th>제목</th>
 							<th>내용</th>
 							<th>첨부파일</th>
 							<th>작성일</th>
+							<th>관리</th>
 						</tr>
 						<c:forEach items="${qlist }" varStatus="loop" var="QnaBoard">
 
@@ -96,7 +122,7 @@
 									<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
 											value="${QnaBoard.qnareg }"></fmt:formatDate></td>
 									<td>
-										<input type="button" value="삭제"
+										<input type="button" value="문의삭제" class="deleteReview_btn"
 										onclick="javascript:deleteCheck(${QnaBoard.qid})">
 									</td>
 								</tr>
@@ -106,19 +132,19 @@
 							<c:if test="${QnaBoard.qrid !=0 && QnaBoard.qrdrop != 'Y'}">
 								<tr
 									onClick="javascript:reply(${QnaBoard.rnum },${QnaBoard.qrid },${pp.cntPerPage })">
-									<td>ㅤㄴ답변 확인</td>
-									<td>${QnaBoard.qrcontent }</td>
-									<td>첨부파일이 없습니다.</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
+									<td colspan="3">ㅤㄴ답변 확인</td>
+									<td colspan="2"><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
 											value="${QnaBoard.qrreg }"></fmt:formatDate></td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</table>
-				</div>
-				<!-- container_review end -->
+		<!-- 글 입력 버튼 생성 -->
+		<button type="button" class="qna_btn" onclick="javascript:popup()">문의작성</button>
+		
 			</div>
 		</c:if>
+		
 
 		<c:if test="${empty qlist}">
 			<div class="content_noQnA">
@@ -153,8 +179,7 @@
 		</div>
 
 
-		<!-- 글 입력 버튼 생성 -->
-		<button type="button" class="putsub" onclick="javascript:popup()">문의작성</button>
+		
 	</c:if>
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
