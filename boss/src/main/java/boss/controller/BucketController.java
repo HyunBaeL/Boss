@@ -77,7 +77,6 @@ public class BucketController {
 					int price = b.getBprice();
 					int count = b.getBcount();
 					totalPrice += price * count;
-					System.out.println("총가격 : " + totalPrice);
 				}
 			
 		}
@@ -90,10 +89,8 @@ public class BucketController {
 	
 	@RequestMapping("cartListDelete.do")
 	public String cartListDelete(String bid,Model model,HttpServletRequest request) {
-		System.out.println("cartListDelete");
 		int result = 0;
 		List<String> list = new ArrayList<String>();
-		System.out.println("bid : " + bid);
 		String[] str = request.getParameterValues("bidAll");
 		if((bid != null) || (str != null)) {
 			System.out.println("bid : " + bid);
@@ -108,7 +105,6 @@ public class BucketController {
 			}
 			
 		}else {
-			System.out.println("둘다 null이야");
 			model.addAttribute("resultCheck", "checkBoxNull");
 			model.addAttribute("resultMsg", "삭제할 사항을 선택해 주세요.");
 			return "master/product/masterMoveProductList";

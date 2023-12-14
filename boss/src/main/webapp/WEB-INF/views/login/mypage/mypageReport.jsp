@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 쓴 리뷰</title>
+<title>신고 기록</title>
 
 <link rel="stylesheet" href="css/sidebar.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -67,7 +67,7 @@
 									<c:if test="${not empty report.reportimage }">
 										<td style="position: relative;"
 											onclick="doDetailPage(${report.reportid})"><img
-											src="./uploadReport/${report.reportimage }" width="70px"
+											src="./images/${report.reportimage }" width="70px"
 											height="70px" class="toggle-image"> <span
 											class="text-on-image">${o.PTEXT}</span></td>
 									</c:if>
@@ -93,7 +93,7 @@
 			</div>
 		</c:if>
 	</c:if>
-	<!-- 멤버 세션 조건문 -->
-</body>
+	<!— 멤버 세션 조건문 —>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
+</body>
 </html>

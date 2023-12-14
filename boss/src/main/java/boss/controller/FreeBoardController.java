@@ -43,7 +43,6 @@ public class FreeBoardController {
 	// 자유게시판 글등록폼 이동
 	@RequestMapping("freeBoardInsertform.do")
 	public String freeBoardInsertform() {
-		System.out.println("freeBoardInsertform");
 		return "freeboard/freeBoardInsertform";
 	}
 
@@ -55,7 +54,6 @@ public class FreeBoardController {
 			                         Model model) throws Exception {
 		// @ModelAttribute 을 이용해서 form에서 넘어온 값을 dto객체로 값을 받고
 		// name값이 일치되면 set메소드로 값이 저장됨
-		System.out.println("freeBoardInsertok");
 
 		//첨부파일 저장 (중복문제 난수발생으로 파일명 다르게함)
 		String filename = mf.getOriginalFilename();		// 첨부파일명
@@ -66,10 +64,6 @@ public class FreeBoardController {
 		//배포후에 업로드한 이미지는 aws에 업로드되어있어서 직접 업로드 하지않아도됨.(주석처리한경로는 절대경로라서 배포후에는 불러올수없음)
 		String path = request.getRealPath("images");
 		//String path = "C:\\Users\\haham\\Downloads\\프로젝트\\상단이미지\\bossproject\\boss\\src\\main\\webapp\\images";
-		System.out.println("mf=" + mf);
-		System.out.println("filename=" + filename); 	// filename="Koala.jpg"
-		System.out.println("size=" + size);
-		System.out.println("Path=" + path);
 		int result=0;
 		
 //		String file[] = new String[2];
@@ -90,7 +84,6 @@ public class FreeBoardController {
 		UUID uuid = UUID.randomUUID();//난수발생 
 		
 		newfilename = uuid.toString() + extension;
-		System.out.println("newfilename:"+newfilename);		
 		
 //		StringTokenizer st = new StringTokenizer(filename, ".");
 //		file[0] = st.nextToken();		// 파일명		
@@ -126,7 +119,6 @@ public class FreeBoardController {
 	// 자유게시판 목록 
 	@RequestMapping("freeBoardList.do")
 	public String freeBoardList(String page, FreeBoard board, Model model) {
-		System.out.println("freeBoardList");
 
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (page == null || page.equals("")) {
@@ -164,7 +156,6 @@ public class FreeBoardController {
 	@RequestMapping("freeBoardDetail.do")
 	public String freeBoardUpdate(@RequestParam("fId") int fId, @RequestParam("page") String page,
 			@RequestParam("state") String state,HttpSession session , Member member, Model model) {
-		System.out.println("freeBoardDetail");
 
 		// state로 설정한곳 판별 //state가 detail과 같다면(목록에서 제목클릭시 상세페이지로 이동)
 		if (state.equals("detail")) {
@@ -181,11 +172,8 @@ public class FreeBoardController {
 		if(session.getAttribute("member") != null) {
 			member = (Member) session.getAttribute("member");
 			String mEmail = member.getmEmail();
-			System.out.println("123123mEmail:"+mEmail);
 			like = lservice.findLike(fId, mEmail);
-			System.out.println("like:"+like);
 		}
-		System.out.println("like:"+like);
 		
 		//좋아요 갯수
 		int countLike = lservice.countLike(fId);
@@ -215,7 +203,6 @@ public class FreeBoardController {
 			                        @RequestParam("freeImage") MultipartFile mf,
 			                        HttpServletRequest request,
 			                        Model model, Member member,HttpSession session) throws Exception {
-		System.out.println("freeBoardUpdateok");
 		
 		
 		//첨부파일 저장 (중복문제 난수발생으로 파일명 다르게함)
@@ -246,12 +233,10 @@ public class FreeBoardController {
 		// 파일 중복문제 해결
 		//.을기준으로 파일길이만큼 파일명과 확장자를 분리 
 		String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-		System.out.println("extension:"+extension);
 		
 		UUID uuid = UUID.randomUUID();//난수발생 
 		
 		newfilename = uuid.toString() + extension;
-		System.out.println("newfilename:"+newfilename);		
 		
 //		StringTokenizer st = new StringTokenizer(filename, ".");
 //		file[0] = st.nextToken();		// 파일명		
@@ -292,7 +277,6 @@ public class FreeBoardController {
 		//session공유된 member를 불러와서 mEmail가져옴
 		member = (Member) session.getAttribute("member");
 		String mEmail = member.getmEmail();
-		System.out.println("mEmail:"+mEmail);
 		
 		//mEmail로 DB에 저장된 member정보를 가져옴 
 		Member dbmember = service.selectOne(mEmail);
@@ -320,12 +304,10 @@ public class FreeBoardController {
 			                        @RequestParam("page") String page,
 			                        @ModelAttribute FreeBoard board, 
 			                        Model model, Member member,HttpSession session) throws Exception {
-		System.out.println("freeBoardDeleteok");
 		
 		//session공유된 member를 불러와서 mEmail가져옴
 		member = (Member) session.getAttribute("member");
 		String mEmail = member.getmEmail();
-		System.out.println("mEmail:"+mEmail);
 		
 		//mEmail로 DB에 저장된 member정보를 가져옴 
 		Member dbmember = service.selectOne(mEmail);

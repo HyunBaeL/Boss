@@ -72,9 +72,9 @@
 		var s = document.getElementById("search").value;
 		if (window.event.keyCode == 13) {
 			// 엔터키가 눌렸을 때
-			if(s == ""){
+			if (s == "") {
 				alert("검색어를 입력해주세요");
-	            return false;
+				return false;
 			}
 			location.href = "allSearch.do?keyword=" + s;
 		}
@@ -226,17 +226,17 @@
 					<div class="category-link" align="center">
 						<a href="category.do?newCid=코트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none;">OUTER</a> 
-							<a href="category.do?newCid=코트"
+							<a href="category.do?newCid=니트"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a> 
 							<a href="category.do?newCid=상의"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
 						<a href="category.do?newCid=하의"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=코트"
+						<a href="category.do?newCid=셔츠"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=코트"
+						<a href="category.do?newCid=신발"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=코트"
+						<a href="category.do?newCid=ACC"
 							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
 					</div>
 					

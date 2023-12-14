@@ -89,19 +89,18 @@ a {
 
 
 				<!---------------------- Nav --------------------->
-					<nav>
-						<ul>
-							<li><a href="#menu">Menu</a></li>
-						</ul>
-					</nav>
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 			</div>
 		</header>
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do"
-					style="text-decoration: none">카테고리</a></li>
+				<li><a href="category.do" style="text-decoration: none">카테고리</a></li>
 				<br>
 				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
 				<br>
@@ -115,19 +114,11 @@ a {
 	<!-- Main -->
 	<div id="main">
 		<div align="center">
-			<section class="tiles">
-				<c:forEach var="list" items="${clist}">
-					<article class="style1">
-						<h1>
-							<a href="category.do?newCid=${list }">${list} </a>
-						</h1>
-					</article>
-				</c:forEach>
-			</section>
 
 			<section class="tiles">
 				<c:forEach var="s" items="${sample}" varStatus="loop">
 					<article class="style1">
+						
 						<c:if test="${empty s }">
 							<h1>준비중입니다</h1>
 						</c:if>
@@ -136,13 +127,14 @@ a {
 							<span class="image"> <img src="images/${s.pimage}" alt=""
 								height="450">
 							</span>
-							<a href="productDetail.do?pid=${s.pid}">
 								<h2>${s.pname }</h2>
 								<div class="content">
 									<p>${s.pcontent }</p>
 								</div>
-							</a>
 						</c:if>
+						<h1>
+							<a href="category.do?newCid=${s.cid }">${s.cid} </a>
+						</h1>
 					</article>
 				</c:forEach>
 			</section>

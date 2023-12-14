@@ -23,17 +23,11 @@ public class FreeBoardReplyController {
 	// 댓글 목록 출력
 	@RequestMapping("FreeReplyList.do")
 	public String FreeReplyList(int fId, Model model) {
-		System.out.println("FreeReplyList");
 		FreeBoard detail = fservice.getDetail(fId); // 부모글 상세정보
-		System.out.println("detail:"+detail);
-		System.out.println("mEmail:"+detail.getmEmail());
 		List<FreeReply> freplylist = frservice.freplylist(fId); // 댓글 목록
-		System.out.println("freplylist:"+freplylist);
-		System.out.println("fId:"+fId);
 		
 		//댓글수 (삭제된 댓글수출력됨 수정하기)
 		int replycount=frservice.replyCount(fId);
-		System.out.println("replycount:"+replycount);
 		model.addAttribute("replycount", replycount);
 		
 		model.addAttribute("freplylist", freplylist);
@@ -44,7 +38,6 @@ public class FreeBoardReplyController {
 	//댓글 저장
 	@RequestMapping("replyInsert.do")
 	public String replyInsert(FreeReply frboard, Model model) {
-		System.out.println("replyInsert");
 		frservice.insert(frboard);
 		return "redirect:FreeReplyList.do?fId="+frboard.getfId(); //fId:부모글의 글번호 
 	}
@@ -60,7 +53,6 @@ public class FreeBoardReplyController {
 	//댓글 수정 
 	@RequestMapping("freereplyUpdate.do")
 	public String freereplyUpdate(FreeReply frboard, Model model) {
-		System.out.println("freereplyUpdate");
 		
 		frservice.update(frboard);
 		return "redirect:FreeReplyList.do?fId="+frboard.getfId();
