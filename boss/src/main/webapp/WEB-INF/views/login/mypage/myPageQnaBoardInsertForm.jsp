@@ -19,6 +19,26 @@ function add(){
 
 </script>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+ <script type="text/javascript"> 
+ $(function() { 
+	    $('#insert').click(function(){
+	        if ($('#qnatitle').val() == "") {
+	            alert("제목을 입력해주세요");
+	            $("#qnatitle").val("").focus();
+	            return false;
+	        }
+	        
+	        if ($('#qnacontent').val() == "") {
+	            alert("내용을 입력해주세요");
+	            $("#qnacontent").val("").focus();
+	            return false;
+	        }
+	    }); 
+	});
+</script>   
+
 
 </head>
 <body class="is-preload">
@@ -53,7 +73,7 @@ function add(){
 					<tr>
 						<td>제목</td>
 						<td><input type="text" size="52" maxlength="50"
-							name="qnatitle"></td>
+							name="qnatitle" id="qnatitle"></td>
 					</tr>
 					<tr>
 						<td>첨부파일</td>
@@ -61,11 +81,11 @@ function add(){
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea cols="50" rows="10" name="qnacontent"></textarea></td>
+						<td><textarea cols="50" rows="10" name="qnacontent" id="qnacontent"></textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit"
-							style="margin-left: 325px" value="확인"> <input
+							style="margin-left: 325px" value="확인" id="insert"> <input
 							type="reset" style="margin-left: 5px" value="취소"></td>
 					</tr>
 				</table>

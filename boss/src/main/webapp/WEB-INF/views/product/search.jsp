@@ -33,8 +33,14 @@
 		+ sel;
 		}
 </script>
+<style type="text/css">
+ .center-div {
+      text-align: center;
+    }
+    </style>
 </head>
 
+<%@include file="/WEB-INF/views/common/chatbot.jsp"%>
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -48,28 +54,25 @@
 				<%@include file="../common/header.jsp"%>
 
 				<!--1. 회원 or 비회원 페이지 -->
-					<div class="category-link" align="center">
-						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">OUTER</a> <a
-							href="category.do?newCid=상의"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-							style="text-decoration: none">KNIT</a> <a
-							href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-						<a href="category.do?newCid=코트"
-							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
-					</div>
+				<div class="category-link" align="center">
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">OUTER</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
+						style="text-decoration: none">KNIT</a> <a
+						href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+					<a href="category.do?newCid=코트"
+						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+				</div>
 
-				<c:if test="${sessionId eq null}">
-					<a href="NaverLogin.do" style="text-decoration: none">로그인</a>
-				</c:if>
 				<c:if test="${sessionId ne null && sessionId eq 'boss'}">
 				${sessionId }님 환영합니다.
 				<a href="Logout.do" onclick="alert('로그아웃')"
@@ -137,8 +140,7 @@
 					<!-- if문을 넣어 해당 카테고리의 상품이 없을 경우 화면 중앙에 '등록된 상품이 없습니다' 출력 -->
 					<c:forEach var="list" items="${search }" varStatus="loop">
 						<article class="style1">
-							<span class="image"> <img src="images/${list.pimage}"
-								onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
+							<span class="image"> <img src="images/${list.pimage}"> 
 							</span> <a href="productDetail.do?pid=${list.pid }">
 								<h2>${list.pname }</h2>
 								<div class="content">
@@ -152,8 +154,8 @@
 				
 				<c:if test="${empty search}">
 					<br><br><br>
-					<div align="center">
-					<h1>등록된 상품이 없습니다</h1>
+					<div class="center-div">
+						<h1>등록된 상품이 없습니다</h1>
 					</div>
 				</c:if>
 				

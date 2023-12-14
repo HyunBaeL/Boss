@@ -15,10 +15,28 @@
 <link rel="stylesheet" href="css/productDetailReview.css">
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/productDetail.css">
+<link rel="stylesheet" href="css/freeBoardDetail.css">
+<style type="text/css">
+.qna_btn {
+	background-color: black;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin-left:auto;
+    width: 150px; /* 버튼을 100%로 설정하여 테이블 셀과 일치시킵니다. */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+.qna_btn:hover{
+	background-color: #ffffff;
+	color: #000000;
+}
+</style>
 </head>
 <body>
 
-	<table class="review_select">
+	<div class="div_freeBoardDetail" align="center">
+		<table class="table_freeBoardDetail">
 
 
 
@@ -41,7 +59,7 @@
 
 		<c:if test="${board.qnaorifile != null }">
                <td colspan="4">
-               	<img src="C:\\bossRepository\\boss\\src\\main\\webapp\\images\\${board.qnaoriFile}">
+               	<img src="images/${board.qnaorifile}">
                </td>
             </c:if>
 
@@ -50,9 +68,8 @@
 	<c:if test="${board.qnayn == 'Y' }">
 	<a href="mypageQnaBoardReplyDetail.do?qrid=${board.qrid}&qid=${board.qid}">답변 보기</a><br>
 	</c:if>
-	<button type="button" class="review_button1" 
+	<button type="button" class="qna_btn" 
 	onclick="location.href='mypageQnA.do?nowPage=${Integer.toString(Math.floor((board.rnum-1)/pp.cntPerPage)+1)}'">목록으로</button>
-	<!-- css 양식 include -->
-	<%@include file="/WEB-INF/views/common/footer.jsp"%>
+	</div>
 </body>
 </html>

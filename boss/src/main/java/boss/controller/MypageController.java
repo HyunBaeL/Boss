@@ -201,8 +201,7 @@ public class MypageController {
 		String filename = mfile.getOriginalFilename();
 		// 전송된 파일에서 이름만 채취
 		System.out.println("파일이름:" + filename);
-		String path = "D:\\spring-workspace\\boss2\\src\\main\\webapp\\images";
-		 //path = request.getRealPath("upload");
+		String path = request.getRealPath("images");
 		 System.out.println(path);
 		// 파일 저장될 경로 path
 		int size = (int) mfile.getSize();
@@ -229,7 +228,9 @@ public class MypageController {
 				model.addAttribute("sizeCheck", sizeCheck);
 				System.out.println("설정범위 초과");
 				return "login/mypage/myPageQnaBoardInsert"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
-			} else if (!file[1].equals("jpg") && 
+			} 
+			
+			if (!file[1].equals("jpg") && 
 					   !file[1].equals("png") && 
 					   !file[1].equals("jpeg")&& 
 					   !file[1].equals("gif"))

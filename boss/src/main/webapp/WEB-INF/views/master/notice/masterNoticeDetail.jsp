@@ -15,10 +15,31 @@
 <link rel="stylesheet" href="css/productDetailReview.css">
 <!-- css 불러오기 -->
 <link rel="stylesheet" href="css/productDetail.css">
+<!-- css 불러오기 -->
+<link rel="stylesheet" href="css/freeBoardDetail.css">
+<style type="text/css">
+
+.qna_btn {
+	background-color: black;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin:0 auto;
+    width: 150px; /* 버튼을 100%로 설정하여 테이블 셀과 일치시킵니다. */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+.qna_btn:hover{
+	background-color: #ffffff;
+	color: #000000;
+}
+
+</style>
 </head>
 <body>
 
-	<table class="review_select">
+	<div class="div_freeBoardDetail" align="center">
+		<table class="table_freeBoardDetail">
 
 
 
@@ -41,24 +62,21 @@
 
 		<c:if test="${mnd.mnOriFile != null }">
 			<td colspan="4"><img
-				src="C:\\bossRepository\\boss\\src\\main\\webapp\\images\\${mnd.mnOriFile}">
+				src="images/${mnd.mnOriFile}">
 			</td>
 		</c:if>
 
 	</table>
-
+	<div align="right">
 	<c:if test="${mnd.rnum != 1 }">
 			<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum-1 }&cntPerPage=${pp.cntPerPage}">다음글</a>
-			<br>
 	</c:if>
-	
 	<c:if test="${mnd.rnum != pp.total }">
 			<a href="masterNoticeDetailMove.do?rnum=${mnd.rnum+1 }&cntPerPage=${pp.cntPerPage}">이전글</a>
-			<br>
 	</c:if>
-		<button type="button" class="review_button1"
+	</div>
+		<button type="button" class="qna_btn"
 			onclick="location.href='masterNotice.do?nowPage=${Integer.toString(Math.floor((mnd.rnum-1)/pp.cntPerPage)+1)}'">목록으로</button>
-	<!-- css 양식 include -->
-	<%@include file="/WEB-INF/views/common/footer.jsp"%>
+	</div>
 </body>
 </html>

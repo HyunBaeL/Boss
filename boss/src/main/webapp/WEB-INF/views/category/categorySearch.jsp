@@ -31,12 +31,21 @@
 		if (window.event.keyCode == 13) {
 			// 엔터키가 눌렸을 때
 			var s = document.getElementById("search").value;
-			console.log(a)
+			if(s == ""){
+				alert("검색어를 입력해주세요");
+	            return false;
+			}
 			location.href = "categorySearch.do?newCid=${category.newCid}&keyword="
 					+ s;
 		}
 	}
 </script>
+
+<style type="text/css">
+.center-div {
+	text-align: center;
+}
+</style>
 </head>
 
 <%@include file="/WEB-INF/views/common/chatbot.jsp"%>
@@ -53,24 +62,27 @@
 				<%@include file="../common/header.jsp"%>
 
 				<!--1. 회원 or 비회원 페이지 -->
-				<div class="category-link" align="center">
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">OUTER</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none"
-						style="text-decoration: none">KNIT</a> <a
-						href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
-					<a href="category.do?newCid=코트"
-						style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					<div class="category-link" align="center">
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none;">OUTER</a> 
+							<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">KNIT</a> 
+							<a href="category.do?newCid=상의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">TOP</a>
+						<a href="category.do?newCid=하의"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">BOTTOM</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHIRT</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">SHOES</a>
+						<a href="category.do?newCid=코트"
+							style="font-size: 20px; font-weight: bold; margin-right: 10px; text-decoration: none">ACC</a>
+					</div>
+				<div align="center" width="30px" height="100px">
+					<input type="text" maxlength="30" value="${param.keyword }"
+						id="search" onkeyup="enterkey()">
 				</div>
+
 
 				<c:if test="${not empty list}">
 					<div style="float: right;">
@@ -91,25 +103,23 @@
 				<br>
 
 				<!---------------------- Nav --------------------->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
 			</div>
 		</header>
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a href="category.do?newCid=코트"
+				<li><a href="category.do"
 					style="text-decoration: none">카테고리</a></li>
 				<br>
 				<li><a href="freeBoardList.do" style="text-decoration: none">커뮤니티</a></li>
 				<br>
 				<li><a href="masterNotice.do" style="text-decoration: none">공지사항</a></li>
-				<br>
-				<li><a href="elements.do" style="text-decoration: none">Elements</a></li>
 				<br>
 			</ul>
 		</nav>
@@ -129,38 +139,30 @@
 
 
 					<c:if test="${not empty list}">
-						<c:forEach var="list" items="${list }" varStatus="loop">
-							<article class="style1">
-								<span class="image"> <img src="images/${list.pimage}"
-									onerror="this.src='images/1.png'"> <!-- 일단은 엑박 대신 1.png가 출력되도록 처리. 클릭이 안되게 하려면? -->
-								</span> <a href="productDetail.do?pid=${list.pid }">
-									<h2>${list.pname }</h2>
-									<div class="content">
-										<p>${list.pcontent }</p>
-									</div>
-								</a>
-							</article>
-						</c:forEach>
+						<section class="tiles">
+							<c:forEach var="L" items="${list }" varStatus="loop">
+								<article class="style1">
+									<span class="image"> <img src="images/${L.pimage}"
+									alt="" height="450">
+									</span> <a href="productDetail.do?pid=${L.pid }">
+										<h2>${L.pname }</h2>
+										<div class="content">
+											<p>${L.pcontent }</p>
+										</div>
+									</a>
+								</article>
+							</c:forEach>
+						</section>
+					</c:if>
 				</section>
+
+				<c:if test="${empty list}">
+					<br>
+					<div class="center-div">
+						<h1>등록된 상품이 없습니다</h1>
+					</div>
 				</c:if>
 
-					<c:if test="${empty list}">
-						<br>
-						<br>
-						<br>
-						<div align="center">
-							<h1>등록된 상품이 없습니다</h1>
-						</div>
-					</c:if>
-
-				<div>
-				<form action="categorySearch.do">
-					<input type="text" align="right" id="keyword" name="keyword"
-						value="${param.keyword }" maxlength="10" class="text-input">
-					<input type="submit" class="putsub"> <input type="hidden"
-						name="newCid" value="${param.newCid }">
-				</form>
-				</div>
 			</div>
 			<!-- 다른 페이지로 넘어가기 위한 숫자들 자리 -->
 			<div align="center">

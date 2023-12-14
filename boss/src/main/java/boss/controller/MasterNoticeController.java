@@ -47,8 +47,7 @@ public class MasterNoticeController {
 		String filename = mfile.getOriginalFilename();
 		// 전송된 파일에서 이름만 채취
 		System.out.println("파일이름:" + filename);
-		String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
-		// path = request.getRealPath("upload");
+		String path = request.getRealPath("images");
 		System.out.println(path);
 		// 파일 저장될 경로 path
 		int size = (int) mfile.getSize();
@@ -144,13 +143,14 @@ public class MasterNoticeController {
 	public String masterNoticeUpdate(PagePgm pp, Model model, MasterNotice mn,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-			@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile) throws Exception {
+			@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile,
+			HttpServletRequest request) throws Exception {
 
 		System.out.println("수정 진입");
 		int sizeCheck, extensionCheck;
 		String filename = mfile.getOriginalFilename();
 		int size = (int) mfile.getSize();
-		String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
+		String path = request.getRealPath("images");
 		int result = 0;
 		String file[] = new String[2];
 		String newfilename = "";
@@ -374,6 +374,7 @@ public class MasterNoticeController {
 					map.put("mnid", mn.getmnId());
 					// 해당 공지 번호의 자료 조회
 					mn = service.searchOne(map);
+					System.out.println("글번호"+mn.getRnum());
 				}
 
 				System.out.println("검색조회1");
@@ -459,8 +460,7 @@ public class MasterNoticeController {
 			String filename = mfile.getOriginalFilename();
 			// 전송된 파일에서 이름만 채취
 			System.out.println("파일이름:" + filename);
-			String path = "C:\\Users\\tens1\\Desktop\\git\\boss\\src\\main\\webapp\\images";
-			// path = request.getRealPath("upload");
+			String path = request.getRealPath("images");
 			System.out.println(path);
 			// 파일 저장될 경로 path
 			int size = (int) mfile.getSize();
@@ -487,7 +487,8 @@ public class MasterNoticeController {
 					model.addAttribute("sizeCheck", sizeCheck);
 					System.out.println("설정범위 초과");
 					return "redirect:/masterNoticeSearch.do"; // 이동 대신 경고메세지 출력 후 복귀가 좋을 듯
-				} else if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
+				} 
+				if (!file[1].equals("jpg") && !file[1].equals("png") && !file[1].equals("jpeg")
 						&& !file[1].equals("gif"))
 				// 확장자가 jpg, png, jpeg, gif 가 아닐경우
 				{
@@ -520,9 +521,7 @@ public class MasterNoticeController {
 				System.out.println("공지사항 등록 실패");
 			}
 
-			model.addAttribute("searchtype", pp.getSearchtype());
-			model.addAttribute("keyword", pp.getKeyword());
-			return "redirect:/masterNoticeSearch.do";
+			return "redirect:/masterNotice.do";
 		}
 		
 		
@@ -532,13 +531,14 @@ public class MasterNoticeController {
 				public String masterNoticeSearchUpdate(PagePgm pp, Model model, MasterNotice mn,
 						@RequestParam(value = "nowPage", required = false) String nowPage,
 						@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-						@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile) throws Exception {
+						@RequestParam(value = "mnOriFile1", required = false) MultipartFile mfile,
+						HttpServletRequest request) throws Exception {
 
 					System.out.println("수정 진입");
 					int sizeCheck, extensionCheck;
 					String filename = mfile.getOriginalFilename();
 					int size = (int) mfile.getSize();
-					String path = "C:\\bossRepository\\boss\\src\\main\\webapp\\images";
+					String path = request.getRealPath("images");
 					int result = 0;
 					String file[] = new String[2];
 					String newfilename = "";
