@@ -51,7 +51,7 @@
                </tr>
                <tr>
                   <td><input type="text" 
-                     name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70" style=""></td>
+                     name="omessage" placeholder="배송메시지를 입력하세요." maxlength="70" style="color: red;"></td>
                </tr>
             </table>
             <h2>주문자</h2>
@@ -76,11 +76,11 @@
             <input type="hidden" name="bidAll" value="${bucket.bid }">
             <table class="table_product">
                <tr>
-                  <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="150" height="100"></td>
+                  <td class="product_img" rowspan="5"><img src="images/${bucket.bimage }" width="95%" height="100%"></td>
                   
                <tr>
                   <td><input type="text" value="${bucket.bname}" name="bname"
-                     readonly style="color: green; font-size: 30px"></td>
+                     readonly style="color: green; font-size: 30px; "></td>
                </tr>
 
                <tr>
