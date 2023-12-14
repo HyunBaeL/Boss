@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="./js/join.js"></script>
+<script src="./js/join.js" charset="utf-8">></script>
 <link rel="stylesheet" href="./css/join.css">
 <link rel="stylesheet" href="./css/default.css">
    <title>회원가입</title>

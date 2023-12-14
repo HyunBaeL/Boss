@@ -46,7 +46,7 @@ public class MemberService  {
 			sb.append("grant_type=authorization_code");
 
 			sb.append("&client_id=45b48fcc29ad5a368b013958e9976afe"); // REST_API키 본인이 발급받은 key 넣어주기
-			sb.append("&redirect_uri=http://localhost/boss/kakaologin.do"); // REDIRECT_URI 본인이 설정한 주소 넣어주기
+			sb.append("&redirect_uri=http://ec2-3-25-94-162.ap-southeast-2.compute.amazonaws.com/kakaologin.do"); // REDIRECT_URI 본인이 설정한 주소 넣어주기
 
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
