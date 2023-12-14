@@ -53,7 +53,7 @@ $(document).ready(function () {
          <input type="button" value="회원가입" onClick="location.href='insertForm.do' " name = "btn" id = "btn">
              <br>
       </form>
-         <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=45b48fcc29ad5a368b013958e9976afe&redirect_uri=http://localhost/boss/kakaologin.do&response_type=code">
+         <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=45b48fcc29ad5a368b013958e9976afe&redirect_uri=http://ec2-3-25-94-162.ap-southeast-2.compute.amazonaws.com/kakaologin.do&response_type=code">
             <img src="./resources/login_image/kakao_login.png">
          </a> 
          <br>

@@ -23,7 +23,7 @@ public class OpenAI {
 	private static OpenAI instance = null;
 	//openAI API key
 	private String API_KEY;
-//	private String API_KEY="챗봇 이용시 혜선key필요";
+   //private String API_KEY="7";
 
 	private OpenAiService service;
 	private int maxToken = 512;
