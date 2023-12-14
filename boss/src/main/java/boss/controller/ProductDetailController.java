@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.rpc.context.AttributeContext.Request;
+
 import boss.common.PagePgm;
 import boss.model.AskBoard;
 import boss.model.Member;
@@ -164,7 +166,7 @@ public class ProductDetailController {
 
 	// 리뷰 등록
 	@RequestMapping(value = "productReviewcheck.do", method = { RequestMethod.POST, RequestMethod.GET })
-	public String prInsert(Model model, Review review, HttpSession session, int pid,
+	public String prInsert(Model model, Review review, HttpSession session, int pid,HttpServletRequest request,
 			@RequestParam(value = "rimage1", required = false) MultipartFile mfile) throws Exception {
 
 		int result = 0;
@@ -219,10 +221,10 @@ public class ProductDetailController {
 					int size = (int) mfile.getSize();
 					// 파일 저장될 경로
 
-					String path = "C:\\Users\\ock2k\\OneDrive\\바탕 화면\\bossproject\\boss\\src\\main\\webapp\\images";
+					//String path = "C:\\Users\\ock2k\\OneDrive\\바탕 화면\\bossproject\\boss\\src\\main\\webapp\\images";
 
+					String path = request.getRealPath("images");
 					System.out.println("oldpath : " + path);
-					// String path = request.getRealPath("upload");
 					System.out.println(path);
 
 					// 확장자 잘라서 저장할 배열
@@ -339,7 +341,7 @@ public class ProductDetailController {
 
 	// 리뷰 수정
 	@RequestMapping(value = "productReviewUpdateCheck.do", method = { RequestMethod.POST, RequestMethod.GET })
-	public String productReviewUpdateCheck(Model model, Review review, HttpSession session,
+	public String productReviewUpdateCheck(Model model, Review review, HttpSession session,HttpServletRequest request,
 			@RequestParam(value = "rimage1", required = false) MultipartFile mfile) throws Exception {
 		
 		int result = 0;
@@ -383,8 +385,9 @@ public class ProductDetailController {
 				int size = (int) mfile.getSize();
 
 				// 파일 저장될 경로
-				String path = "C:\\Users\\ock2k\\OneDrive\\바탕 화면\\bossproject\\boss\\src\\main\\webapp\\images";
-
+				//String path = "C:\\Users\\ock2k\\OneDrive\\바탕 화면\\bossproject\\boss\\src\\main\\webapp\\images";
+				String path = request.getRealPath("images");
+				
 				System.out.println("oldpath : " + path);
 				System.out.println(path);
 
