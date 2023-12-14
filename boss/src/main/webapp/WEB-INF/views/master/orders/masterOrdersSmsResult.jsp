@@ -8,50 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<c:if test="${result eq -1 }">
+	<c:if test="${result eq 'free' }">
 		<script>
 			alert("${msg}");
 			location.href = "masterOrdersList.do";
 		</script>
 	</c:if>
-	<c:if test="${result eq delevary0}">
+	<c:if test="${result eq 'delivery' }">
 		<script>
 			alert("${msg}");
-			location.href = "masterOrdersList.do?" + $
-			{
-				orderdetail.oid
-			};
+			location.href = "masterOrdersSelect.do?oid=${orders.oid}";
 		</script>
 	</c:if>
-	<c:if test="${result eq delevary1}">
-		<script>
-			alert("${msg}");
-			location.href = "masterOrdersList.do?" + $
-			{
-				orderdetail.oid
-			};
-		</script>
-	</c:if>
-	<c:if test="${result eq delevary2}">
-		<script>
-			alert("${msg}");
-			location.href = "masterOrdersList.do?" + $
-			{
-				orderdetail.oid
-			};
-		</script>
-	</c:if>
-	<c:if test="${result eq delevary3}">
-		<script>
-			alert("${msg}");
-			location.href = "masterOrdersList.do?" + $
-			{
-				orderdetail.oid
-			};
-		</script>
-	</c:if>
-
 
 </body>
 </html>

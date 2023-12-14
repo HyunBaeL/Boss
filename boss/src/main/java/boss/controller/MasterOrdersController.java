@@ -202,6 +202,7 @@ public class MasterOrdersController {
 					System.out.println("보낼번호 : " + orders.getOphone());
 					System.out.println("수령인 : " + orders.getOname());
 
+					model.addAttribute("type", type);
 					model.addAttribute("orders", orders);
 
 					return "master/orders/masterOrdersSmsForm";
@@ -234,6 +235,7 @@ public class MasterOrdersController {
 				}
 				System.out.println("스위치 빠져나옴");
 				// 해당 주문상세를 공유함. (정보 출력용)
+				model.addAttribute("type", type);
 				model.addAttribute("orderDetail", mos.selectOrderDetail(odid));
 				model.addAttribute("orders", mos.selectOrders(orderDetail.getOid() + ""));
 				System.out.println("마지막 폰번 : " + mos.selectOrders(orderDetail.getOdid() + ""));
@@ -245,13 +247,17 @@ public class MasterOrdersController {
 
 	// 문자 전송시 검증
 	@RequestMapping("sendSms.do")
-	public String sendSms(HttpServletRequest request, Model model) throws Exception {
+	public String sendSms(String type, String oid, String odid, Orders orders, Model model, HttpServletRequest request)
+			throws Exception {
+		System.out.println("sendSms");
+		System.out.println("전송타입 : " + type);
+		System.out.println("리스트로 들어옴 OID  : " + oid);
+		System.out.println("에이작스 버튼으로 들어옴 ODID : " + odid);
+
 		String ophone = request.getParameter("to"); // 수령인 휴대폰번호 (관리자 입력에 따라 바뀔 여지가 있음.)
-		String type = request.getParameter("type"); // 전송방식을 구해옴.(개별,배송별)
 		String msg = "";
 		int resultMy = 0;
-		String oid = request.getParameter("oid");
-		Orders orders = mos.selectOrders(oid);
+		orders = mos.selectOrders(oid);
 
 		// ** 아래부턴 문자 API관련 메서드이다.**
 		String api_key = "NCSRYPBYYEAXEHUI"; // 위에서 받은 api key를 추가
@@ -270,14 +276,25 @@ public class MasterOrdersController {
 		System.out.println(set);
 
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-//		if() {
+
 		// 모든 인증과정을 통과한경우.
-		if (((boolean) result.get("status") == true) && result.get("result_message") != null) {
-			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
-			resultMy = 1;
-			msg = orders.getOname() + " 님에게" + " 문자를 전송하였습니다.";
-			model.addAttribute("msg", msg);
-			model.addAttribute("result", resultMy);
+
+		if ((boolean) result.get("status") == true) {
+			if (type.equals("free")) {
+				System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
+				resultMy = 1;
+				msg = orders.getOname() + " 님에게" + " 문자를 전송하였습니다.";
+				model.addAttribute("msg", msg);
+				model.addAttribute("result", "free");
+			} else if (type.equals("delivery")) {
+				System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
+				resultMy = 1;
+				msg = orders.getOname() + " 님에게" + " 문자를 전송하였습니다.";
+				model.addAttribute("msg", msg);
+				model.addAttribute("orders", orders);
+				model.addAttribute("result", "delivery");
+			}
+
 		} else { // 인증과정을 통과하지 못한경우.
 			System.out.println("문자전송 결과 : " + result.get("result_message")); // 결과 메시지
 			resultMy = -1;
@@ -285,8 +302,6 @@ public class MasterOrdersController {
 			model.addAttribute("msg", msg);
 			model.addAttribute("result", resultMy);
 		}
-//		}
-
 		return "master/orders/masterOrdersSmsResult";
 
 	}

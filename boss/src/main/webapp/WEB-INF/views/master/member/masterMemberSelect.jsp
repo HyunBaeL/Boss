@@ -84,8 +84,8 @@
 						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcolor }</td>
 					<td style="font-size: 25px !important;"
 						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.psize }</td>
-					<td style="font-size: 25px !important;"
-						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">${product.pcontent }</td>
+					<td><input type="text" value="${product.pcontent }"
+						style="font-size: 25px !important;"></td>
 					<td style="font-size: 25px !important;"
 						onclick="location.href='masterProductDetail.do?id=${product.pid}' ">
 						<fmt:formatDate pattern="yyyy/MM/dd" value="${product.preg}" />

@@ -1,8 +1,9 @@
 package boss.controller;
 
 import java.io.File;
-import java.sql.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ public class ReportController {
 
 	// 신고 작성 폼 이동
 	@RequestMapping("reportWriteForm.do")
-	public String reportWriteForm(Report report, Model model) {
+	public String reportWriteForm(String pid, Report report, Model model) {
 		System.out.println("reportWriteForm");
 		String reporttype = report.getReporttype();
 		String reportnum = "" + report.getReportnum();
@@ -32,6 +33,7 @@ public class ReportController {
 
 		if (reporttype.equals("review")) {
 			model.addAttribute("Report", report);
+			model.addAttribute("pid", pid);
 
 		} else if (reporttype.equals("freeBoard")) {
 			model.addAttribute("Report", report);
@@ -41,7 +43,7 @@ public class ReportController {
 
 	// 신고 작성값 받음
 	@RequestMapping("reportWrite.do")
-	public String reportWrite(Report report, Model model,
+	public String reportWrite(String pid, Report report, Model model, HttpServletRequest request,
 			@RequestParam(value = "image1", required = false) MultipartFile mfile) throws Exception {
 		System.out.println("reportWrite");
 		int result = 0;
@@ -65,7 +67,8 @@ public class ReportController {
 			UUID uuid = UUID.randomUUID();
 			String newFileName = uuid + extension;
 			report.setReportimage(newFileName);
-			String path = "C:\\gitBoss\\boss\\src\\main\\webapp\\uploadReport";
+			//String path = "C:\\gitBoss\\boss\\src\\main\\webapp\\uploadReport";
+			String path = request.getRealPath("images");
 			mfile.transferTo(new File(path + "/" + newFileName));
 		}
 
@@ -75,6 +78,8 @@ public class ReportController {
 				System.out.println("리뷰 글작성 성공");
 				model.addAttribute("msg", "신고가 접수되었습니다.");
 				model.addAttribute("resultType", "review_true");
+				model.addAttribute("pid", pid);
+				System.out.println("pid : " + pid);
 				model.addAttribute("report", report);
 			} else if (report.getReporttype().equals("freeBoard")) { // 프리보드에 글을썼을경우
 				System.out.println("프리보드 글작성 성공");

@@ -97,7 +97,7 @@
 						<c:if test="${Report.reportimage ne null}">
 							<td
 								onclick="location.href='masterReportSelect.do?reportid=${Report.reportid}&nowPage=${page.nowPage }&cntPerPage=${page.cntPerPage }' ">
-								<img src="uploadReport/${Report.reportimage}" width="50"
+								<img src="images/${Report.reportimage}" width="50"
 								height="50">
 							</td>
 						</c:if>
