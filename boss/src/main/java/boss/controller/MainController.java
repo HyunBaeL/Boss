@@ -52,10 +52,10 @@ public class MainController {
 
 				model.addAttribute("block" + (i + 1), i + 1);
 
-				model.addAttribute("mainImageList" + i+1, mainImageList_db.get(i));
+				model.addAttribute("mainImageList" + (i+1), mainImageList_db.get(i));
 			}
 		}
-		model.addAttribute("block", block);
+		//model.addAttribute("block", block);
 
 		// by hyesun
 		Pinecone.getInstance();

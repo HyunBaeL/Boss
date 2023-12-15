@@ -11,7 +11,7 @@
 -->
 <html>
 <head>
-<title>Phantom by HTML5 UP</title>
+<title>Bo$$ Mall</title>
 <!--header css 양식 include -->
 <%--  <%@include file="/WEB-INF/views/common/header.jsp"%> --%>
 
