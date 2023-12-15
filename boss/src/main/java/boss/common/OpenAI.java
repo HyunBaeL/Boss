@@ -1,29 +1,19 @@
 package boss.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import com.google.common.primitives.Floats;
-import com.theokanning.openai.completion.chat.ChatCompletionChunk;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.embedding.EmbeddingRequest;
 import com.theokanning.openai.service.OpenAiService;
-
-import io.reactivex.Flowable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class OpenAI {
 	//OpenAI instance 생성
 	private static OpenAI instance = null;
 	//openAI API key
 	private String API_KEY;
-   //private String API_KEY="7";
+   //private String API_KEY="sk-";
 
 	private OpenAiService service;
 	private int maxToken = 512;

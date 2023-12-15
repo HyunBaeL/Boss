@@ -35,6 +35,7 @@ public class ChatbotController {
 		List<Double> embedding;
 		int pid;
 		
+		//유저가 질문한 내용을 embedding하여 vector DB에 query함.
 		if(openAI.getService() != null) {
 			embedding = openAI.getEmbedding(prompt);
 			pid = vecStore.query(Floats.toArray(embedding), 1);
@@ -45,8 +46,14 @@ public class ChatbotController {
 		String answer;
 		if(pid > 0) {
 			Product product = productService.selectProductOne(pid);
-			map.put("product", product);
-			answer = "이런 옷은 어떠세요?";
+			if(product == null) {
+				System.out.println(String.valueOf(pid)+"에 해당하는 상품이 없음");
+				map.put("product", "none");
+				answer = "죄송합니다. 원하시는 상품이 없습니다.";
+			} else {
+				map.put("product", product);
+				answer = "이런 옷은 어떠세요?";
+			}
 		} else {
 			map.put("product", "none");
 //			String answer = openAI.getRespByTxt(prompt, model);

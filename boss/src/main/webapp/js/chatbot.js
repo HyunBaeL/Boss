@@ -47,7 +47,7 @@ function adminResponse(userText) {
 				<div class="second-chat">
 	          <div class="circle" id="circle-mar"></div>
 	          <div class="ai-product" style="none; cursor: pointer;" onClick="location.href='productDetail.do?pid=${data.product.pid}'">
-		       <img id="product" src="${data.product.pimage}" height="100" width="100" />
+		       <img id="product" src="images/${data.product.pimage}" height="100" width="100" />
 		       </div>
 	           <p>${data.product.pname}</p>
 	           <p>${data.answer}</p>
